@@ -31,3 +31,4 @@ const server = new ApolloServer({
 export default startServerAndCreateNextHandler(server);
 
 // https://github.com/apollo-server-integrations/apollo-server-integration-next
+//https://graphql.org/graphql-js/mutations-and-input-types/

@@ -1,6 +1,59 @@
 import Image from 'next/image'
 import { Inter } from '@next/font/google'
 import styles from './page.module.css'
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3000/api/graphql',
+  cache: new InMemoryCache()
+});
+export async function getStaticProps() {
+
+  const { data } = await client.query({
+    query: gql`
+    query getProducts{
+          id
+          name 
+          price 
+          description  
+          }
+      
+    `
+  });
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  // var query = `mutation($input: ProductInput) {
+  //   newProduct(input: $input){
+  //     name
+  //     productionCapacity
+  //     price
+  //     description
+  //   }
+  // }`;
+  // const res = await fetch('http://localhost:3000/api/graphql', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //     'Accept': 'application/json',
+  //   },
+  //   body: JSON.stringify({
+  //     query,
+  //     variables: {
+  //       input: {
+  //         "name": "Ladies Shoes",
+  //         "description": "You can use variables to simplify mutation client logic just like you can with queries",
+  //         "price": 699.50,
+  //         "productionCapacity": 5
+  //       }
+  //     }
+  //   })
+
+
+  //     .then(r => r.json())
+  //     .then(data => console.log('data returned:', data))
+  // });
+  console.log('data returned:', data)
+}
 
 const inter = Inter({ subsets: ['latin'] })
 

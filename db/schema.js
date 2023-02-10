@@ -40,15 +40,22 @@ module.exports = typeDefs
 
 /* 
 
-mutation($input: ProductInput){
-  newProduct(input: $input)
-    { 
-    name:"Candy",
-    description:You can use variables to simplify mutation client logic just like you can with queries,
-    price: "699.50",
-    productionCapacity: "5"
+mutation ($input: ProductInput) {
+newProduct (input: $input){
+  name
+  productionCapacity
+  price
+  description
+}
+}
 
-  
+{
+  "input":{
+     "name":"Candy",
+    "description":"You can use variables to simplify mutation client logic just like you can with queries",
+    "price": 699.50,
+    "productionCapacity": 5
   }
-  }
+}
+}
 */
