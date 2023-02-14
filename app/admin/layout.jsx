@@ -1,8 +1,10 @@
 import '../../public/assets/plugins/global/plugins.bundle.css';
 import '../../public/assets/css/style.bundle.css';
+// import '../../public/assets/plugins/global/plugins.bundle.js';
 import Header from './conpoments/Header';
 import Toolbar from './conpoments/Breadcrumb';
 import Footer from './conpoments/Footer';
+import OtherElements from './conpoments/OtherElements';
 
 import Script from 'next/script';
 import { Inter } from '@next/font/google'
@@ -35,6 +37,7 @@ export default function RootLayout({ children }) {
           {/*end::Page*/}
         </div>
         {/*end::Root*/}
+        {/*  <OtherElements /> */}
       </body>
 
       <Script src={'assets/plugins/global/plugins.bundle.js'} />

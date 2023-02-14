@@ -8,30 +8,28 @@ var KTComponents = function () {
     return {
         init: function () {
             KTApp.init();
-            KTDrawer.init();
-            KTMenu.init();
-            KTScroll.init();
-            KTSticky.init();
-            KTSwapper.init();
-            KTToggle.init();
-            KTScrolltop.init();
-            KTDialer.init();
-            KTImageInput.init();
-            KTPasswordMeter.init();
+            // KTDrawer.init();
+            // KTMenu.init();
+            // KTScroll.init();
+            // KTSticky.init();
+            // KTSwapper.init();
+            // KTToggle.init();
+            // KTScrolltop.init();
+            // KTDialer.init();
+            // KTImageInput.init();
+            // KTPasswordMeter.init();
         }
     }
 }();
-document.addEventListener('DOMContentLoaded', () => {
-    KTComponents.init();
-});
+
 // On document ready
-// if (document.readyState === "loading") {
-//     document.addEventListener("DOMContentLoaded", function () {
-//         KTComponents.init();
-//     });
-// } else {
-//     KTComponents.init();
-// }
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", function () {
+        KTComponents.init();
+    });
+} else {
+    KTComponents.init();
+}
 
 // Init page loader
 window.addEventListener("load", function () {
@@ -7805,7 +7803,6 @@ KTUtil.onDOMContentLoaded(function () {
 var KTThemeModeUser = function () {
 
     var handleSubmit = function () {
-        console.log('KTThemeMode:', KTThemeMode)
         // Update chart on theme mode change
         KTThemeMode.on("kt.thememode.change", function () {
             var menuMode = KTThemeMode.getMenuMode();
@@ -7817,8 +7814,6 @@ var KTThemeModeUser = function () {
             // store it in user profile and set the user opted theme mode via HTML attribute
             // <html data-theme-mode="light"> .... </html>
         });
-
-
     }
 
     return {
@@ -7830,16 +7825,13 @@ var KTThemeModeUser = function () {
 
 // Initialize app on document ready
 KTUtil.onDOMContentLoaded(function () {
-    // KTThemeModeUser.init();
+    KTThemeModeUser.init();
 });
+
 // Declare KTThemeModeUser for Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTThemeModeUser;
 }
-
-
-
-
 "use strict";
 
 // Class definition
@@ -8001,11 +7993,10 @@ var KTThemeMode = function () {
         }
     };
 }();
-console.log('KTUtil:', KTUtil)
+
 // Initialize app on document ready
 KTUtil.onDOMContentLoaded(function () {
-    // KTThemeMode.init();
-    // console.log('KTThemeMode xx:', KTThemeMode)
+    KTThemeMode.init();
 });
 
 // Declare KTThemeMode for Webpack support
