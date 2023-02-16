@@ -2725,10 +2725,10 @@ KTDialer.createInstances = function (selector = '[data-kt-dialer="true"]') {
 }
 
 // Global initialization
-KTDialer.init = function () {
+KTDialer_Init = function () {
     KTDialer.createInstances();
 };
-
+KTDialer_Init();
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTDialer;
@@ -3703,10 +3703,10 @@ KTImageInput.createInstances = function (selector = '[data-kt-image-input]') {
 }
 
 // Global initialization
-KTImageInput.init = function () {
+KTImageInput_Init = function () {
     KTImageInput.createInstances();
 };
-
+KTImageInput_Init();
 // Webpack Support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTImageInput;
@@ -5104,10 +5104,10 @@ KTPasswordMeter.createInstances = function (selector = '[data-kt-password-meter]
 }
 
 // Global initialization
-KTPasswordMeter.init = function () {
-    KTPasswordMeter.createInstances();
-};
-
+// KTPasswordMeter.init = function () {
+//     KTPasswordMeter.createInstances();
+// };
+KTPasswordMeter.createInstances();
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTPasswordMeter;
@@ -5456,7 +5456,7 @@ KTScroll.handleResize = function () {
 }
 
 // Global initialization
-KTScroll.init = function () {
+KTScroll_Init = function () {
     KTScroll.createInstances();
 
     if (KTScrollHandlersInitialized === false) {
@@ -5465,7 +5465,7 @@ KTScroll.init = function () {
         KTScrollHandlersInitialized = true;
     }
 };
-
+KTScroll_Init();
 // Webpack Support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTScroll;
@@ -5627,10 +5627,10 @@ KTScrolltop.createInstances = function (selector = '[data-kt-scrolltop="true"]')
 }
 
 // Global initialization
-KTScrolltop.init = function () {
+KTScrolltop_Init = function () {
     KTScrolltop.createInstances();
 };
-
+KTScrolltop_Init();
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTScrolltop;
@@ -6820,7 +6820,7 @@ KTSticky.handleResize = function () {
 }
 
 // Global initialization
-KTSticky.init = function () {
+KTSticky_Init = function () {
     KTSticky.createInstances();
 
     if (KTStickyHandlersInitialized === false) {
@@ -6828,7 +6828,7 @@ KTSticky.init = function () {
         KTStickyHandlersInitialized = true;
     }
 };
-
+KTSticky_Init();
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTSticky;
@@ -7223,10 +7223,10 @@ KTToggle.createInstances = function (selector = '[data-kt-toggle]') {
 }
 
 // Global initialization
-KTToggle.init = function () {
+KTToggle_Init = function () {
     KTToggle.createInstances();
 };
-
+KTToggle_Init();
 // Webpack support
 if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
     module.exports = KTToggle;

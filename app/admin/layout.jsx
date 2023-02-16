@@ -48,16 +48,16 @@ export default function RootLayout({ children }) {
       </body>
 
 
-      {/* <Script src={'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js'} />
-      <Script src={'assets/plugins/custom/datatables/datatables.bundle.js'} /> */}
+      <Script src={'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js'} />
+      <Script src={'assets/plugins/custom/datatables/datatables.bundle.js'} />
       {/*begin::Custom Javascript(used for this page only)*/}
-      {/*   <Script src={'assets/js/widgets.bundle.js'}></Script>
-      <Script src={'assets/js/custom/widgets.js'}></Script> */}
-      {/* <Script src={'assets/js/custom/apps/chat/chat.js'}></Script>
+      <Script src={'assets/js/widgets.bundle.js'}></Script>
+      <Script src={'assets/js/custom/widgets.js'}></Script>
+      <Script src={'assets/js/custom/apps/chat/chat.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/upgrade-plan.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-campaign.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-app.js'}></Script>
-      <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script> */}
+      <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script>
       {/*end::Custom Javascript*/}
     </html>
   )
