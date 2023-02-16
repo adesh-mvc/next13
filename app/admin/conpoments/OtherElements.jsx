@@ -1,3 +1,4 @@
+'use client';
 export default function OtherElements() {
     return (
         <>
@@ -2571,7 +2572,7 @@ export default function OtherElements() {
                                 {/*begin::Toggle*/}
                                 <button
                                     type="button"
-                                    data-kt-element="selected"
+                                    data-kt-element={``}
                                     className="btn btn-flex px-0 rotate-"
                                     data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
                                     data-kt-menu-placement="bottom-start"
@@ -12944,7 +12945,7 @@ export default function OtherElements() {
                                                         data-hide-search="true"
                                                     >
                                                         <option value={1}>Guest</option>
-                                                        <option value={2} selected="">
+                                                        <option value={2} >
                                                             Owner
                                                         </option>
                                                         <option value={3}>Can Edit</option>
@@ -13004,7 +13005,7 @@ export default function OtherElements() {
                                                         data-control="select2"
                                                         data-hide-search="true"
                                                     >
-                                                        <option value={1} selected="">
+                                                        <option value={1} >
                                                             Guest
                                                         </option>
                                                         <option value={2}>Owner</option>
@@ -13063,7 +13064,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3} >
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -13121,7 +13122,7 @@ export default function OtherElements() {
                                                         data-hide-search="true"
                                                     >
                                                         <option value={1}>Guest</option>
-                                                        <option value={2} selected="">
+                                                        <option value={2} >
                                                             Owner
                                                         </option>
                                                         <option value={3}>Can Edit</option>
@@ -13181,7 +13182,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3} >
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -13241,7 +13242,7 @@ export default function OtherElements() {
                                                         data-hide-search="true"
                                                     >
                                                         <option value={1}>Guest</option>
-                                                        <option value={2} selected="">
+                                                        <option value={2} >
                                                             Owner
                                                         </option>
                                                         <option value={3}>Can Edit</option>
@@ -13301,7 +13302,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3} >
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -13361,7 +13362,7 @@ export default function OtherElements() {
                                                         data-hide-search="true"
                                                     >
                                                         <option value={1}>Guest</option>
-                                                        <option value={2} selected="">
+                                                        <option value={2}>
                                                             Owner
                                                         </option>
                                                         <option value={3}>Can Edit</option>
@@ -13421,7 +13422,7 @@ export default function OtherElements() {
                                                         data-control="select2"
                                                         data-hide-search="true"
                                                     >
-                                                        <option value={1} selected="">
+                                                        <option value={1}>
                                                             Guest
                                                         </option>
                                                         <option value={2}>Owner</option>
@@ -13482,7 +13483,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3}>
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -13542,7 +13543,7 @@ export default function OtherElements() {
                                                         data-hide-search="true"
                                                     >
                                                         <option value={1}>Guest</option>
-                                                        <option value={2} selected="">
+                                                        <option value={2}>
                                                             Owner
                                                         </option>
                                                         <option value={3}>Can Edit</option>
@@ -13600,7 +13601,7 @@ export default function OtherElements() {
                                                         data-control="select2"
                                                         data-hide-search="true"
                                                     >
-                                                        <option value={1} selected="">
+                                                        <option value={1}>
                                                             Guest
                                                         </option>
                                                         <option value={2}>Owner</option>
@@ -13663,7 +13664,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3}>
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -13722,7 +13723,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3}>
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -13782,7 +13783,7 @@ export default function OtherElements() {
                                                         data-hide-search="true"
                                                     >
                                                         <option value={1}>Guest</option>
-                                                        <option value={2} selected="">
+                                                        <option value={2}>
                                                             Owner
                                                         </option>
                                                         <option value={3}>Can Edit</option>
@@ -13840,7 +13841,7 @@ export default function OtherElements() {
                                                         data-control="select2"
                                                         data-hide-search="true"
                                                     >
-                                                        <option value={1} selected="">
+                                                        <option value={1}>
                                                             Guest
                                                         </option>
                                                         <option value={2}>Owner</option>
@@ -13901,7 +13902,7 @@ export default function OtherElements() {
                                                     >
                                                         <option value={1}>Guest</option>
                                                         <option value={2}>Owner</option>
-                                                        <option value={3} selected="">
+                                                        <option value={3}>
                                                             Can Edit
                                                         </option>
                                                     </select>
@@ -14102,7 +14103,7 @@ export default function OtherElements() {
                                                 data-hide-search="true"
                                             >
                                                 <option value={1}>Guest</option>
-                                                <option value={2} selected="">
+                                                <option value={2}>
                                                     Owner
                                                 </option>
                                                 <option value={3}>Can Edit</option>
@@ -14145,7 +14146,7 @@ export default function OtherElements() {
                                                 data-dropdown-parent="#kt_modal_invite_friends"
                                                 data-hide-search="true"
                                             >
-                                                <option value={1} selected="">
+                                                <option value={1}>
                                                     Guest
                                                 </option>
                                                 <option value={2}>Owner</option>
@@ -14187,7 +14188,7 @@ export default function OtherElements() {
                                             >
                                                 <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3}>
                                                     Can Edit
                                                 </option>
                                             </select>
@@ -14228,7 +14229,7 @@ export default function OtherElements() {
                                                 data-hide-search="true"
                                             >
                                                 <option value={1}>Guest</option>
-                                                <option value={2} selected="">
+                                                <option value={2}>
                                                     Owner
                                                 </option>
                                                 <option value={3}>Can Edit</option>
@@ -14271,7 +14272,7 @@ export default function OtherElements() {
                                             >
                                                 <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3}>
                                                     Can Edit
                                                 </option>
                                             </select>
@@ -14312,7 +14313,7 @@ export default function OtherElements() {
                                                 data-hide-search="true"
                                             >
                                                 <option value={1}>Guest</option>
-                                                <option value={2} selected="">
+                                                <option value={2}>
                                                     Owner
                                                 </option>
                                                 <option value={3}>Can Edit</option>
@@ -14353,7 +14354,7 @@ export default function OtherElements() {
                                             >
                                                 <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3}>
                                                     Can Edit
                                                 </option>
                                             </select>
@@ -14396,7 +14397,7 @@ export default function OtherElements() {
                                                 data-hide-search="true"
                                             >
                                                 <option value={1}>Guest</option>
-                                                <option value={2} selected="">
+                                                <option value={2}>
                                                     Owner
                                                 </option>
                                                 <option value={3}>Can Edit</option>
@@ -14439,7 +14440,7 @@ export default function OtherElements() {
                                                 data-dropdown-parent="#kt_modal_invite_friends"
                                                 data-hide-search="true"
                                             >
-                                                <option value={1} selected="">
+                                                <option value={1}>
                                                     Guest
                                                 </option>
                                                 <option value={2}>Owner</option>
@@ -14483,7 +14484,7 @@ export default function OtherElements() {
                                             >
                                                 <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3}>
                                                     Can Edit
                                                 </option>
                                             </select>
@@ -14526,7 +14527,7 @@ export default function OtherElements() {
                                                 data-hide-search="true"
                                             >
                                                 <option value={1}>Guest</option>
-                                                <option value={2} selected="">
+                                                <option value={2}>
                                                     Owner
                                                 </option>
                                                 <option value={3}>Can Edit</option>
@@ -14567,7 +14568,7 @@ export default function OtherElements() {
                                                 data-dropdown-parent="#kt_modal_invite_friends"
                                                 data-hide-search="true"
                                             >
-                                                <option value={1} selected="">
+                                                <option value={1}>
                                                     Guest
                                                 </option>
                                                 <option value={2}>Owner</option>
@@ -14613,7 +14614,7 @@ export default function OtherElements() {
                                             >
                                                 <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3} >
                                                     Can Edit
                                                 </option>
                                             </select>
@@ -14655,7 +14656,7 @@ export default function OtherElements() {
                                             >
                                                 <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3} >
                                                     Can Edit
                                                 </option>
                                             </select>
@@ -14698,7 +14699,7 @@ export default function OtherElements() {
                                                 data-hide-search="true"
                                             >
                                                 <option value={1}>Guest</option>
-                                                <option value={2} selected="">
+                                                <option value={2} >
                                                     Owner
                                                 </option>
                                                 <option value={3}>Can Edit</option>
@@ -14739,7 +14740,7 @@ export default function OtherElements() {
                                                 data-dropdown-parent="#kt_modal_invite_friends"
                                                 data-hide-search="true"
                                             >
-                                                <option value={1} selected="">
+                                                <option value={1} >
                                                     Guest
                                                 </option>
                                                 <option value={2}>Owner</option>
@@ -14781,11 +14782,11 @@ export default function OtherElements() {
                                                 data-dropdown-parent="#kt_modal_invite_friends"
                                                 data-hide-search="true"
                                             >
-                                                <option value={1}>Guest</option>
+                                                {/* <option value={1}>Guest</option>
                                                 <option value={2}>Owner</option>
-                                                <option value={3} selected="">
+                                                <option value={3} >
                                                     Can Edit
-                                                </option>
+                                                </option> */}
                                             </select>
                                         </div>
                                         {/*end::Access menu*/}

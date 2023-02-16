@@ -11,10 +11,10 @@ export default function Head() {
 
       <link rel="shortcut icon" href="assets/media/logos/favicon.ico" />
       {/*begin::Fonts(mandatory for all pages)*/}
-      <link
+      {/* <link
         rel="preconnect"
         href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
-      />
+      /> */}
       {/*end::Fonts*/}
       {/*begin::Vendor Stylesheets(used for this page only)*/}
       <link

@@ -1,6 +1,10 @@
-import '../../public/assets/plugins/global/plugins.bundle.css';
-import '../../public/assets/css/style.bundle.css';
-// import '../../public/assets/plugins/global/plugins.bundle.js';
+'use client'
+import '@/public/assets/plugins/global/plugins.bundle.css';
+import '@/public/assets/css/style.bundle.css';
+import '@/public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css'
+// import '@/public/assets/plugins/global/plugins.bundle.js';
+// import KTApp from '@/public/assets/js/KTApp';
+// console.log('KTApp:', KTApp)
 import Header from './conpoments/Header';
 import Toolbar from './conpoments/Breadcrumb';
 import Footer from './conpoments/Footer';
@@ -16,7 +20,10 @@ export default function RootLayout({ children }) {
     <html lang="en" data-bs-theme="light">
 
       <head />
-      <body id="kt_body" className={'header-extended header-fixed header-tablet-and-mobile-fixed'}>
+
+      <Script src={'assets/plugins/global/plugins.bundle.js'} />
+      <Script src={'assets/js/scripts.bundle.js'} />
+      <body id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
         {/*begin::Main*/}
         {/*begin::Root*/}
         <div className="d-flex flex-column flex-root">
@@ -37,22 +44,20 @@ export default function RootLayout({ children }) {
           {/*end::Page*/}
         </div>
         {/*end::Root*/}
-        {/*  <OtherElements /> */}
+        <OtherElements />
       </body>
 
-      <Script src={'assets/plugins/global/plugins.bundle.js'} />
-      <Script src={'assets/js/scripts.bundle.js'} />
-      <Script src={'assets/plugins/custom/datatables/datatables.bundle.js'} />
-      <Script src={'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js'} />
 
+      {/* <Script src={'assets/plugins/custom/fullcalendar/fullcalendar.bundle.js'} />
+      <Script src={'assets/plugins/custom/datatables/datatables.bundle.js'} /> */}
       {/*begin::Custom Javascript(used for this page only)*/}
-      <Script src={'assets/js/widgets.bundle.js'}></Script>
-      <Script src={'assets/js/custom/widgets.js'}></Script>
-      <Script src={'assets/js/custom/apps/chat/chat.js'}></Script>
+      {/*   <Script src={'assets/js/widgets.bundle.js'}></Script>
+      <Script src={'assets/js/custom/widgets.js'}></Script> */}
+      {/* <Script src={'assets/js/custom/apps/chat/chat.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/upgrade-plan.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-campaign.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-app.js'}></Script>
-      <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script>
+      <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script> */}
       {/*end::Custom Javascript*/}
     </html>
   )
