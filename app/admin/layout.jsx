@@ -1,14 +1,14 @@
-'use client'
+
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
 import '@/public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css'
 // import '@/public/assets/plugins/global/plugins.bundle.js';
 // import KTApp from '@/public/assets/js/KTApp';
 // console.log('KTApp:', KTApp)
-import Header from './conpoments/Header';
-import Toolbar from './conpoments/Breadcrumb';
-import Footer from './conpoments/Footer';
-import OtherElements from './conpoments/OtherElements';
+import Header from './component/Header';
+import Toolbar from './component/Breadcrumb';
+import Footer from './component/Footer';
+// import OtherElements from './component/OtherElements';
 
 import Script from 'next/script';
 import { Inter } from '@next/font/google'
@@ -17,34 +17,36 @@ const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['la
 export default function RootLayout({ children }) {
   var hostUrl = process.env.APP_URI;
   return (
-    <html lang="en" data-bs-theme="light">
+    <html lang="en" data-bs-theme={'light'}>
 
       <head />
 
       <Script src={'assets/plugins/global/plugins.bundle.js'} />
       <Script src={'assets/js/scripts.bundle.js'} />
-      <body id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
-        {/*begin::Main*/}
-        {/*begin::Root*/}
-        <div className="d-flex flex-column flex-root">
-          {/*begin::Page*/}
-          <div className="page d-flex flex-row flex-column-fluid">
-            {/*begin::Wrapper*/}
-            <div
-              className="wrapper d-flex flex-column flex-row-fluid"
-              id="kt_wrapper"
-            >
-              <Header />
-              <Toolbar />
-              {children}
-              <Footer />
+      <body >
+        <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
+          {/*begin::Main*/}
+          {/*begin::Root*/}
+          <div className="d-flex flex-column flex-root">
+            {/*begin::Page*/}
+            <div className="page d-flex flex-row flex-column-fluid">
+              {/*begin::Wrapper*/}
+              <div
+                className="wrapper d-flex flex-column flex-row-fluid"
+                id="kt_wrapper"
+              >
+                <Header />
+                <Toolbar />
+                {children}
+                <Footer />
+              </div>
+              {/*end::Wrapper*/}
             </div>
-            {/*end::Wrapper*/}
+            {/*end::Page*/}
           </div>
-          {/*end::Page*/}
+          {/*end::Root*/}
+          {/*  <OtherElements /> */}
         </div>
-        {/*end::Root*/}
-        <OtherElements />
       </body>
 
 
@@ -54,10 +56,10 @@ export default function RootLayout({ children }) {
       <Script src={'assets/js/widgets.bundle.js'}></Script>
       <Script src={'assets/js/custom/widgets.js'}></Script>
       <Script src={'assets/js/custom/apps/chat/chat.js'}></Script>
-      <Script src={'assets/js/custom/utilities/modals/upgrade-plan.js'}></Script>
+      {/* <Script src={'assets/js/custom/utilities/modals/upgrade-plan.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-campaign.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-app.js'}></Script>
-      <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script>
+      <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script> */}
       {/*end::Custom Javascript*/}
     </html>
   )

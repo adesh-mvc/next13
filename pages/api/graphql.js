@@ -1,8 +1,10 @@
 import { ApolloServer } from '@apollo/server';
-import { startServerAndCreateNextHandler } from '@as-integrations/next';
 
-import typeDefs from '../../db/schema';
-import resolvers from "../../db/resolvers";
+import { startServerAndCreateNextHandler } from '@as-integrations/next';
+import { buildSubgraphSchema } from '@apollo/subgraph';
+import productTable from "../../db/Schema";
+//import typeDefs from '../../db/Schema/schema-xx';
+import productResolver from "../../db/Resolvers";
 import connectDb from "../../db/config"
 connectDb();
 // const resolvers = {
@@ -22,11 +24,12 @@ connectDb();
 // `;
 
 const server = new ApolloServer({
-    resolvers,
-    typeDefs,
-    introspection: true,
-    playground: true,
-});
+    // schema: buildSubgraphSchema({
+    //     typeDefs: [productTable], resolvers: [resolvers], introspection: true, playground: true
+    // })
+    typeDefs: [productTable], resolvers: [productResolver], introspection: true, playground: true
+})
+
 
 export default startServerAndCreateNextHandler(server);
 
