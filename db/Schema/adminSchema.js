@@ -9,4 +9,21 @@ const typeDefs = gql`
         Password: String
         ThumbImage: String
     }
+
+    input AdminInsert{
+        FullName: String
+        DisplayName: String
+        UserName: String!
+        Password: String!
+        ThumbImage: String
+    }
+
+    type Query{
+        getAdminUsers: [AdminUser]
+        getAdminUser(id:ID):AdminUser
+    }
+
+    type Mutation{
+        newAdmin
+    }
 `
