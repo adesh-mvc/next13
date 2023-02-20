@@ -42,7 +42,7 @@ export default function Header() {
                             <a href="index.html" className="d-flex align-items-center">
                                 <img
                                     alt="Logo"
-                                    src="assets/media/logos/demo20.svg"
+                                    src={`${process.env.THEME_IMAGE}logos/demo20.svg`}
                                     className="h-25px h-lg-30px"
                                 />
                             </a>
@@ -355,7 +355,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src="assets/media/avatars/300-6.jpg"
+                                                                src={`${process.env.THEME_IMAGE}avatars/300-6.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -380,7 +380,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src="assets/media/avatars/300-2.jpg"
+                                                                src={`${process.env.THEME_IMAGE}avatars/300-2.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -405,7 +405,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src="assets/media/avatars/300-9.jpg"
+                                                                src={`${process.env.THEME_IMAGE}avatars/300-9.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -430,7 +430,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src="assets/media/avatars/300-14.jpg"
+                                                                src={`${process.env.THEME_IMAGE}avatars/300-14.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -455,7 +455,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src="assets/media/avatars/300-11.jpg"
+                                                                src={`${process.env.THEME_IMAGE}avatars/300-11.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -490,7 +490,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src="assets/media/svg/brand-logos/volicity-9.svg"
+                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/volicity-9.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -518,7 +518,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src="assets/media/svg/brand-logos/tvit.svg"
+                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/tvit.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -546,7 +546,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src="assets/media/svg/misc/infography.svg"
+                                                                    src={`${process.env.THEME_IMAGE}svg/misc/infography.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -574,7 +574,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src="assets/media/svg/brand-logos/leaf.svg"
+                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/leaf.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -602,7 +602,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src="assets/media/svg/brand-logos/tower.svg"
+                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/tower.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -1746,7 +1746,7 @@ export default function Header() {
                                         className="d-flex flex-column flex-center bgi-no-repeat rounded-top px-9 py-10"
                                         style={{
                                             backgroundImage:
-                                                'url("assets/media/misc/menu-header-bg.jpg")'
+                                                'url("assets/media/misc/menu-header-bg.jpg`})'
                                         }}
                                     >
                                         {/*begin::Title*/}
@@ -2204,7 +2204,7 @@ export default function Header() {
                                     {/*end::Name*/}
                                     {/*begin::Symbol*/}
                                     <div className="symbol symbol-30px symbol-md-40px">
-                                        <img src="assets/media/avatars/300-1.jpg" alt="image" />
+                                        <img src={`${process.env.THEME_IMAGE}avatars/300-1.jpg`} alt="image" />
                                     </div>
                                     {/*end::Symbol*/}
                                 </div>
@@ -2221,7 +2221,7 @@ export default function Header() {
                                             <div className="symbol symbol-50px me-5">
                                                 <img
                                                     alt="Logo"
-                                                    src="assets/media/avatars/300-1.jpg"
+                                                    src={`${process.env.THEME_IMAGE}avatars/300-1.jpg`}
                                                 />
                                             </div>
                                             {/*end::Avatar*/}
@@ -2368,117 +2368,7 @@ export default function Header() {
                                     {/*begin::Menu separator*/}
                                     <div className="separator my-2" />
                                     {/*end::Menu separator*/}
-                                    {/*begin::Menu item*/}
-                                    <div
-                                        className="menu-item px-5"
-                                        data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-                                        data-kt-menu-placement="left-start"
-                                        data-kt-menu-offset="-15px, 0"
-                                    >
-                                        <a href="#" className="menu-link px-5">
-                                            <span className="menu-title position-relative">
-                                                Language
-                                                <span className="fs-8 rounded bg-light px-3 py-2 position-absolute translate-middle-y top-50 end-0">
-                                                    English{" "}
-                                                    <img
-                                                        className="w-15px h-15px rounded-1 ms-2"
-                                                        src="assets/media/flags/united-states.svg"
-                                                        alt=""
-                                                    />
-                                                </span>
-                                            </span>
-                                        </a>
-                                        {/*begin::Menu sub*/}
-                                        <div className="menu-sub menu-sub-dropdown w-175px py-4">
-                                            {/*begin::Menu item*/}
-                                            <div className="menu-item px-3">
-                                                <a
-                                                    href="account/settings.html"
-                                                    className="menu-link d-flex px-5 active"
-                                                >
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img
-                                                            className="rounded-1"
-                                                            src="assets/media/flags/united-states.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    English
-                                                </a>
-                                            </div>
-                                            {/*end::Menu item*/}
-                                            {/*begin::Menu item*/}
-                                            <div className="menu-item px-3">
-                                                <a
-                                                    href="account/settings.html"
-                                                    className="menu-link d-flex px-5"
-                                                >
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img
-                                                            className="rounded-1"
-                                                            src="assets/media/flags/spain.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    Spanish
-                                                </a>
-                                            </div>
-                                            {/*end::Menu item*/}
-                                            {/*begin::Menu item*/}
-                                            <div className="menu-item px-3">
-                                                <a
-                                                    href="account/settings.html"
-                                                    className="menu-link d-flex px-5"
-                                                >
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img
-                                                            className="rounded-1"
-                                                            src="assets/media/flags/germany.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    German
-                                                </a>
-                                            </div>
-                                            {/*end::Menu item*/}
-                                            {/*begin::Menu item*/}
-                                            <div className="menu-item px-3">
-                                                <a
-                                                    href="account/settings.html"
-                                                    className="menu-link d-flex px-5"
-                                                >
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img
-                                                            className="rounded-1"
-                                                            src="assets/media/flags/japan.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    Japanese
-                                                </a>
-                                            </div>
-                                            {/*end::Menu item*/}
-                                            {/*begin::Menu item*/}
-                                            <div className="menu-item px-3">
-                                                <a
-                                                    href="account/settings.html"
-                                                    className="menu-link d-flex px-5"
-                                                >
-                                                    <span className="symbol symbol-20px me-4">
-                                                        <img
-                                                            className="rounded-1"
-                                                            src="assets/media/flags/france.svg"
-                                                            alt=""
-                                                        />
-                                                    </span>
-                                                    French
-                                                </a>
-                                            </div>
-                                            {/*end::Menu item*/}
-                                        </div>
-                                        {/*end::Menu sub*/}
-                                    </div>
-                                    {/*end::Menu item*/}
+
                                     {/*begin::Menu item*/}
                                     <div className="menu-item px-5 my-1">
                                         <a
@@ -3644,7 +3534,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-4">
                                                                         <img
-                                                                            src="assets/media/stock/600x600/img-82.jpg"
+                                                                            src={`${process.env.THEME_IMAGE}stock/600x600/img-82.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
@@ -3806,7 +3696,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-7">
                                                                         <img
-                                                                            src="assets/media/stock/900x600/46.jpg"
+                                                                            src={`${process.env.THEME_IMAGE}stock/900x600/46.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
@@ -4887,7 +4777,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-5 pe-lg-5">
                                                                         <img
-                                                                            src="assets/media/stock/600x600/img-84.jpg"
+                                                                            src={`${process.env.THEME_IMAGE}stock/600x600/img-84.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
@@ -4995,7 +4885,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-8">
                                                                         <img
-                                                                            src="assets/media/stock/900x600/44.jpg"
+                                                                            src={`${process.env.THEME_IMAGE}stock/900x600/44.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
