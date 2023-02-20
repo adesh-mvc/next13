@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 
-const resolvers = {
+const productResolver = {
     Query: {
         //Products
         getProducts: async () => {
@@ -56,10 +56,10 @@ const resolvers = {
             }
             await findOneDelete({ _id, id });
 
-            return 'Producto eliminado';
+            return 'Proudct Deleted';
         },
     },
 }
 
 
-module.exports = resolvers
+module.exports = productResolver

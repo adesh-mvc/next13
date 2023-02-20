@@ -1,6 +1,6 @@
 import { gql } from 'graphql-tag';
 
-const typeDefs = gql`
+const productTable = gql`
   # Products
   type Product {
     id: ID
@@ -31,4 +31,4 @@ const typeDefs = gql`
 
 `
 
-module.exports = typeDefs
+module.exports = productTable

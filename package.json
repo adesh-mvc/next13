@@ -11,7 +11,6 @@
   "dependencies": {
     "@apollo/client": "^3.7.7",
     "@apollo/server": "^4.3.3",
-    "@apollo/subgraph": "^2.3.2",
     "@as-integrations/next": "^1.2.0",
     "@next/font": "13.1.6",
     "bcryptjs": "^2.4.3",

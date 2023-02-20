@@ -1,7 +1,8 @@
 import { gql } from "graphql-tag";
+
 const typeDefs = gql`
      #AdminBook
-    type AdminUser{
+    type AdminBook{
         id: ID
         FullName: String
         DisplayName: String
@@ -10,7 +11,7 @@ const typeDefs = gql`
         ThumbImage: String
     }
 
-    input AdminInsert{
+    input AdminInsert {
         FullName: String
         DisplayName: String
         UserName: String!
@@ -19,11 +20,14 @@ const typeDefs = gql`
     }
 
     type Query{
-        getAdminUsers: [AdminUser]
-        getAdminUser(id:ID):AdminUser
+        getAdminUsers: [AdminBook]
+        getAdminUser(id:ID):AdminBook
     }
 
     type Mutation{
-        newAdmin
+        newAdmin(input: AdminInsert): AdminBook
     }
 `
+
+
+module.exports = typeDefs;

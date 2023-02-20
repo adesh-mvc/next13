@@ -1,5 +1,8 @@
 import productTable from "./productSchema";
+import adminUserTable from "./adminSchema";
 
 
-
-module.exports = productTable
+exports.default = {
+    productTable,
+    adminUserTable
+}

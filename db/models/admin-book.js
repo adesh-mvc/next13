@@ -31,6 +31,6 @@ const AdminSchema = new Schema({
 
 });
 
-module.exports = mongoose.model.AdminBook || mongoose.model('AdminBook', AdminSchema);
+module.exports = mongoose.models.AdminBook || mongoose.model('AdminBook', AdminSchema);
 
 

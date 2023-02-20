@@ -1,11 +1,16 @@
 import { ApolloServer } from '@apollo/server';
 
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-import { buildSubgraphSchema } from '@apollo/subgraph';
-import productTable from "../../db/Schema";
+
+// import { productTable, adminUserTable } from "../../db/Schema";
+import productTable from "../../db/Schema/productSchema";
+import adminUserTable from "../../db/Schema/adminSchema";
 //import typeDefs from '../../db/Schema/schema-xx';
-import productResolver from "../../db/Resolvers";
-import connectDb from "../../db/config"
+// import { Product, adminResolver } from "../../db/Resolvers";
+import productResolver from "../../db/Resolvers/productResolvers";
+import adminResolver from "../../db/Resolvers/adminResolvers";
+import connectDb from "../../db/config";
+// console.log("RESOLVER:", Product)
 connectDb();
 // const resolvers = {
 //     Query: {
@@ -27,7 +32,7 @@ const server = new ApolloServer({
     // schema: buildSubgraphSchema({
     //     typeDefs: [productTable], resolvers: [resolvers], introspection: true, playground: true
     // })
-    typeDefs: [productTable], resolvers: [productResolver], introspection: true, playground: true
+    typeDefs: [productTable, adminUserTable], resolvers: [productResolver, adminResolver], introspection: true, playground: true
 })
 
 

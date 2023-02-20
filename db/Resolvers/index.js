@@ -1,3 +1,7 @@
 import productResolver from "./productResolvers";
+import adminResolver from "./adminResolvers";
 
-module.exports = productResolver;
+exports.default = {
+    productResolver,
+    adminResolver
+}
