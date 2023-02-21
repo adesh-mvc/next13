@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
-const { Schema } = mongoose;
+import bcrypt from "bcryptjs";
+// const { Schema } = mongoose;
 
 mongoose.Promise = global.Promise;
 
-const AdminSchema = new Schema({
+const AdminSchema = new mongoose.Schema({
     FullName: {
         type: String,
         trim: true
@@ -30,7 +31,16 @@ const AdminSchema = new Schema({
     }
 
 });
+// AdminSchema.pre('save', () => console.log('Hello from pre save'));
+AdminSchema.pre("save", async function (next) {
+    console.log("Password Hash:", this.Password)
+    if (!this.isModified("Password")) {
+        next();
+    }
 
-module.exports = mongoose.models.AdminBook || mongoose.model('AdminBook', AdminSchema);
+    this.Password = await bcrypt.hash(this.Password, 10);
+});
+
+export default module.exports = mongoose.models.AdminBook || mongoose.model('AdminBook', AdminSchema);
 
 

@@ -2,7 +2,7 @@
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
 import '@/public/assets/plugins/custom/fullcalendar/fullcalendar.bundle.css'
-// import '@/public/assets/plugins/global/plugins.bundle.js';
+
 // import KTApp from '@/public/assets/js/KTApp';
 // console.log('KTApp:', KTApp)
 import Header from './component/Header';
