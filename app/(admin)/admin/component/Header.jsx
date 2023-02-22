@@ -1,4 +1,4 @@
-'use client'
+import Image from "next/image";
 export default function Header() {
     return (
         <>
@@ -39,11 +39,14 @@ export default function Header() {
                             </button>
                             {/*end::Heaeder navs toggle*/}
                             {/*begin::Logo*/}
-                            <a href="index.html" className="d-flex align-items-center">
-                                <img
+                            <a href="/" className="d-flex align-items-center">
+
+                                <Image
                                     alt="Logo"
-                                    src={`${process.env.THEME_IMAGE}logos/demo20.svg`}
+                                    src={`/assets/media/logos/demo20.svg`}
                                     className="h-25px h-lg-30px"
+                                    width={70}
+                                    height={70}
                                 />
                             </a>
                             {/*end::Logo*/}
@@ -354,10 +357,15 @@ export default function Header() {
                                                     >
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
-                                                            <img
-                                                                src={`${process.env.THEME_IMAGE}avatars/300-6.jpg`}
-                                                                alt=""
+                                                            <Image
+                                                                alt="Logo"
+                                                                src={`/assets/media/avatars/300-6.jpg`}
+
+                                                                width={50}
+                                                                height={50}
                                                             />
+
+
                                                         </div>
                                                         {/*end::Symbol*/}
                                                         {/*begin::Title*/}
@@ -379,9 +387,10 @@ export default function Header() {
                                                     >
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
-                                                            <img
-                                                                src={`${process.env.THEME_IMAGE}avatars/300-2.jpg`}
-                                                                alt=""
+                                                            <Image src={`/assets/media/avatars/300-2.jpg`}
+                                                                alt={`avatars`}
+                                                                width={50}
+                                                                height={50}
                                                             />
                                                         </div>
                                                         {/*end::Symbol*/}
@@ -405,8 +414,8 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src={`${process.env.THEME_IMAGE}avatars/300-9.jpg`}
-                                                                alt=""
+                                                                src={`/assets/media/avatars/300-9.jpg`}
+                                                                alt="user"
                                                             />
                                                         </div>
                                                         {/*end::Symbol*/}
@@ -430,7 +439,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src={`${process.env.THEME_IMAGE}avatars/300-14.jpg`}
+                                                                src={`/assets/media/avatars/300-14.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -455,7 +464,7 @@ export default function Header() {
                                                         {/*begin::Symbol*/}
                                                         <div className="symbol symbol-40px me-4">
                                                             <img
-                                                                src={`${process.env.THEME_IMAGE}avatars/300-11.jpg`}
+                                                                src={`/assets/media/avatars/300-11.jpg`}
                                                                 alt=""
                                                             />
                                                         </div>
@@ -490,7 +499,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/volicity-9.svg`}
+                                                                    src={`/assets/media/svg/brand-logos/volicity-9.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -518,7 +527,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/tvit.svg`}
+                                                                    src={`/assets/media/svg/brand-logos/tvit.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -546,7 +555,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src={`${process.env.THEME_IMAGE}svg/misc/infography.svg`}
+                                                                    src={`/assets/media/svg/misc/infography.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -574,7 +583,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/leaf.svg`}
+                                                                    src={`/assets/media/svg/brand-logos/leaf.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -602,7 +611,7 @@ export default function Header() {
                                                             <span className="symbol-label bg-light">
                                                                 <img
                                                                     className="w-20px h-20px"
-                                                                    src={`${process.env.THEME_IMAGE}svg/brand-logos/tower.svg`}
+                                                                    src={`/assets/media/svg/brand-logos/tower.svg`}
                                                                     alt=""
                                                                 />
                                                             </span>
@@ -1746,7 +1755,7 @@ export default function Header() {
                                         className="d-flex flex-column flex-center bgi-no-repeat rounded-top px-9 py-10"
                                         style={{
                                             backgroundImage:
-                                                'url("assets/media/misc/menu-header-bg.jpg`})'
+                                                'url(assets/media/misc/menu-header-bg.jpg)'
                                         }}
                                     >
                                         {/*begin::Title*/}
@@ -2204,7 +2213,7 @@ export default function Header() {
                                     {/*end::Name*/}
                                     {/*begin::Symbol*/}
                                     <div className="symbol symbol-30px symbol-md-40px">
-                                        <img src={`${process.env.THEME_IMAGE}avatars/300-1.jpg`} alt="image" />
+                                        <img src={`/assets/media/avatars/300-1.jpg`} alt="image" />
                                     </div>
                                     {/*end::Symbol*/}
                                 </div>
@@ -2221,7 +2230,7 @@ export default function Header() {
                                             <div className="symbol symbol-50px me-5">
                                                 <img
                                                     alt="Logo"
-                                                    src={`${process.env.THEME_IMAGE}avatars/300-1.jpg`}
+                                                    src={`/assets/media/avatars/300-1.jpg`}
                                                 />
                                             </div>
                                             {/*end::Avatar*/}
@@ -3534,7 +3543,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-4">
                                                                         <img
-                                                                            src={`${process.env.THEME_IMAGE}stock/600x600/img-82.jpg`}
+                                                                            src={`/assets/media/stock/600x600/img-82.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
@@ -3696,7 +3705,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-7">
                                                                         <img
-                                                                            src={`${process.env.THEME_IMAGE}stock/900x600/46.jpg`}
+                                                                            src={`/assets/media/stock/900x600/46.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
@@ -4777,7 +4786,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-5 pe-lg-5">
                                                                         <img
-                                                                            src={`${process.env.THEME_IMAGE}stock/600x600/img-84.jpg`}
+                                                                            src={`/assets/media/stock/600x600/img-84.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
@@ -4885,7 +4894,7 @@ export default function Header() {
                                                                     {/*begin:Col*/}
                                                                     <div className="col-lg-8">
                                                                         <img
-                                                                            src={`${process.env.THEME_IMAGE}stock/900x600/44.jpg`}
+                                                                            src={`/assets/media/stock/900x600/44.jpg`}
                                                                             className="rounded mw-100"
                                                                             alt=""
                                                                         />
