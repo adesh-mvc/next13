@@ -1,6 +1,8 @@
 "use client"
+
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
+import { SessionProvider } from 'next-auth/react';
 
 
 // import KTApp from '@/public/assets/js/KTApp';
@@ -24,29 +26,31 @@ export default function RootLayout({ children }) {
       <Script src={`assets/plugins/global/plugins.bundle.js`} />
       <Script src={`assets/js/scripts.bundle.js`} />
       <body >
-        <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
-          {/*begin::Main*/}
-          {/*begin::Root*/}
-          <div className="d-flex flex-column flex-root">
-            {/*begin::Page*/}
-            <div className="page d-flex flex-row flex-column-fluid">
-              {/*begin::Wrapper*/}
-              <div
-                className="wrapper d-flex flex-column flex-row-fluid"
-                id="kt_wrapper"
-              >
-                <Header />
-                <Toolbar />
-                {children}
-                <Footer />
+        <SessionProvider>
+          <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
+            {/*begin::Main*/}
+            {/*begin::Root*/}
+            <div className="d-flex flex-column flex-root">
+              {/*begin::Page*/}
+              <div className="page d-flex flex-row flex-column-fluid">
+                {/*begin::Wrapper*/}
+                <div
+                  className="wrapper d-flex flex-column flex-row-fluid"
+                  id="kt_wrapper"
+                >
+                  <Header />
+                  <Toolbar />
+                  {children}
+                  <Footer />
+                </div>
+                {/*end::Wrapper*/}
               </div>
-              {/*end::Wrapper*/}
+              {/*end::Page*/}
             </div>
-            {/*end::Page*/}
+            {/*end::Root*/}
+            {/*  <OtherElements /> */}
           </div>
-          {/*end::Root*/}
-          {/*  <OtherElements /> */}
-        </div>
+        </SessionProvider>
       </body>
 
 

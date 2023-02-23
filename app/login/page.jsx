@@ -12,10 +12,15 @@ const Login = () => {
         e.preventDefault();
 
         try {
-            console.log("e:", e)
-        }
-        catch (err) {
-            console.log(err)
+            const data = await signIn("credentials", {
+                redirect: false,
+                UserName,
+                Password,
+            });
+
+            console.log(data);
+        } catch (error) {
+            console.log(error);
         }
     }
 

@@ -1,5 +1,5 @@
-import nextAuth from "next-auth";
-import { CredentialsProvider } from "next-auth/providers";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 import adminBook from "@/db/models/admin-book";
 import bcrypt from "bcryptjs";
@@ -16,21 +16,22 @@ export default NextAuth({
 
                 const { UserName, Password } = credentials;
 
-                const userDetail = await adminBook.findOne({ UserName });
-                if (!userDetail) {
+                const user = await adminBook.findOne({ UserName });
+                if (!user) {
                     throw new Error("Invalid Email or Password");
                 }
-
-                const isPasswordMatched = await bcrypt.compare(Password, userDetail.Password);
+                console.log('userDetail', userDetail)
+                const isPasswordMatched = await bcrypt.compare(Password, user.Password);
                 if (!isPasswordMatched) {
                     throw new Error("Invalid Email or Password");
                 }
-                return userDetail;
+                console.log('userDetail passowrd:', user)
+                return user;
             },
         }),
     ],
     pages: {
-        signIn: '/admin/login'
+        signIn: '/admin'
     },
     secret: process.env.JWT_SECRET
 })

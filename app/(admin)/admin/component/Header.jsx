@@ -1,5 +1,13 @@
+import Link from "next/link";
+import React from "react";
+import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 export default function Header() {
+    const { data } = useSession();
+    if (data == null) {
+
+    }
+    console.log('session header:', data)
     return (
         <>
             {/*begin::Header*/}
@@ -2390,12 +2398,8 @@ export default function Header() {
                                     {/*end::Menu item*/}
                                     {/*begin::Menu item*/}
                                     <div className="menu-item px-5">
-                                        <a
-                                            href="authentication/layouts/corporate/sign-in.html"
-                                            className="menu-link px-5"
-                                        >
-                                            Sign Out
-                                        </a>
+                                        <Link href={''} onClick={() => signOut()} className="menu-link px-5"> Sign Out</Link>
+
                                     </div>
                                     {/*end::Menu item*/}
                                 </div>
