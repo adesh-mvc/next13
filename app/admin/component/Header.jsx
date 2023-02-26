@@ -3,11 +3,11 @@ import React from "react";
 import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 export default function Header() {
-    const { data } = useSession();
-    if (data == null) {
+    const session = useSession();
+    // if (data == null) {
 
-    }
-    console.log('session header:', data)
+    // }
+    console.log('session header:', session)
     return (
         <>
             {/*begin::Header*/}

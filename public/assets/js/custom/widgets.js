@@ -3562,7 +3562,7 @@ var KTWidgets = function () {
             initChartsWidget8();
 
             // Mixed widgets
-            initMixedWidget2();
+            // initMixedWidget2();
             initMixedWidget3();
             initMixedWidget4();
             initMixedWidget5();
@@ -3595,5 +3595,6 @@ if (typeof module !== 'undefined' && typeof module.exports !== 'undefined') {
 // On document ready
 KTUtil.onDOMContentLoaded(function () {
     KTWidgets.init();
-    console.log(KTUtil)
+    // console.log(KTUtil)
+
 });

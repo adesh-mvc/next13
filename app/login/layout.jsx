@@ -1,5 +1,6 @@
 "use client"
 
+import React, { useEffect, useState } from 'react';
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
 
@@ -12,9 +13,13 @@ import { Inter } from '@next/font/google'
 const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
+  const [themeMode, setThemeMode] = useState(null);
+  useEffect(() => {
+    setThemeMode('light')
+  })
   var hostUrl = process.env.APP_URI;
   return (
-    <html lang="en" data-bs-theme="light">
+    <html lang="en" data-bs-theme={themeMode}>
 
       <head />
 

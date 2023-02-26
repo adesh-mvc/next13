@@ -12,12 +12,15 @@ const Login = () => {
         e.preventDefault();
 
         try {
+            // signIn provider name is: credentials which is 
             const data = await signIn("credentials", {
                 redirect: false,
                 UserName,
                 Password,
             });
-
+            if (data.status !== 200) {
+                alert(data.error)
+            }
             console.log(data);
         } catch (error) {
             console.log(error);

@@ -7,10 +7,10 @@ export default function Head() {
         Admin Dashboard
       </title>
       <DefaultTags />
-      <link
+      {/*  <link
         rel="preconnect"
         href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700"
-      />
+      /> */}
       {/* <link
         href="assets/plugins/global/plugins.bundle.css"
         rel="preconnect"

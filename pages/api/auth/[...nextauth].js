@@ -16,22 +16,52 @@ export default NextAuth({
 
                 const { UserName, Password } = credentials;
 
-                const user = await adminBook.findOne({ UserName });
-                if (!user) {
+                const res = await adminBook.findOne({ UserName });
+                if (!res) {
                     throw new Error("Invalid Email or Password");
                 }
-                console.log('userDetail', userDetail)
-                const isPasswordMatched = await bcrypt.compare(Password, user.Password);
+                console.log('userDetail', res)
+                const isPasswordMatched = await bcrypt.compare(Password, res.Password);
                 if (!isPasswordMatched) {
                     throw new Error("Invalid Email or Password");
                 }
-                console.log('userDetail passowrd:', user)
-                return user;
+                const userData = await res;
+                console.log('userDetail passowrd:', userData)
+                // return {
+                //     login: user._id.toString(),
+                //     username: user.UserName,
+                //     thumb: user.ThumbImage,
+                //     fullname: user.FullName
+                // }
+                return userData
             },
+
         }),
     ],
-    pages: {
-        signIn: '/admin'
+    callbacks: {
+        async signIn({ user }) {
+            console.log('SignIN:', user)
+            return user;
+        },
+        async session({ session, user, token }) {
+            return session
+        },
     },
-    secret: process.env.JWT_SECRET
+    pages: {
+        signIn: '/login'
+    },
+    // callbacks: {
+    //     async signIn({ user, account, profile, email, credentials }) {
+    //         console.log(user)
+    //         return true
+    //     },
+    //     async redirect({ url, baseUrl }) {
+    //         console.log('fkg')
+    //         return baseUrl
+    //     },
+    //     async session({ session, user, token }) {
+    //         return session
+    //     },
+    // },
+    secret: process.env.NEXTAUTH_SECRET,
 })

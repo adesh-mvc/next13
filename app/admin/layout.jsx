@@ -1,5 +1,7 @@
 "use client"
 
+import React, { useEffect, useState } from 'react';
+
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
 import { SessionProvider } from 'next-auth/react';
@@ -17,15 +19,20 @@ import { Inter } from '@next/font/google'
 const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
+  const [themeMode, setThemeMode] = useState(null);
+  useEffect(() => {
+    setThemeMode('light')
+  })
   var hostUrl = process.env.APP_URI;
   return (
-    <html lang="en" data-bs-theme="light">
+    <html lang="en" data-bs-theme={themeMode}>
 
       <head />
 
       <Script src={`assets/plugins/global/plugins.bundle.js`} />
       <Script src={`assets/js/scripts.bundle.js`} />
-      <body >
+
+      <body>
         <SessionProvider>
           <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
             {/*begin::Main*/}
@@ -55,11 +62,11 @@ export default function RootLayout({ children }) {
 
 
       {/* <Script src={`${process.env.THEME_JS}plugins/custom/fullcalendar/fullcalendar.bundle.js`} /> */}
-      <Script src={`assets/plugins/custom/datatables/datatables.bundle.js`} />
+      {/* <Script src={`assets/plugins/custom/datatables/datatables.bundle.js`} /> */}
       {/*begin::Custom Javascript(used for this page only)*/}
-      <Script src={`assets/js/widgets.bundle.js`}></Script>
-      <Script src={`assets/js/custom/widgets.js`}></Script>
-      <Script src={`assets/js/custom/apps/chat/chat.js `}></Script>
+      {/* <Script src={`assets/js/widgets.bundle.js`}></Script> */}
+      {/*       <Script src={`assets/js/custom/widgets.js`}></Script>
+      <Script src={`assets/js/custom/apps/chat/chat.js `}></Script> */}
       {/* <Script src={'assets/js/custom/utilities/modals/upgrade-plan.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-campaign.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/create-app.js'}></Script>
