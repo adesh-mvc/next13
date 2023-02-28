@@ -4,6 +4,7 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import adminBook from "@/db/models/admin-book";
 import bcrypt from "bcryptjs";
 import connectDb from "@/db/config";
+import { parse } from "graphql";
 
 export default NextAuth({
     session: {
@@ -11,6 +12,8 @@ export default NextAuth({
     },
     providers: [
         CredentialsProvider({
+            // id: "domain-login",
+            // name: "Domain Account",
             async authorize(credentials, req) {
                 connectDb();
 
@@ -25,27 +28,33 @@ export default NextAuth({
                 if (!isPasswordMatched) {
                     throw new Error("Invalid Email or Password");
                 }
-                const userData = await res;
-                console.log('userDetail passowrd:', userData)
+                //  const userData = await res;
+                // console.log('userDetail passowrd:', res)
+                console.log(typeof res);
                 // return {
                 //     login: user._id.toString(),
                 //     username: user.UserName,
                 //     thumb: user.ThumbImage,
                 //     fullname: user.FullName
                 // }
-                return userData
+                return { id: res._id.toString(), name: res.FullName, email: res.UserName, image: res.ThumbImage, role: 'admin' };
+
             },
 
         }),
     ],
     callbacks: {
-        async signIn({ user }) {
-            console.log('SignIN:', user)
-            return user;
+        async signIn({ user, account, profile, email, credentials }) {
+            console.log(profile)
+            return true
         },
-        async session({ session, user, token }) {
+        async session({ session, token, user }) {
+            // Send properties to the client, like an access_token and user id from a provider.
+            session.accessToken = token.accessToken
+            session.user.id = token.id
+
             return session
-        },
+        }
     },
     pages: {
         signIn: '/login'

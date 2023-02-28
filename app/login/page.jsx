@@ -3,25 +3,30 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
     const [UserName, setUsername] = useState("");
     const [Password, setPassword] = useState("");
-
+    // const [LoginRole, setRole] = useState('admin');
+    const router = useRouter();
+    console.log('router query:', router)
     const submitHandler = async (e) => {
         e.preventDefault();
 
         try {
             // signIn provider name is: credentials which is 
-            const data = await signIn("credentials", {
+            const result = await signIn("credentials", {
                 redirect: false,
                 UserName,
-                Password,
+                Password
             });
-            if (data.status !== 200) {
-                alert(data.error)
+            if (result?.error) {
+                alert(result.error)
+            } else {
+
             }
-            console.log(data);
+            console.log(result);
         } catch (error) {
             console.log(error);
         }

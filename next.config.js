@@ -17,7 +17,7 @@ const nextConfig = {
   env: {
     THEME_IMAGE: "/assets/media/",
     THEME_JS: "http://localhost:3000/assets/",
-    JWT_SECRET: "mojoinnovative",
+
   }
 }
 module.exports = nextConfig;
