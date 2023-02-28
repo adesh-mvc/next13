@@ -44,6 +44,19 @@ export default NextAuth({
         }),
     ],
     callbacks: {
+        async jwt(params) {
+            console.log("params", params)
+            //update token
+            if (params.user?.role) {
+                params.token.role = params.user.role;
+            }
+            if (params.account) {
+                params.token.accessToken = params.account.providerAccountId
+                // token.id = profile.id
+            }
+            console.log("params", params.token)
+            return params.token
+        },
         async signIn({ user, account, profile, email, credentials }) {
             console.log(profile)
             return true
