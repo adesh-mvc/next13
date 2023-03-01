@@ -4,9 +4,9 @@ import { useSession, signOut } from "next-auth/react";
 import Image from "next/image";
 export default function Header() {
     const { data, status } = useSession();
-    // if (data == null) {
-
-    // }
+    if (data === "data") {
+        return "Loading or not authenticated..."
+    }
     console.log('session header:', data)
     return (
         <>

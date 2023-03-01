@@ -61,13 +61,13 @@ export default NextAuth({
             console.log(profile)
             return true
         },
-        async session({ session, token, user }) {
-            // Send properties to the client, like an access_token and user id from a provider.
-            session.accessToken = token.accessToken
-            session.user.id = token.id
+        // async session({ session, token, user }) {
+        //     // Send properties to the client, like an access_token and user id from a provider.
+        //     session.accessToken = token.accessToken
+        //     session.user.id = token.id
 
-            return session
-        }
+        //     return session
+        // }
     },
     pages: {
         signIn: '/login'

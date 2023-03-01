@@ -3,14 +3,13 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
     const [UserName, setUsername] = useState("");
     const [Password, setPassword] = useState("");
-    // const [LoginRole, setRole] = useState('admin');
+
     const router = useRouter();
-    console.log('router query:', router)
     const submitHandler = async (e) => {
         e.preventDefault();
 
@@ -24,7 +23,7 @@ const Login = () => {
             if (result?.error) {
                 alert(result.error)
             } else {
-
+                router.push('/admin');
             }
             console.log(result);
         } catch (error) {

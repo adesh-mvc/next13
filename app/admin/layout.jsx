@@ -33,31 +33,31 @@ export default function RootLayout({ children }) {
       <Script src={`assets/js/scripts.bundle.js`} />
 
       <body>
-        <SessionProvider>
-          <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
-            {/*begin::Main*/}
-            {/*begin::Root*/}
-            <div className="d-flex flex-column flex-root">
-              {/*begin::Page*/}
-              <div className="page d-flex flex-row flex-column-fluid">
-                {/*begin::Wrapper*/}
-                <div
-                  className="wrapper d-flex flex-column flex-row-fluid"
-                  id="kt_wrapper"
-                >
-                  <Header />
-                  <Toolbar />
-                  {children}
-                  <Footer />
-                </div>
-                {/*end::Wrapper*/}
+
+        <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
+          {/*begin::Main*/}
+          {/*begin::Root*/}
+          <div className="d-flex flex-column flex-root">
+            {/*begin::Page*/}
+            <div className="page d-flex flex-row flex-column-fluid">
+              {/*begin::Wrapper*/}
+              <div
+                className="wrapper d-flex flex-column flex-row-fluid"
+                id="kt_wrapper"
+              >
+                <Header />
+                <Toolbar />
+                {children}
+                <Footer />
               </div>
-              {/*end::Page*/}
+              {/*end::Wrapper*/}
             </div>
-            {/*end::Root*/}
-            {/*  <OtherElements /> */}
+            {/*end::Page*/}
           </div>
-        </SessionProvider>
+          {/*end::Root*/}
+          {/*  <OtherElements /> */}
+        </div>
+
       </body>
 
 
