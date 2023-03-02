@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import { useSession, signOut } from "next-auth/react";
-import MenuWrapper from "./common/TabWrapper";
 import Image from "next/image";
 export default function Header() {
     const { data, status } = useSession();
@@ -48,7 +47,7 @@ export default function Header() {
                             </button>
                             {/*end::Heaeder navs toggle*/}
                             {/*begin::Logo*/}
-                            <Link href="/" className="d-flex align-items-center">
+                            <a href="/" className="d-flex align-items-center">
 
                                 <Image
                                     alt="Logo"
@@ -57,10 +56,73 @@ export default function Header() {
                                     width={70}
                                     height={70}
                                 />
-                            </Link>
+                            </a>
                             {/*end::Logo*/}
                             {/*begin::Tabs wrapper*/}
-                            <MenuWrapper />
+                            <div
+                                className="align-self-end overflow-auto"
+                                id="kt_brand_tabs"
+                            >
+                                {/*begin::Header tabs wrapper*/}
+                                <div
+                                    className="header-tabs overflow-auto mx-4 ms-lg-10 mb-5 mb-lg-0"
+                                    id="kt_header_tabs"
+                                    data-kt-swapper="true"
+                                    data-kt-swapper-mode="prepend"
+                                    data-kt-swapper-parent="{default: '#kt_header_navs_wrapper', lg: '#kt_brand_tabs'}"
+                                >
+                                    {/*begin::Header tabs*/}
+                                    <ul className="nav flex-nowrap text-nowrap">
+                                        <li className="nav-item">
+                                            <a
+                                                className="nav-link active"
+                                                data-bs-toggle="tab"
+                                                href="#kt_header_navs_tab_1"
+                                            >
+                                                Features
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a
+                                                className="nav-link"
+                                                data-bs-toggle="tab"
+                                                href="#kt_header_navs_tab_2"
+                                            >
+                                                Forms
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a
+                                                className="nav-link"
+                                                data-bs-toggle="tab"
+                                                href="#kt_header_navs_tab_3"
+                                            >
+                                                Applications
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a
+                                                className="nav-link"
+                                                data-bs-toggle="tab"
+                                                href="#kt_header_navs_tab_4"
+                                            >
+                                                Reports
+                                            </a>
+                                        </li>
+                                        <li className="nav-item">
+                                            <a
+                                                className="nav-link"
+                                                data-bs-toggle="tab"
+                                                href="#kt_header_navs_tab_5"
+                                            >
+                                                Help
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    {/*begin::Header tabs*/}
+                                </div>
+                                {/*end::Header tabs wrapper*/}
+                            </div>
                             {/*end::Tabs wrapper*/}
                         </div>
                         {/*end::Brand*/}

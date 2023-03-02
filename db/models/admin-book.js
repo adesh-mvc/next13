@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
-// const { Schema } = mongoose;
+const { Schema } = mongoose;
 
 mongoose.Promise = global.Promise;
 
-const AdminSchema = new mongoose.Schema({
+const AdminSchema = new Schema({
     FullName: {
         type: String,
         trim: true
@@ -28,10 +28,14 @@ const AdminSchema = new mongoose.Schema({
     ThumbImage: {
         type: String,
         trim: true
+    },
+    Role: {
+        type: String,
+        default: 'superadmin'
     }
 
 });
-// AdminSchema.pre('save', () => console.log('Hello from pre save'));
+
 AdminSchema.pre("save", async function (next) {
     console.log("Password Hash:", this.Password)
     if (!this.isModified("Password")) {

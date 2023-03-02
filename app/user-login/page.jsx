@@ -20,13 +20,12 @@ const Login = () => {
             const result = await signIn("credentials", {
                 redirect: false,
                 UserName,
-                Password,
-                Role: 'superadmin'
+                Password
             });
             if (result?.error) {
                 alert(result.error)
             } else {
-
+                setLogin(true);
                 router.push('/admin');
             }
             // console.log(result);

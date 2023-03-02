@@ -17,27 +17,23 @@ export default NextAuth({
             async authorize(credentials, req) {
                 connectDb();
 
-                const { UserName, Password } = credentials;
+                const { UserName, Password, Role } = credentials;
+                var res = '';
+                // where login Super admin  as master panel
+                if (Role === 'superadmin') {
+                    res = await adminBook.findOne({ UserName });
+                }
 
-                const res = await adminBook.findOne({ UserName });
                 if (!res) {
                     throw new Error("Invalid Email or Password");
                 }
-                console.log('userDetail', res)
+                // console.log('userDetail', res)
                 const isPasswordMatched = await bcrypt.compare(Password, res.Password);
                 if (!isPasswordMatched) {
                     throw new Error("Invalid Email or Password");
                 }
-                //  const userData = await res;
-                // console.log('userDetail passowrd:', res)
-                console.log(typeof res);
-                // return {
-                //     login: user._id.toString(),
-                //     username: user.UserName,
-                //     thumb: user.ThumbImage,
-                //     fullname: user.FullName
-                // }
-                return { id: res._id.toString(), name: res.FullName, email: res.UserName, image: res.ThumbImage, role: 'admin' };
+
+                return { id: res._id.toString(), name: res.FullName, email: res.UserName, image: res.ThumbImage, role: Role };
 
             },
 
@@ -45,7 +41,7 @@ export default NextAuth({
     ],
     callbacks: {
         async jwt(params) {
-            console.log("params", params)
+
             //update token
             if (params.user?.role) {
                 params.token.role = params.user.role;
@@ -70,6 +66,7 @@ export default NextAuth({
         // }
     },
     pages: {
+        signIn: '/user-login',
         signIn: '/login'
     },
     // callbacks: {
