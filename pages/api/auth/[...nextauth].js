@@ -8,7 +8,9 @@ import { parse } from "graphql";
 
 export default NextAuth({
     session: {
-        strategy: "jwt"
+        strategy: "jwt",
+        maxAge: 60 * 15, // 30 days
+        updateAge: 60 * 7, // 24 hours
     },
     providers: [
         CredentialsProvider({
@@ -57,30 +59,27 @@ export default NextAuth({
             console.log(profile)
             return true
         },
-        // async session({ session, token, user }) {
-        //     // Send properties to the client, like an access_token and user id from a provider.
-        //     session.accessToken = token.accessToken
-        //     session.user.id = token.id
+        async session({ session, token, user }) {
+            // Send properties to the client, like an access_token and user id from a provider.
+            // if (token) {
+            //     session.user.email = token.email;
+            //     session.user.username = token.userName;
+            //     session.user.accessToken = token.accessToken;
+            // }
 
-        //     return session
-        // }
+            return session
+        }
     },
     pages: {
         signIn: '/user-login',
         signIn: '/login'
     },
-    // callbacks: {
-    //     async signIn({ user, account, profile, email, credentials }) {
-    //         console.log(user)
-    //         return true
-    //     },
-    //     async redirect({ url, baseUrl }) {
-    //         console.log('fkg')
-    //         return baseUrl
-    //     },
-    //     async session({ session, user, token }) {
-    //         return session
-    //     },
-    // },
+    theme: {
+        colorScheme: "light", // "auto" | "dark" | "light"
+        brandColor: "", // Hex color code
+        logo: "", // Absolute URL to image
+        buttonText: "" // Hex color code
+    },
+
     secret: process.env.NEXTAUTH_SECRET,
 })

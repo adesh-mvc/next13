@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
-import { SessionProvider } from 'next-auth/react';
+
 
 
 // import KTApp from '@/public/assets/js/KTApp';
@@ -29,8 +29,8 @@ export default function RootLayout({ children }) {
 
       <head />
 
-      <Script src={`assets/plugins/global/plugins.bundle.js`} />
-      <Script src={`assets/js/scripts.bundle.js`} />
+      <Script src={`/assets/plugins/global/plugins.bundle.js`} />
+      <Script src={`/assets/js/scripts.bundle.js`} />
 
       <body>
 
@@ -59,7 +59,7 @@ export default function RootLayout({ children }) {
         </div>
 
       </body>
-
+      {/* <Script src={`${process.env.NEXTAUTH_URL}/assets/plugins/custom/datatables/datatables.bundle.js`} /> */}
 
       {/* <Script src={`${process.env.THEME_JS}plugins/custom/fullcalendar/fullcalendar.bundle.js`} /> */}
       {/* <Script src={`assets/plugins/custom/datatables/datatables.bundle.js`} /> */}
