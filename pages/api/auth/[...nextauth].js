@@ -4,9 +4,9 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import adminBook from "@/db/models/admin-book";
 import bcrypt from "bcryptjs";
 import connectDb from "@/db/config";
-import { parse } from "graphql";
 
-export default NextAuth({
+
+export const AuthOptions = {
     session: {
         strategy: "jwt",
         maxAge: 60 * 15, // 30 days
@@ -82,4 +82,7 @@ export default NextAuth({
     },
 
     secret: process.env.NEXTAUTH_SECRET,
-})
+};
+
+
+export default NextAuth(AuthOptions);

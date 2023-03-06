@@ -63,3 +63,34 @@ const resolvers = {
 
 
 module.exports = resolvers
+
+
+mutation($input: ItemInsert){
+    newItem(input: $input) {
+        ItemType
+      Items {
+            RenderOrder
+            Title
+        }
+    }
+}
+
+
+{
+    "input": {
+        "ItemType": "Technology",
+            "Items": [{
+                "RenderOrder": 1,
+                "Title": "Knowledge"
+            },
+            {
+                "RenderOrder": 3,
+                "Title": "Equipment"
+            },
+            {
+                "RenderOrder": 2,
+                "Title": "Change"
+            }
+            ]
+    }
+}

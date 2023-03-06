@@ -19,10 +19,11 @@ import { Inter } from '@next/font/google'
 const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
-  const [themeMode, setThemeMode] = useState(null);
-  useEffect(() => {
-    setThemeMode('light')
-  })
+  const thtmeMode = 'light';
+  // const [themeMode, setThemeMode] = useState('light');
+  // useEffect(() => {
+  //   setThemeMode('light')
+  // })
   var hostUrl = process.env.APP_URI;
   return (
     <html lang="en" data-bs-theme={themeMode}>

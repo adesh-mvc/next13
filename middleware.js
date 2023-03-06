@@ -22,7 +22,7 @@ export default withAuth(
     }
 )
 
-export const config = { matcher: ["/user", "/users/:path*", "/admin",] }
+export const config = { matcher: ["/user", "/admin/:path*"] }
 
 // https://reacthustle.com/blog/nextjs-setup-role-based-authentication
 // https://www.mongodb.com/developer/products/atlas/crud-operations-with-graphql//
