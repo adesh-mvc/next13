@@ -19,19 +19,19 @@ import { Inter } from '@next/font/google'
 const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
 
 export default function RootLayout({ children }) {
-  const thtmeMode = 'light';
-  // const [themeMode, setThemeMode] = useState('light');
-  // useEffect(() => {
-  //   setThemeMode('light')
-  // })
-  var hostUrl = process.env.APP_URI;
+
+  const [themeMode, setThemeMode] = useState(null);
+  useEffect(() => {
+    setThemeMode('light')
+  }, [])
+
   return (
     <html lang="en" data-bs-theme={themeMode}>
 
       <head />
-
       <Script src={`/assets/plugins/global/plugins.bundle.js`} />
       <Script src={`/assets/js/scripts.bundle.js`} />
+
 
       <body>
 

@@ -3,6 +3,7 @@ import { gql } from "graphql-tag";
 
 const typeDefs = gql`
     type CommonItem{
+        id:ID
         ItemType: String,
         Items:[subItem]
     }
