@@ -1,15 +1,19 @@
 
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
-const MenuWrapper = () => {
+const MenuWrapper = (currentPath) => {
     const router = useRouter();
     const path = usePathname();
-
+    console.log("router", currentPath);
+    console.log(currentPath.renderPath)
+    // if ('/admin/products' === renderPath) {
+    //     console.log('active route product');
+    // }
     const menuHandler = (event) => {
         event.preventDefault();
         if (event.target.hasAttribute('data-link')) {
             const url = event.target.getAttribute('data-link');
-            console.log('as path', path)
+            console.log('as path', url)
             router.push(url)
         } else {
             router.push('/admin')
@@ -34,11 +38,11 @@ const MenuWrapper = () => {
                     {/*begin::Header tabs*/}
                     <ul className="nav flex-nowrap text-nowrap">
                         <li className="nav-item">
-                            <Link onClick={menuHandler}
+                            <Link
 
-                                className="nav-link active"
-                                data-bs-toggle="tab"
-                                href="#kt_header_navs_tab_1"
+                                className={`nav-link ${currentPath.renderPath == '/admin' ? 'active' : ''}`}
+                                /* data-bs-toggle="tab" */
+                                href="/admin"
                             >
                                 Features
                             </Link>
@@ -46,7 +50,7 @@ const MenuWrapper = () => {
 
 
                         <li className="nav-item">
-                            <Link onClick={menuHandler}
+                            <Link
 
                                 className="nav-link"
                                 data-bs-toggle="tab"
@@ -56,7 +60,7 @@ const MenuWrapper = () => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={menuHandler}
+                            <Link
 
                                 className="nav-link"
                                 data-bs-toggle="tab"
@@ -66,13 +70,23 @@ const MenuWrapper = () => {
                             </Link>
                         </li>
                         <li className="nav-item">
-                            <Link onClick={menuHandler}
+                            <Link
                                 data-link="/admin/users"
-                                className="nav-link"
-                                data-bs-toggle="tab"
-                                href="#cd_header_navs_users"
+                                className={`nav-link ${currentPath.renderPath == `/admin/users` ? 'active' : ``}`}
+                                /*  data-bs-toggle="tab" */
+                                href="/admin/users"
                             >
                                 Users
+                            </Link>
+                        </li>
+                        <li className="nav-item">
+                            <Link
+                                data-link="/admin/products"
+                                className={`nav-link ${currentPath.renderPath == `/admin/products` ? 'active' : ``}`}
+                                /*  data-bs-toggle="tab" */
+                                href="/admin/products"
+                            >
+                                Product
                             </Link>
                         </li>
                     </ul>

@@ -1,11 +1,15 @@
 import Link from "next/link";
 import React from "react";
+import { usePathname } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import MenuWrapper from "./common/MenuWrapper";
 import MenuWrapperItems from "./common/MenuWrapperItems";
 import Image from "next/image";
 export default function Header() {
+    const path = usePathname();
     const { data, status } = useSession();
+    console.log('header:', path.split('/'))
+
     if (data === "data") {
         return "Loading or not authenticated..."
     }
@@ -61,7 +65,7 @@ export default function Header() {
                             </Link>
                             {/*end::Logo*/}
                             {/*begin::Tabs wrapper*/}
-                            <MenuWrapper />
+                            <MenuWrapper renderPath={path} />
                             {/*end::Tabs wrapper*/}
                         </div>
                         {/*end::Brand*/}
@@ -2151,10 +2155,10 @@ export default function Header() {
                                     {/*begin::Name*/}
                                     <div className="d-none d-md-flex flex-column align-items-end justify-content-center me-2 me-md-4">
                                         <span className="text-white opacity-75 fs-8 fw-semibold lh-1 mb-1">
-                                            Max
+                                            {data?.user.name}
                                         </span>
                                         <span className="text-white fs-8 fw-bold lh-1">
-                                            UX Designer
+                                            {data?.user.email}
                                         </span>
                                     </div>
                                     {/*end::Name*/}
@@ -2354,10 +2358,11 @@ export default function Header() {
                 </div>
                 {/*end::Header top*/}
                 {/*begin::Header navs*/}
-                <MenuWrapperItems />
+                <MenuWrapperItems renderPath={path} />
                 {/*end::Header navs*/}
             </div>
             {/*end::Header*/}
         </>
     );
 }
+

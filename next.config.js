@@ -4,7 +4,7 @@ const nextConfig = {
   experimental: {
     appDir: true,
     // nextScriptWorkers: true,
-    // topLevelAwait: true
+    topLevelAwait: true
 
   },
   webpack: (

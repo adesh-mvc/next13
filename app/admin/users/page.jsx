@@ -1,5 +1,5 @@
 import { getUsers } from "@/lib/UserApiData";
-import { DataTable, TableHeader } from "./UserDataTable";
+import { DataTable } from "./UserDataTable";
 const userList = async () => {
     const data = await getUsers();
 
@@ -13,7 +13,9 @@ const userList = async () => {
                     <div className="card">
 
                         <DataTable
+
                             data={data}
+
                         />
 
                         {/*end::Card body*/}

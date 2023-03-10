@@ -462,15 +462,15 @@ export function DataTable(props) {
                                         <div className="symbol symbol-circle symbol-50px overflow-hidden me-3">
                                             <a href="javascript:void(0)">
                                                 <div className="symbol-label">
-                                                    <img src="../../../assets/media/avatars/300-13.jpg" alt={user.name} className="w-100" />
+                                                    <img src={user.thumbnailUrl} alt={user.title} className="w-100" />
                                                 </div>
                                             </a>
                                         </div>
                                         {/*end::Avatar*/}
                                         {/*begin::User details*/}
                                         <div className="d-flex flex-column">
-                                            <a href="javascript:void0()" className="text-gray-800 text-hover-primary mb-1">{user.name}</a>
-                                            <span>{user.email}</span>
+                                            <a href="javascript:void0()" className="text-gray-800 text-hover-primary mb-1">{user.title}</a>
+                                            <span>{user.albumId}</span>
                                         </div>
                                         {/*begin::User details*/}
                                     </td>

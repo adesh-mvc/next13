@@ -1,5 +1,5 @@
 import Link from "next/link";
-const MenuWrapperItems = () => {
+const MenuWrapperItems = (currentPath) => {
     return (
         <>
             <div
@@ -33,7 +33,7 @@ const MenuWrapperItems = () => {
                         >
                             {/*begin::Tab panel*/}
                             <div
-                                className="tab-pane fade active show"
+                                className={`tab-pane fade ${currentPath.renderPath == `/admin` ? 'active show' : ``}`}
                                 id="kt_header_navs_tab_1"
                             >
                                 {/*begin::Menu wrapper*/}
@@ -1616,7 +1616,7 @@ const MenuWrapperItems = () => {
                             {/*end::Tab panel*/}
 
                             {/*begin::Tab panel*/}
-                            <div className="tab-pane fade" id="kt_header_navs_tab_4">
+                            <div className={`tab-pane fade`} id="kt_header_navs_tab_4">
                                 {/*begin::Wrapper*/}
                                 <div className="d-flex flex-column flex-lg-row flex-lg-stack flex-wrap gap-2 px-4 px-lg-0">
                                     <div className="d-flex flex-column flex-lg-row gap-2">
@@ -1683,7 +1683,42 @@ const MenuWrapperItems = () => {
                             {/*end::Tab panel*/}
 
                             {/*begin::Tab panel*/}
-                            <div className="tab-pane fade" id="cd_header_navs_users">
+                            <div className={`tab-pane fade ${currentPath.renderPath == `/admin/users` ? 'active show' : ``}`} id="cd_header_navs_users">
+                                {/*begin::Wrapper*/}
+                                <div className="d-flex flex-column flex-lg-row flex-lg-stack flex-wrap gap-2 px-4 px-lg-0">
+                                    <div className="d-flex flex-column flex-lg-row gap-2">
+                                        <Link
+                                            className="btn btn-sm btn-light-primary fw-bold"
+                                            href="javascript: void(0)"
+                                        >
+                                            User List
+                                        </Link>
+                                        <Link
+                                            className="btn btn-sm btn-light-success fw-bold"
+                                            href="javascript: void(0)"
+                                        >
+                                            Add New User
+                                        </Link>
+                                        <Link
+                                            className="btn btn-sm btn-light-danger fw-bold"
+                                            href="javascript: void(0)"
+                                        >
+                                            Layout Builder
+                                        </Link>
+                                    </div>
+                                    <div className="d-flex flex-column flex-lg-row gap-2">
+                                        <Link
+                                            className="btn btn-sm btn-light-info fw-bold"
+                                            href="javascript: void(0)"
+                                        >
+                                            Admin Users
+                                        </Link>
+                                    </div>
+
+                                </div>
+                                {/*end::Wrapper*/}
+                            </div>
+                            <div className={`tab-pane fade ${currentPath.renderPath == `/admin/products` ? 'active show' : ``}`} id="cd_header_navs_product">
                                 {/*begin::Wrapper*/}
                                 <div className="d-flex flex-column flex-lg-row flex-lg-stack flex-wrap gap-2 px-4 px-lg-0">
                                     <div className="d-flex flex-column flex-lg-row gap-2">
