@@ -1,25 +1,24 @@
 
 import Link from "next/link";
-import { useRouter, usePathname } from "next/navigation";
-const MenuWrapper = (currentPath) => {
-    const router = useRouter();
-    const path = usePathname();
-    console.log("router", currentPath);
-    console.log(currentPath.renderPath)
-    // if ('/admin/products' === renderPath) {
-    //     console.log('active route product');
-    // }
-    const menuHandler = (event) => {
-        event.preventDefault();
-        if (event.target.hasAttribute('data-link')) {
-            const url = event.target.getAttribute('data-link');
-            console.log('as path', url)
-            router.push(url)
-        } else {
-            router.push('/admin')
-        }
 
-    }
+const MenuWrapper = (currentPath) => {
+    console.log("renderPath", currentPath.renderPath)
+    // const router = useRouter();
+
+    // console.log("router", currentPath);
+    // console.log(currentPath.renderPath)
+
+    // const menuHandler = (event) => {
+    //     event.preventDefault();
+    //     if (event.target.hasAttribute('data-link')) {
+    //         const url = event.target.getAttribute('data-link');
+    //         console.log('as path', url)
+    //         router.push(url)
+    //     } else {
+    //         router.push('/admin')
+    //     }
+
+    // }
 
     return (
         <>
@@ -40,7 +39,7 @@ const MenuWrapper = (currentPath) => {
                         <li className="nav-item">
                             <Link
 
-                                className={`nav-link ${currentPath.renderPath == '/admin' ? 'active' : ''}`}
+                                className={`nav-link ${currentPath.renderPath.length == 2 && currentPath.renderPath.indexOf('admin') !== -1 ? 'active' : ''}`}
                                 /* data-bs-toggle="tab" */
                                 href="/admin"
                             >
@@ -72,9 +71,9 @@ const MenuWrapper = (currentPath) => {
                         <li className="nav-item">
                             <Link
                                 data-link="/admin/users"
-                                className={`nav-link ${currentPath.renderPath == `/admin/users` ? 'active' : ``}`}
+                                className={`nav-link ${currentPath.renderPath.indexOf('users') !== -1 ? 'active' : ``}`}
                                 /*  data-bs-toggle="tab" */
-                                href="/admin/users"
+                                href="/admin/users/list"
                             >
                                 Users
                             </Link>
@@ -82,9 +81,9 @@ const MenuWrapper = (currentPath) => {
                         <li className="nav-item">
                             <Link
                                 data-link="/admin/products"
-                                className={`nav-link ${currentPath.renderPath == `/admin/products` ? 'active' : ``}`}
+                                className={`nav-link ${currentPath.renderPath.indexOf('products') !== -1 ? 'active' : ``}`}
                                 /*  data-bs-toggle="tab" */
-                                href="/admin/products"
+                                href="/admin/products/list"
                             >
                                 Product
                             </Link>

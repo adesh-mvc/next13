@@ -1,11 +1,9 @@
 import { withAuth } from "next-auth/middleware"
-import { NextResponse } from "next/server";
-
+import { NextResponse } from "next/server"
 
 export default withAuth(
     // `withAuth` augments your `Request` with the user's token.
     function middleware(req) {
-
         console.log('pathName:', req.nextUrl.pathname)
         const { pathname } = req.nextUrl;
         let cookie = req.cookies.get('nextjs')?.value
@@ -37,7 +35,7 @@ export default withAuth(
     }
 )
 
-export const config = { matcher: ["/admin"] }
+export const config = { matcher: ["/user", "/admin/:path*", "/users"] }
 
 // https://reacthustle.com/blog/nextjs-setup-role-based-authentication
 // https://www.mongodb.com/developer/products/atlas/crud-operations-with-graphql//

@@ -52,20 +52,26 @@ export const AuthOptions = {
                 params.token.accessToken = params.account.providerAccountId
                 // token.id = profile.id
             }
-            console.log("params", params.token)
+            // console.log("params", params.token)
             return params.token
         },
         async signIn({ user, account, profile, email, credentials }) {
-            console.log(profile)
-            return true
+            /*  const isAllowedToSignIn = true
+             if (isAllowedToSignIn) {
+                 return true
+             } else {
+                 // Return false to display a default error message
+                 return false
+                 // Or you can return a URL to redirect to:
+                 // return '/unauthorized'
+             } */
+            return true;
         },
+
         async session({ session, token, user }) {
             // Send properties to the client, like an access_token and user id from a provider.
-            // if (token) {
-            //     session.user.email = token.email;
-            //     session.user.username = token.userName;
-            //     session.user.accessToken = token.accessToken;
-            // }
+            session.accessToken = token.accessToken
+            session.user.id = token.id
 
             return session
         }

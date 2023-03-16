@@ -1,14 +1,15 @@
 import Link from "next/link";
 import React from "react";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import MenuWrapper from "./common/MenuWrapper";
 import MenuWrapperItems from "./common/MenuWrapperItems";
 import Image from "next/image";
-export default function Header() {
-    const path = usePathname();
+export default function Header({ params }) {
+    const router = useRouter();
+    const adminPath = usePathname().split('/');
     const { data, status } = useSession();
-    console.log('header:', path.split('/'))
+
 
     if (data === "data") {
         return "Loading or not authenticated..."
@@ -65,7 +66,7 @@ export default function Header() {
                             </Link>
                             {/*end::Logo*/}
                             {/*begin::Tabs wrapper*/}
-                            <MenuWrapper renderPath={path} />
+                            <MenuWrapper renderPath={adminPath} />
                             {/*end::Tabs wrapper*/}
                         </div>
                         {/*end::Brand*/}
@@ -2358,7 +2359,7 @@ export default function Header() {
                 </div>
                 {/*end::Header top*/}
                 {/*begin::Header navs*/}
-                <MenuWrapperItems renderPath={path} />
+                <MenuWrapperItems renderPath={adminPath} />
                 {/*end::Header navs*/}
             </div>
             {/*end::Header*/}

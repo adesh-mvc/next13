@@ -1,3 +1,5 @@
+// import { getServerSession } from "next-auth";
+// import { AuthOptions } from "@/pages/api/auth/[...nextauth]";
 export default function Footer() {
     return (
         <>

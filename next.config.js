@@ -3,10 +3,11 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: {
     appDir: true,
-    // nextScriptWorkers: true,
-    topLevelAwait: true
-
+    // skipTrailingSlashRedirect: true,
+    // skipMiddlewareUrlNormalize: true,
+    // runtime: "experimental-edge",
   },
+
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
@@ -18,7 +19,8 @@ const nextConfig = {
     THEME_IMAGE: "/assets/media/",
     THEME_JS: "http://localhost:3000/assets/",
 
-  }
+  },
+
 }
 module.exports = nextConfig;
 /* module.exports = {

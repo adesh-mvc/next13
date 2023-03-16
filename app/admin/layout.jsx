@@ -26,7 +26,7 @@ export default function AdminLayout({ children }) {
   }, [])
 
   return (
-    <html lang="en" data-bs-theme={themeMode}>
+    <html lang="en" >
 
       <head />
       <Script src={`/assets/plugins/global/plugins.bundle.js`} />
@@ -35,7 +35,7 @@ export default function AdminLayout({ children }) {
 
       <body>
 
-        <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed">
+        <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed" data-bs-theme={themeMode}>
           {/*begin::Main*/}
           {/*begin::Root*/}
           <div className="d-flex flex-column flex-root">
