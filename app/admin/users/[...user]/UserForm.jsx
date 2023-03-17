@@ -1,6 +1,230 @@
+"use client";
+
+import { useEffect } from "react";
+
+
+// import "@/public/assets/plugins/custom/formrepeater/formrepeater.bundle.js"
 export default function UserForm() {
+    useEffect(() => {
+        const script = document.createElement('script');
+
+        script.src = "/assets/plugins/custom/formrepeater/formrepeater.bundle.js";
+        script.async = true;
+
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        }
+    }, []);
+    // Init form repeater --- more info: https://github.com/DubFriend/jquery.repeater
+    const initFormRepeater = () => {
+        $('#kt_ecommerce_add_product_options').repeater({
+            initEmpty: false,
+
+            defaultValues: {
+                'text-input': 'foo'
+            },
+
+            show: function () {
+                $(this).slideDown();
+
+                // Init select2 on new repeated items
+                // initConditionsSelect2();
+            },
+
+            hide: function (deleteElement) {
+                $(this).slideUp(deleteElement);
+            }
+        });
+    }
+
+
+    var select2FocusFixInitialized = false;
+    var createSelect2 = function () {
+        // Check if jQuery included
+        if (typeof jQuery == 'undefined') {
+            return;
+        }
+
+        // Check if select2 included
+        if (typeof $.fn.select2 === 'undefined') {
+            return;
+        }
+
+        var elements = [].slice.call(document.querySelectorAll('[data-control="select2"], [data-kt-select2="true"]'));
+
+        elements.map(function (element) {
+            if (element.getAttribute("data-kt-initialized") === "1") {
+                return;
+            }
+
+            var options = {
+                dir: document.body.getAttribute('direction')
+            };
+
+            if (element.getAttribute('data-hide-search') == 'true') {
+                options.minimumResultsForSearch = Infinity;
+            }
+
+            $(element).select2(options);
+
+            element.setAttribute("data-kt-initialized", "1");
+        });
+
+        /*
+        * Hacky fix for a bug in select2 with jQuery 3.6.0's new nested-focus "protection"
+        * see: https://github.com/select2/select2/issues/5993
+        * see: https://github.com/jquery/jquery/issues/4382
+        *
+        * TODO: Recheck with the select2 GH issue and remove once this is fixed on their side
+        */
+
+        if (select2FocusFixInitialized === false) {
+            select2FocusFixInitialized = true;
+
+            $(document).on('select2:open', function (e) {
+                var elements = document.querySelectorAll('.select2-container--open .select2-search__field');
+                if (elements.length > 0) {
+                    elements[elements.length - 1].focus();
+                }
+            });
+        }
+    }
+
+    const handleShipping = () => {
+        alert()
+        // const shippingOption = document.getElementById('kt_ecommerce_add_product_shipping_checkbox');
+        // const shippingForm = document.getElementById('kt_ecommerce_add_product_shipping');
+
+        // shippingOption.addEventListener('change', e => {
+        //     const value = e.target.checked;
+
+        //     if (value) {
+        //         shippingForm.classList.remove('d-none');
+        //     } else {
+        //         shippingForm.classList.add('d-none');
+        //     }
+        // });
+    }
+    // Init condition select2
+    const initConditionsSelect2 = () => {
+
+        // alert('Tnit new repeating condition types')
+        // Tnit new repeating condition types
+        const allConditionTypes = document.querySelectorAll('[data-kt-ecommerce-catalog-add-product="product_option"]');
+        console.log("allConditionTypes:", allConditionTypes);
+        allConditionTypes.forEach(type => {
+            if ($(type).hasClass("select2-hidden-accessible")) {
+                return;
+            } else {
+                $(type).select2({
+                    minimumResultsForSearch: -1
+                });
+            }
+        });
+    }
+    // Category status handler
+    const handleStatus = () => {
+        const target = document.getElementById('kt_ecommerce_add_product_status');
+        const select = document.getElementById('kt_ecommerce_add_product_status_select');
+        const statusClasses = ['bg-success', 'bg-warning', 'bg-danger'];
+
+        $(select).on('change', function (e) {
+            const value = e.target.value;
+
+            switch (value) {
+                case "published": {
+                    target.classList.remove(...statusClasses);
+                    target.classList.add('bg-success');
+                    hideDatepicker();
+                    break;
+                }
+                case "scheduled": {
+                    target.classList.remove(...statusClasses);
+                    target.classList.add('bg-warning');
+                    showDatepicker();
+                    break;
+                }
+                case "inactive": {
+                    target.classList.remove(...statusClasses);
+                    target.classList.add('bg-danger');
+                    hideDatepicker();
+                    break;
+                }
+                case "draft": {
+                    target.classList.remove(...statusClasses);
+                    target.classList.add('bg-primary');
+                    hideDatepicker();
+                    break;
+                }
+                default:
+                    break;
+            }
+        });
+
+
+        // Handle datepicker
+        const datepicker = document.getElementById('kt_ecommerce_add_product_status_datepicker');
+
+        // Init flatpickr --- more info: https://flatpickr.js.org/
+        $('#kt_ecommerce_add_product_status_datepicker').flatpickr({
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+        });
+
+        const showDatepicker = () => {
+            datepicker.parentNode.classList.remove('d-none');
+        }
+
+        const hideDatepicker = () => {
+            datepicker.parentNode.classList.add('d-none');
+        }
+    }
+    function initDropzones() {
+        $('.dropzone').each(function () {
+
+            let dropzoneControl = $(this)[0].dropzone;
+            if (dropzoneControl) {
+                dropzoneControl.destroy();
+            }
+        });
+    }
+    // Init DropzoneJS --- more info:
+    const initDropzone = () => {
+        //     Dropzone.options.someDropzone = {
+        //         url: "/file/post"
+        //       };
+        var myDropzone = new Dropzone("#kt_ecommerce_add_product_media", {
+            url: `${process.env.NEXTAUTH_URL}/void.php`, // Set the url for your upload script location
+            paramName: "file", // The name that will be used to transfer the file
+            maxFiles: 10,
+            maxFilesize: 10, // MB
+            addRemoveLinks: true,
+            accept: function (file, done) {
+                if (file.name == "wow.jpg") {
+                    // done("Naha, you don't.");
+                } else {
+                    // done();
+                }
+            }
+        });
+    }
+    useEffect(() => {
+        createSelect2();
+        initConditionsSelect2();
+
+        handleStatus();
+        initDropzones();
+        initDropzone();
+        setTimeout(() => {
+            initFormRepeater();
+        }, 500);
+    }, [])
     return (
         <>
+            {/* <Script src={`/assets/plugins/custom/formrepeater/formrepeater.bundle.js`} /> */}
+
             <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">
                 {/*begin::Container*/}
                 <div id="kt_toolbar_container" className=" container-xxl  d-flex flex-stack flex-wrap gap-2">
@@ -170,13 +394,22 @@ export default function UserForm() {
                                 {/*begin::Card body*/}
                                 <div className="card-body pt-0">
                                     {/*begin::Select2*/}
-                                    <select className="form-select mb-2 select2-hidden-accessible" data-control="select2" data-hide-search="true" data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" data-select2-id="select2-data-kt_ecommerce_add_product_status_select" tabIndex={-1} aria-hidden="true" data-kt-initialized={1}>
+
+                                    <select
+                                        className="form-select mb-2"
+                                        data-control="select2"
+                                        data-hide-search="true"
+                                        data-placeholder="Select an option"
+                                        id="kt_ecommerce_add_product_status_select"
+                                    >
                                         <option />
-                                        <option value="published" selected data-select2-id="select2-data-8-c4fi">Published</option>
+                                        <option value="published" selected="">
+                                            Published
+                                        </option>
                                         <option value="draft">Draft</option>
                                         <option value="scheduled">Scheduled</option>
                                         <option value="inactive">Inactive</option>
-                                    </select><span className="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-7-6ju6" style={{ width: '100%' }}><span className="selection"><span className="select2-selection select2-selection--single form-select mb-2" role="combobox" aria-haspopup="true" aria-expanded="false" tabIndex={0} aria-disabled="false" aria-labelledby="select2-kt_ecommerce_add_product_status_select-container" aria-controls="select2-kt_ecommerce_add_product_status_select-container"><span className="select2-selection__rendered" id="select2-kt_ecommerce_add_product_status_select-container" role="textbox" aria-readonly="true" title="Published">Published</span><span className="select2-selection__arrow" role="presentation"><b role="presentation" /></span></span></span><span className="dropdown-wrapper" aria-hidden="true" /></span>
+                                    </select>
                                     {/*end::Select2*/}
                                     {/*begin::Description*/}
                                     <div className="text-muted fs-7">Set the product status.</div>
@@ -651,7 +884,7 @@ export default function UserForm() {
                                         </div>
                                         {/*end::Inventory*/}
                                         {/*begin::Variations*/}
-                                        <div className="card card-flush py-4">
+                                        <div className="card card-flush py-4" data-select2-id="select2-data-152-2rn0">
                                             {/*begin::Card header*/}
                                             <div className="card-header">
                                                 <div className="card-title">
@@ -660,51 +893,190 @@ export default function UserForm() {
                                             </div>
                                             {/*end::Card header*/}
                                             {/*begin::Card body*/}
-                                            <div className="card-body pt-0">
+                                            <div className="card-body pt-0" data-select2-id="select2-data-151-5i3l">
                                                 {/*begin::Input group*/}
-                                                <div className data-kt-ecommerce-catalog-add-product="auto-options">
+                                                <div
+                                                    className=""
+                                                    data-kt-ecommerce-catalog-add-product="auto-options"
+                                                    data-select2-id="select2-data-150-go5e"
+                                                >
                                                     {/*begin::Label*/}
                                                     <label className="form-label">Add Product Variations</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Repeater*/}
-                                                    <div id="kt_ecommerce_add_product_options">
+                                                    <div
+                                                        id="kt_ecommerce_add_product_options"
+                                                        data-select2-id="select2-data-kt_ecommerce_add_product_options"
+                                                    >
                                                         {/*begin::Form group*/}
-                                                        <div className="form-group">
-                                                            <div data-repeater-list="kt_ecommerce_add_product_options" className="d-flex flex-column gap-3">
-                                                                <div data-repeater-item className="form-group d-flex flex-wrap align-items-center gap-5">
+                                                        <div className="form-group" data-select2-id="select2-data-149-39rs">
+                                                            <div
+                                                                data-repeater-list="kt_ecommerce_add_product_options"
+                                                                className="d-flex flex-column gap-3"
+                                                                data-select2-id="select2-data-148-jg7i"
+                                                            >
+                                                                <div
+                                                                    data-repeater-item=""
+                                                                    className="form-group d-flex flex-wrap align-items-center gap-5"
+                                                                    style={{}}
+                                                                    data-select2-id="select2-data-147-qtvj"
+                                                                >
                                                                     {/*begin::Select2*/}
-                                                                    <div className="w-100 w-md-200px">
-                                                                        <select className="form-select select2-hidden-accessible" name="kt_ecommerce_add_product_options[0][product_option]" data-placeholder="Select a variation" data-kt-ecommerce-catalog-add-product="product_option" data-select2-id="select2-data-142-84b4" tabIndex={-1} aria-hidden="true">
-                                                                            <option data-select2-id="select2-data-144-e17n" />
-                                                                            <option value="color">Color</option>
-                                                                            <option value="size">Size</option>
-                                                                            <option value="material">Material</option>
-                                                                            <option value="style">Style</option>
-                                                                        </select><span className="select2 select2-container select2-container--bootstrap5" dir="ltr" data-select2-id="select2-data-143-yob2" style={{ width: '100%' }}><span className="selection"><span className="select2-selection select2-selection--single form-select" role="combobox" aria-haspopup="true" aria-expanded="false" tabIndex={0} aria-disabled="false" aria-labelledby="select2-kt_ecommerce_add_product_options0product_option-1w-container" aria-controls="select2-kt_ecommerce_add_product_options0product_option-1w-container"><span className="select2-selection__rendered" id="select2-kt_ecommerce_add_product_options0product_option-1w-container" role="textbox" aria-readonly="true" title="Select a variation"><span className="select2-selection__placeholder">Select a variation</span></span><span className="select2-selection__arrow" role="presentation"><b role="presentation" /></span></span></span><span className="dropdown-wrapper" aria-hidden="true" /></span>
+                                                                    <div
+                                                                        className="w-100 w-md-200px"
+                                                                        data-select2-id="select2-data-146-mkhy"
+                                                                    >
+                                                                        <select
+                                                                            className="form-select select2-hidden-accessible"
+                                                                            name="kt_ecommerce_add_product_options[0][product_option]"
+                                                                            data-placeholder="Select a variation"
+                                                                            data-kt-ecommerce-catalog-add-product="product_option"
+                                                                            data-select2-id="select2-data-142-d74c"
+                                                                            tabIndex={-1}
+                                                                            aria-hidden="true"
+                                                                        >
+                                                                            <option data-select2-id="select2-data-144-93l4" />
+                                                                            <option value="color" data-select2-id="select2-data-159-gchk">
+                                                                                Color
+                                                                            </option>
+                                                                            <option value="size" data-select2-id="select2-data-160-zmbs">
+                                                                                Size
+                                                                            </option>
+                                                                            <option
+                                                                                value="material"
+                                                                                data-select2-id="select2-data-161-4xul"
+                                                                            >
+                                                                                Material
+                                                                            </option>
+                                                                            <option value="style" data-select2-id="select2-data-162-c5gk">
+                                                                                Style
+                                                                            </option>
+                                                                        </select>
+                                                                        <span
+                                                                            className="select2 select2-container select2-container--bootstrap5 select2-container--below"
+                                                                            dir="ltr"
+                                                                            data-select2-id="select2-data-143-fsrd"
+                                                                            style={{ width: "100%" }}
+                                                                        >
+                                                                            <span className="selection">
+                                                                                <span
+                                                                                    className="select2-selection select2-selection--single form-select"
+                                                                                    role="combobox"
+                                                                                    aria-haspopup="true"
+                                                                                    aria-expanded="false"
+                                                                                    tabIndex={0}
+                                                                                    aria-disabled="false"
+                                                                                    aria-labelledby="select2-kt_ecommerce_add_product_options0product_option-dc-container"
+                                                                                    aria-controls="select2-kt_ecommerce_add_product_options0product_option-dc-container"
+                                                                                >
+                                                                                    <span
+                                                                                        className="select2-selection__rendered"
+                                                                                        id="select2-kt_ecommerce_add_product_options0product_option-dc-container"
+                                                                                        role="textbox"
+                                                                                        aria-readonly="true"
+                                                                                        title="Select a variation"
+                                                                                    >
+                                                                                        <span className="select2-selection__placeholder">
+                                                                                            Select a variation
+                                                                                        </span>
+                                                                                    </span>
+                                                                                    <span
+                                                                                        className="select2-selection__arrow"
+                                                                                        role="presentation"
+                                                                                    >
+                                                                                        <b role="presentation" />
+                                                                                    </span>
+                                                                                </span>
+                                                                            </span>
+                                                                            <span className="dropdown-wrapper" aria-hidden="true" />
+                                                                        </span>
                                                                     </div>
                                                                     {/*end::Select2*/}
                                                                     {/*begin::Input*/}
-                                                                    <input type="text" className="form-control mw-100 w-200px" name="kt_ecommerce_add_product_options[0][product_option_value]" placeholder="Variation" />
+                                                                    <input
+                                                                        type="text"
+                                                                        className="form-control mw-100 w-200px"
+                                                                        name="kt_ecommerce_add_product_options[0][product_option_value]"
+                                                                        placeholder="Variation"
+                                                                    />
                                                                     {/*end::Input*/}
-                                                                    <button type="button" data-repeater-delete className="btn btn-sm btn-icon btn-light-danger">
+                                                                    <button
+                                                                        type="button"
+                                                                        data-repeater-delete=""
+                                                                        className="btn btn-sm btn-icon btn-light-danger"
+                                                                    >
                                                                         {/*begin::Svg Icon | path: icons/duotune/arrows/arr088.svg*/}
-                                                                        <span className="svg-icon svg-icon-1"><svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                            <rect opacity="0.5" x="7.05025" y="15.5356" width={12} height={2} rx={1} transform="rotate(-45 7.05025 15.5356)" fill="currentColor" />
-                                                                            <rect x="8.46447" y="7.05029" width={12} height={2} rx={1} transform="rotate(45 8.46447 7.05029)" fill="currentColor" />
-                                                                        </svg></span>
-                                                                        {/*end::Svg Icon*/}                          </button>
+                                                                        <span className="svg-icon svg-icon-1">
+                                                                            <svg
+                                                                                width={24}
+                                                                                height={24}
+                                                                                viewBox="0 0 24 24"
+                                                                                fill="none"
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                            >
+                                                                                <rect
+                                                                                    opacity="0.5"
+                                                                                    x="7.05025"
+                                                                                    y="15.5356"
+                                                                                    width={12}
+                                                                                    height={2}
+                                                                                    rx={1}
+                                                                                    transform="rotate(-45 7.05025 15.5356)"
+                                                                                    fill="currentColor"
+                                                                                />
+                                                                                <rect
+                                                                                    x="8.46447"
+                                                                                    y="7.05029"
+                                                                                    width={12}
+                                                                                    height={2}
+                                                                                    rx={1}
+                                                                                    transform="rotate(45 8.46447 7.05029)"
+                                                                                    fill="currentColor"
+                                                                                />
+                                                                            </svg>
+                                                                        </span>
+                                                                        {/*end::Svg Icon*/}
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         {/*end::Form group*/}
                                                         {/*begin::Form group*/}
                                                         <div className="form-group mt-5">
-                                                            <button type="button" data-repeater-create className="btn btn-sm btn-light-primary">
+                                                            <button
+                                                                type="button"
+                                                                data-repeater-create=""
+                                                                className="btn btn-sm btn-light-primary"
+                                                            >
                                                                 {/*begin::Svg Icon | path: icons/duotune/arrows/arr087.svg*/}
-                                                                <span className="svg-icon svg-icon-2"><svg width={24} height={24} viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                    <rect opacity="0.5" x={11} y={18} width={12} height={2} rx={1} transform="rotate(-90 11 18)" fill="currentColor" />
-                                                                    <rect x={6} y={11} width={12} height={2} rx={1} fill="currentColor" />
-                                                                </svg></span>
+                                                                <span className="svg-icon svg-icon-2">
+                                                                    <svg
+                                                                        width={24}
+                                                                        height={24}
+                                                                        viewBox="0 0 24 24"
+                                                                        fill="none"
+                                                                        xmlns="http://www.w3.org/2000/svg"
+                                                                    >
+                                                                        <rect
+                                                                            opacity="0.5"
+                                                                            x={11}
+                                                                            y={18}
+                                                                            width={12}
+                                                                            height={2}
+                                                                            rx={1}
+                                                                            transform="rotate(-90 11 18)"
+                                                                            fill="currentColor"
+                                                                        />
+                                                                        <rect
+                                                                            x={6}
+                                                                            y={11}
+                                                                            width={12}
+                                                                            height={2}
+                                                                            rx={1}
+                                                                            fill="currentColor"
+                                                                        />
+                                                                    </svg>
+                                                                </span>
                                                                 {/*end::Svg Icon*/} Add another variation
                                                             </button>
                                                         </div>
@@ -732,7 +1104,7 @@ export default function UserForm() {
                                                 <div className="fv-row">
                                                     {/*begin::Input*/}
                                                     <div className="form-check form-check-custom form-check-solid mb-2">
-                                                        <input className="form-check-input" type="checkbox" id="kt_ecommerce_add_product_shipping_checkbox" defaultValue={1} />
+                                                        <input className="form-check-input" type="checkbox" onChange={handleShipping} id="kt_ecommerce_add_product_shipping_checkbox" defaultValue={1} />
                                                         <label className="form-check-label">
                                                             This is a physical product
                                                         </label>

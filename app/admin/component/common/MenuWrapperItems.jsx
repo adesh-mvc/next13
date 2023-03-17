@@ -1683,25 +1683,25 @@ const MenuWrapperItems = (currentPath) => {
                             {/*end::Tab panel*/}
 
                             {/*begin::Tab panel*/}
-                            <div className={`tab-pane fade ${currentPath.renderPath == `/admin/users` ? 'active show' : ``}`} id="cd_header_navs_users">
+                            <div className={`tab-pane fade ${currentPath.renderPath.indexOf('users') !== -1 ? 'active show' : ``}`} id="cd_header_navs_users">
                                 {/*begin::Wrapper*/}
                                 <div className="d-flex flex-column flex-lg-row flex-lg-stack flex-wrap gap-2 px-4 px-lg-0">
                                     <div className="d-flex flex-column flex-lg-row gap-2">
                                         <Link
                                             className="btn btn-sm btn-light-primary fw-bold"
-                                            href="javascript: void(0)"
+                                            href="/admin/users/list"
                                         >
                                             User List
                                         </Link>
                                         <Link
                                             className="btn btn-sm btn-light-success fw-bold"
-                                            href="javascript: void(0)"
+                                            href="/admin/users/add"
                                         >
                                             Add New User
                                         </Link>
                                         <Link
                                             className="btn btn-sm btn-light-danger fw-bold"
-                                            href="javascript: void(0)"
+                                            href="#"
                                         >
                                             Layout Builder
                                         </Link>
@@ -1709,7 +1709,7 @@ const MenuWrapperItems = (currentPath) => {
                                     <div className="d-flex flex-column flex-lg-row gap-2">
                                         <Link
                                             className="btn btn-sm btn-light-info fw-bold"
-                                            href="javascript: void(0)"
+                                            href="#"
                                         >
                                             Admin Users
                                         </Link>
@@ -1718,25 +1718,25 @@ const MenuWrapperItems = (currentPath) => {
                                 </div>
                                 {/*end::Wrapper*/}
                             </div>
-                            <div className={`tab-pane fade ${currentPath.renderPath == `/admin/products` ? 'active show' : ``}`} id="cd_header_navs_product">
+                            <div className={`tab-pane fade ${currentPath.renderPath.indexOf('products') !== -1 ? 'active show' : ``}`} id="cd_header_navs_product">
                                 {/*begin::Wrapper*/}
                                 <div className="d-flex flex-column flex-lg-row flex-lg-stack flex-wrap gap-2 px-4 px-lg-0">
                                     <div className="d-flex flex-column flex-lg-row gap-2">
                                         <Link
                                             className="btn btn-sm btn-light-primary fw-bold"
-                                            href="javascript: void(0)"
+                                            href="#"
                                         >
                                             User List
                                         </Link>
                                         <Link
                                             className="btn btn-sm btn-light-success fw-bold"
-                                            href="javascript: void(0)"
+                                            href="#"
                                         >
                                             Add New User
                                         </Link>
                                         <Link
                                             className="btn btn-sm btn-light-danger fw-bold"
-                                            href="javascript: void(0)"
+                                            href="#"
                                         >
                                             Layout Builder
                                         </Link>
@@ -1744,7 +1744,7 @@ const MenuWrapperItems = (currentPath) => {
                                     <div className="d-flex flex-column flex-lg-row gap-2">
                                         <Link
                                             className="btn btn-sm btn-light-info fw-bold"
-                                            href="javascript: void(0)"
+                                            href="#"
                                         >
                                             Admin Users
                                         </Link>

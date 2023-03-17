@@ -401,7 +401,7 @@ var KTAppEcommerceSaveProduct = function () {
             initConditionsSelect2();
 
             // Handle forms
-            handleStatus();
+            // handleStatus();
             handleConditions();
             handleDiscount();
             handleShipping();

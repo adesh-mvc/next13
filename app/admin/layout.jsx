@@ -7,6 +7,9 @@ import '@/public/assets/css/style.bundle.css';
 
 
 
+
+
+
 // import KTApp from '@/public/assets/js/KTApp';
 // console.log('KTApp:', KTApp)
 import Header from './component/Header';
@@ -22,8 +25,9 @@ export default function AdminLayout({ children }) {
 
   const [themeMode, setThemeMode] = useState(null);
   useEffect(() => {
-    setThemeMode('light')
-  }, [])
+    setThemeMode('light');
+
+  }, []);
 
   return (
     <html lang="en" >
