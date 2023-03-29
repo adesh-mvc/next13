@@ -1,10 +1,26 @@
 "use client";
 
+
 import { useEffect } from "react";
+import client from "@/lib/apollo-client";
+import { gql, useMutation } from "@apollo/client";
 
 
 // import "@/public/assets/plugins/custom/formrepeater/formrepeater.bundle.js"
+
+const submitData = gql`
+mutation ($input: AdminInsert){
+    newAdmin(input: $input){
+        FullName
+        DisplayName
+        UserName
+        Password
+        ThumbImage
+    }
+}
+`
 export default function UserForm() {
+
     useEffect(() => {
         const script = document.createElement('script');
 
@@ -210,6 +226,8 @@ export default function UserForm() {
             }
         });
     }
+
+
     useEffect(() => {
         createSelect2();
         initConditionsSelect2();
@@ -221,8 +239,103 @@ export default function UserForm() {
             initFormRepeater();
         }, 500);
     }, [])
+
+    const fromValidator = () => {
+        const form = document.getElementById('kt_ecommerce_add_product_form');
+        return FormValidation.formValidation(
+            form,
+            {
+                fields: {
+                    'product_name': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product name is required'
+                            }
+                        }
+                    },
+                    // 'sku': {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: 'SKU is required'
+                    //         }
+                    //     }
+                    // },
+                    // 'sku': {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: 'Product barcode is required'
+                    //         }
+                    //     }
+                    // },
+                    // 'shelf': {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: 'Shelf quantity is required'
+                    //         }
+                    //     }
+                    // },
+                    'price': {
+                        validators: {
+                            notEmpty: {
+                                message: 'Product base price is required'
+                            }
+                        }
+                    }
+                    // 'tax': {
+                    //     validators: {
+                    //         notEmpty: {
+                    //             message: 'Product tax class is required'
+                    //         }
+                    //     }
+                    // }
+                },
+                plugins: {
+                    trigger: new FormValidation.plugins.Trigger(),
+                    bootstrap: new FormValidation.plugins.Bootstrap5({
+                        rowSelector: '.fv-row',
+                        eleInvalidClass: '',
+                        eleValidClass: ''
+                    })
+                }
+            }
+        );
+    }
+
+
+    const [newAdmin, { data, loading, error }] = useMutation(submitData, {
+        "input": {
+            "FullName": "CareerDp",
+            "DisplayName": "CARDP",
+            "UserName": "rkp1@gmail.com",
+            "Password": "admin@123",
+            "ThumbImage": "user.png"
+        }
+    });
+    if (loading) return 'Submitting...';
+    if (error) return `Submission error! ${error.message}`;
+    // const [addTodo, { data, loading, error }] = useMutation(ADD_TODO, {
+    //     variables: {
+    //       type: "placeholder",
+    //       someOtherVariable: 1234,
+    //     },
+    //   });
+    const submitHandler = (e) => {
+        e.preventDefault();
+        newAdmin
+        // fromValidator();
+        // newAdmin({
+        //     "input": {
+        //         "FullName": "Ravikant1",
+        //         "DisplayName": "Rkp1",
+        //         "UserName": "rkp1@gmail.com",
+        //         "Password": "admin@123",
+        //         "ThumbImage": "user.png"
+        //     }
+        // });
+    }
     return (
         <>
+            {/* file:///D:/adesh/html/astro/apps/ecommerce/catalog/add-product.html */}
             {/* <Script src={`/assets/plugins/custom/formrepeater/formrepeater.bundle.js`} /> */}
 
             <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">
@@ -323,7 +436,7 @@ export default function UserForm() {
                 {/*begin::Post*/}
                 <div className="content flex-row-fluid" id="kt_content">
                     {/*begin::Form*/}
-                    <form id="kt_ecommerce_add_product_form" className="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" data-kt-redirect="products.html">
+                    <form id="kt_ecommerce_add_product_form" onSubmit={submitHandler} className="form d-flex flex-column flex-lg-row fv-plugins-bootstrap5 fv-plugins-framework" >
                         {/*begin::Aside column*/}
                         <div className="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-300px mb-7 me-lg-10">
                             {/*begin::Thumbnail settings*/}
@@ -572,17 +685,26 @@ export default function UserForm() {
                                             {/*begin::Card body*/}
                                             <div className="card-body pt-0">
                                                 {/*begin::Input group*/}
-                                                <div className="mb-10 fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
+                                                <div className="mb-10 fv-row fv-plugins-icon-container">
                                                     {/*begin::Label*/}
                                                     <label className="required form-label">Product Name</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
-                                                    <input type="text" name="product_name" className="form-control mb-2" placeholder="Product name" defaultValue />
+                                                    <input
+                                                        type="text"
+                                                        name="product_name"
+                                                        className="form-control mb-2"
+                                                        placeholder="Product name"
+                                                        defaultValue=""
+                                                    />
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
-                                                    <div className="text-muted fs-7">A product name is required and recommended to be unique.</div>
+                                                    <div className="text-muted fs-7">
+                                                        A product name is required and recommended to be unique.
+                                                    </div>
                                                     {/*end::Description*/}
-                                                    <div className="fv-plugins-message-container invalid-feedback"><div data-field="product_name" data-validator="notEmpty">Product name is required</div></div></div>
+                                                    <div className="fv-plugins-message-container invalid-feedback" />
+                                                </div>
                                                 {/*end::Input group*/}
                                                 {/*begin::Input group*/}
                                                 <div>
@@ -650,19 +772,24 @@ export default function UserForm() {
                                             {/*end::Card header*/}
                                             {/*begin::Card body*/}
                                             <div className="card-body pt-0">
-                                                {/*begin::Input group*/}
-                                                <div className="mb-10 fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
+                                                <div className="mb-10 fv-row fv-plugins-icon-container">
                                                     {/*begin::Label*/}
                                                     <label className="required form-label">Base Price</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
-                                                    <input type="text" name="price" className="form-control mb-2" placeholder="Product price" defaultValue />
+                                                    <input
+                                                        type="text"
+                                                        name="price"
+                                                        className="form-control mb-2"
+                                                        placeholder="Product price"
+                                                        defaultValue=""
+                                                    />
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
                                                     <div className="text-muted fs-7">Set the product price.</div>
                                                     {/*end::Description*/}
-                                                    <div className="fv-plugins-message-container invalid-feedback"><div data-field="price" data-validator="notEmpty">Product base price is required</div></div></div>
-                                                {/*end::Input group*/}
+                                                    <div className="fv-plugins-message-container invalid-feedback" />
+                                                </div>
                                                 {/*begin::Input group*/}
                                                 <div className="fv-row mb-10">
                                                     {/*begin::Label*/}
@@ -820,46 +947,72 @@ export default function UserForm() {
                                             {/*begin::Card body*/}
                                             <div className="card-body pt-0">
                                                 {/*begin::Input group*/}
-                                                <div className="mb-10 fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
+                                                <div className="mb-10 fv-row fv-plugins-icon-container">
                                                     {/*begin::Label*/}
                                                     <label className="required form-label">SKU</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
-                                                    <input type="text" name="sku" className="form-control mb-2" placeholder="SKU Number" defaultValue />
+                                                    <input
+                                                        type="text"
+                                                        name="sku"
+                                                        className="form-control mb-2"
+                                                        placeholder="SKU Number"
+                                                        defaultValue=""
+                                                    />
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
                                                     <div className="text-muted fs-7">Enter the product SKU.</div>
                                                     {/*end::Description*/}
-                                                    <div className="fv-plugins-message-container invalid-feedback"><div data-field="sku" data-validator="notEmpty">Product barcode is required</div></div></div>
+                                                    <div className="fv-plugins-message-container invalid-feedback" />
+                                                </div>
                                                 {/*end::Input group*/}
                                                 {/*begin::Input group*/}
-                                                <div className="mb-10 fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-invalid">
+                                                <div className="mb-10 fv-row fv-plugins-icon-container">
                                                     {/*begin::Label*/}
                                                     <label className="required form-label">Barcode</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
-                                                    <input type="text" name="sku" className="form-control mb-2" placeholder="Barcode Number" defaultValue />
+                                                    <input
+                                                        type="text"
+                                                        name="sku"
+                                                        className="form-control mb-2"
+                                                        placeholder="Barcode Number"
+                                                        defaultValue=""
+                                                    />
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
                                                     <div className="text-muted fs-7">Enter the product barcode number.</div>
                                                     {/*end::Description*/}
-                                                    <div className="fv-plugins-message-container invalid-feedback"><div data-field="sku" data-validator="notEmpty">Product barcode is required</div></div></div>
+                                                    <div className="fv-plugins-message-container invalid-feedback" />
+                                                </div>
                                                 {/*end::Input group*/}
                                                 {/*begin::Input group*/}
-                                                <div className="mb-10 fv-row fv-plugins-icon-container fv-plugins-bootstrap5-row-valid">
+                                                <div className="mb-10 fv-row fv-plugins-icon-container">
                                                     {/*begin::Label*/}
                                                     <label className="required form-label">Quantity</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
                                                     <div className="d-flex gap-3">
-                                                        <input type="number" name="shelf" className="form-control mb-2" placeholder="On shelf" defaultValue />
-                                                        <input type="number" name="warehouse" className="form-control mb-2" placeholder="In warehouse" />
+                                                        <input
+                                                            type="number"
+                                                            name="shelf"
+                                                            className="form-control mb-2"
+                                                            placeholder="On shelf"
+                                                            defaultValue=""
+                                                        />
+                                                        <input
+                                                            type="number"
+                                                            name="warehouse"
+                                                            className="form-control mb-2"
+                                                            placeholder="In warehouse"
+                                                        />
                                                     </div>
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
                                                     <div className="text-muted fs-7">Enter the product quantity.</div>
                                                     {/*end::Description*/}
-                                                    <div className="fv-plugins-message-container invalid-feedback" /></div>
+                                                    <div className="fv-plugins-message-container invalid-feedback" />
+                                                </div>
                                                 {/*end::Input group*/}
                                                 {/*begin::Input group*/}
                                                 <div className="fv-row">
@@ -868,14 +1021,14 @@ export default function UserForm() {
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
                                                     <div className="form-check form-check-custom form-check-solid mb-2">
-                                                        <input className="form-check-input" type="checkbox" defaultValue />
-                                                        <label className="form-check-label">
-                                                            Yes
-                                                        </label>
+                                                        <input className="form-check-input" type="checkbox" defaultValue="" />
+                                                        <label className="form-check-label">Yes</label>
                                                     </div>
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
-                                                    <div className="text-muted fs-7">Allow customers to purchase products that are out of stock.</div>
+                                                    <div className="text-muted fs-7">
+                                                        Allow customers to purchase products that are out of stock.
+                                                    </div>
                                                     {/*end::Description*/}
                                                 </div>
                                                 {/*end::Input group*/}
@@ -884,7 +1037,7 @@ export default function UserForm() {
                                         </div>
                                         {/*end::Inventory*/}
                                         {/*begin::Variations*/}
-                                        <div className="card card-flush py-4" data-select2-id="select2-data-152-2rn0">
+                                        <div className="card card-flush py-4">
                                             {/*begin::Card header*/}
                                             <div className="card-header">
                                                 <div className="card-title">
@@ -893,103 +1046,38 @@ export default function UserForm() {
                                             </div>
                                             {/*end::Card header*/}
                                             {/*begin::Card body*/}
-                                            <div className="card-body pt-0" data-select2-id="select2-data-151-5i3l">
+                                            <div className="card-body pt-0">
                                                 {/*begin::Input group*/}
-                                                <div
-                                                    className=""
-                                                    data-kt-ecommerce-catalog-add-product="auto-options"
-                                                    data-select2-id="select2-data-150-go5e"
-                                                >
+                                                <div className="" data-kt-ecommerce-catalog-add-product="auto-options">
                                                     {/*begin::Label*/}
                                                     <label className="form-label">Add Product Variations</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Repeater*/}
-                                                    <div
-                                                        id="kt_ecommerce_add_product_options"
-                                                        data-select2-id="select2-data-kt_ecommerce_add_product_options"
-                                                    >
+                                                    <div id="kt_ecommerce_add_product_options">
                                                         {/*begin::Form group*/}
-                                                        <div className="form-group" data-select2-id="select2-data-149-39rs">
+                                                        <div className="form-group">
                                                             <div
                                                                 data-repeater-list="kt_ecommerce_add_product_options"
                                                                 className="d-flex flex-column gap-3"
-                                                                data-select2-id="select2-data-148-jg7i"
                                                             >
                                                                 <div
                                                                     data-repeater-item=""
                                                                     className="form-group d-flex flex-wrap align-items-center gap-5"
-                                                                    style={{}}
-                                                                    data-select2-id="select2-data-147-qtvj"
                                                                 >
                                                                     {/*begin::Select2*/}
-                                                                    <div
-                                                                        className="w-100 w-md-200px"
-                                                                        data-select2-id="select2-data-146-mkhy"
-                                                                    >
+                                                                    <div className="w-100 w-md-200px">
                                                                         <select
-                                                                            className="form-select select2-hidden-accessible"
+                                                                            className="form-select"
                                                                             name="kt_ecommerce_add_product_options[0][product_option]"
                                                                             data-placeholder="Select a variation"
                                                                             data-kt-ecommerce-catalog-add-product="product_option"
-                                                                            data-select2-id="select2-data-142-d74c"
-                                                                            tabIndex={-1}
-                                                                            aria-hidden="true"
                                                                         >
-                                                                            <option data-select2-id="select2-data-144-93l4" />
-                                                                            <option value="color" data-select2-id="select2-data-159-gchk">
-                                                                                Color
-                                                                            </option>
-                                                                            <option value="size" data-select2-id="select2-data-160-zmbs">
-                                                                                Size
-                                                                            </option>
-                                                                            <option
-                                                                                value="material"
-                                                                                data-select2-id="select2-data-161-4xul"
-                                                                            >
-                                                                                Material
-                                                                            </option>
-                                                                            <option value="style" data-select2-id="select2-data-162-c5gk">
-                                                                                Style
-                                                                            </option>
+                                                                            <option />
+                                                                            <option value="color">Color</option>
+                                                                            <option value="size">Size</option>
+                                                                            <option value="material">Material</option>
+                                                                            <option value="style">Style</option>
                                                                         </select>
-                                                                        <span
-                                                                            className="select2 select2-container select2-container--bootstrap5 select2-container--below"
-                                                                            dir="ltr"
-                                                                            data-select2-id="select2-data-143-fsrd"
-                                                                            style={{ width: "100%" }}
-                                                                        >
-                                                                            <span className="selection">
-                                                                                <span
-                                                                                    className="select2-selection select2-selection--single form-select"
-                                                                                    role="combobox"
-                                                                                    aria-haspopup="true"
-                                                                                    aria-expanded="false"
-                                                                                    tabIndex={0}
-                                                                                    aria-disabled="false"
-                                                                                    aria-labelledby="select2-kt_ecommerce_add_product_options0product_option-dc-container"
-                                                                                    aria-controls="select2-kt_ecommerce_add_product_options0product_option-dc-container"
-                                                                                >
-                                                                                    <span
-                                                                                        className="select2-selection__rendered"
-                                                                                        id="select2-kt_ecommerce_add_product_options0product_option-dc-container"
-                                                                                        role="textbox"
-                                                                                        aria-readonly="true"
-                                                                                        title="Select a variation"
-                                                                                    >
-                                                                                        <span className="select2-selection__placeholder">
-                                                                                            Select a variation
-                                                                                        </span>
-                                                                                    </span>
-                                                                                    <span
-                                                                                        className="select2-selection__arrow"
-                                                                                        role="presentation"
-                                                                                    >
-                                                                                        <b role="presentation" />
-                                                                                    </span>
-                                                                                </span>
-                                                                            </span>
-                                                                            <span className="dropdown-wrapper" aria-hidden="true" />
-                                                                        </span>
                                                                     </div>
                                                                     {/*end::Select2*/}
                                                                     {/*begin::Input*/}
@@ -1104,14 +1192,20 @@ export default function UserForm() {
                                                 <div className="fv-row">
                                                     {/*begin::Input*/}
                                                     <div className="form-check form-check-custom form-check-solid mb-2">
-                                                        <input className="form-check-input" type="checkbox" onChange={handleShipping} id="kt_ecommerce_add_product_shipping_checkbox" defaultValue={1} />
-                                                        <label className="form-check-label">
-                                                            This is a physical product
-                                                        </label>
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="kt_ecommerce_add_product_shipping_checkbox"
+                                                            defaultValue={1}
+                                                        />
+                                                        <label className="form-check-label">This is a physical product</label>
                                                     </div>
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
-                                                    <div className="text-muted fs-7">Set if the product is a physical or digital item. Physical products may require shipping.</div>
+                                                    <div className="text-muted fs-7">
+                                                        Set if the product is a physical or digital item. Physical products
+                                                        may require shipping.
+                                                    </div>
                                                     {/*end::Description*/}
                                                 </div>
                                                 {/*end::Input group*/}
@@ -1123,10 +1217,18 @@ export default function UserForm() {
                                                         <label className="form-label">Weight</label>
                                                         {/*end::Label*/}
                                                         {/*begin::Editor*/}
-                                                        <input type="text" name="weight" className="form-control mb-2" placeholder="Product weight" defaultValue />
+                                                        <input
+                                                            type="text"
+                                                            name="weight"
+                                                            className="form-control mb-2"
+                                                            placeholder="Product weight"
+                                                            defaultValue=""
+                                                        />
                                                         {/*end::Editor*/}
                                                         {/*begin::Description*/}
-                                                        <div className="text-muted fs-7">Set a product weight in kilograms (kg).</div>
+                                                        <div className="text-muted fs-7">
+                                                            Set a product weight in kilograms (kg).
+                                                        </div>
                                                         {/*end::Description*/}
                                                     </div>
                                                     {/*end::Input group*/}
@@ -1137,13 +1239,33 @@ export default function UserForm() {
                                                         {/*end::Label*/}
                                                         {/*begin::Input*/}
                                                         <div className="d-flex flex-wrap flex-sm-nowrap gap-3">
-                                                            <input type="number" name="width" className="form-control mb-2" placeholder="Width (w)" defaultValue />
-                                                            <input type="number" name="height" className="form-control mb-2" placeholder="Height (h)" defaultValue />
-                                                            <input type="number" name="length" className="form-control mb-2" placeholder="Lengtn (l)" defaultValue />
+                                                            <input
+                                                                type="number"
+                                                                name="width"
+                                                                className="form-control mb-2"
+                                                                placeholder="Width (w)"
+                                                                defaultValue=""
+                                                            />
+                                                            <input
+                                                                type="number"
+                                                                name="height"
+                                                                className="form-control mb-2"
+                                                                placeholder="Height (h)"
+                                                                defaultValue=""
+                                                            />
+                                                            <input
+                                                                type="number"
+                                                                name="length"
+                                                                className="form-control mb-2"
+                                                                placeholder="Lengtn (l)"
+                                                                defaultValue=""
+                                                            />
                                                         </div>
                                                         {/*end::Input*/}
                                                         {/*begin::Description*/}
-                                                        <div className="text-muted fs-7">Enter the product dimensions in centimeters (cm).</div>
+                                                        <div className="text-muted fs-7">
+                                                            Enter the product dimensions in centimeters (cm).
+                                                        </div>
                                                         {/*end::Description*/}
                                                     </div>
                                                     {/*end::Input group*/}
@@ -1170,10 +1292,17 @@ export default function UserForm() {
                                                     <label className="form-label">Meta Tag Title</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Input*/}
-                                                    <input type="text" className="form-control mb-2" name="meta_title" placeholder="Meta tag name" />
+                                                    <input
+                                                        type="text"
+                                                        className="form-control mb-2"
+                                                        name="meta_title"
+                                                        placeholder="Meta tag name"
+                                                    />
                                                     {/*end::Input*/}
                                                     {/*begin::Description*/}
-                                                    <div className="text-muted fs-7">Set a meta tag title. Recommended to be simple and precise keywords.</div>
+                                                    <div className="text-muted fs-7">
+                                                        Set a meta tag title. Recommended to be simple and precise keywords.
+                                                    </div>
                                                     {/*end::Description*/}
                                                 </div>
                                                 {/*end::Input group*/}
@@ -1183,10 +1312,169 @@ export default function UserForm() {
                                                     <label className="form-label">Meta Tag Description</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Editor*/}
-                                                    <div className="ql-toolbar ql-snow"><span className="ql-formats"><span className="ql-header ql-picker"><span className="ql-picker-label" tabIndex={0} role="button" aria-expanded="false" aria-controls="ql-picker-options-1"><svg viewBox="0 0 18 18"> <polygon className="ql-stroke" points="7 11 9 13 11 11 7 11" /> <polygon className="ql-stroke" points="7 7 9 5 11 7 7 7" /> </svg></span><span className="ql-picker-options" aria-hidden="true" tabIndex={-1} id="ql-picker-options-1"><span tabIndex={0} role="button" className="ql-picker-item" data-value={1} /><span tabIndex={0} role="button" className="ql-picker-item" data-value={2} /><span tabIndex={0} role="button" className="ql-picker-item ql-selected" /></span></span><select className="ql-header" style={{ display: 'none' }}><option value={1} /><option value={2} /><option selected="selected" /></select></span><span className="ql-formats"><button type="button" className="ql-bold"><svg viewBox="0 0 18 18"> <path className="ql-stroke" d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z" /> <path className="ql-stroke" d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z" /> </svg></button><button type="button" className="ql-italic"><svg viewBox="0 0 18 18"> <line className="ql-stroke" x1={7} x2={13} y1={4} y2={4} /> <line className="ql-stroke" x1={5} x2={11} y1={14} y2={14} /> <line className="ql-stroke" x1={8} x2={10} y1={14} y2={4} /> </svg></button><button type="button" className="ql-underline"><svg viewBox="0 0 18 18"> <path className="ql-stroke" d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3" /> <rect className="ql-fill" height={1} rx="0.5" ry="0.5" width={12} x={3} y={15} /> </svg></button></span><span className="ql-formats"><button type="button" className="ql-image"><svg viewBox="0 0 18 18"> <rect className="ql-stroke" height={10} width={12} x={3} y={4} /> <circle className="ql-fill" cx={6} cy={7} r={1} /> <polyline className="ql-even ql-fill" points="5 12 5 11 7 9 8 10 11 7 13 9 13 12 5 12" /> </svg></button><button type="button" className="ql-code-block"><svg viewBox="0 0 18 18"> <polyline className="ql-even ql-stroke" points="5 7 3 9 5 11" /> <polyline className="ql-even ql-stroke" points="13 7 15 9 13 11" /> <line className="ql-stroke" x1={10} x2={8} y1={5} y2={13} /> </svg></button></span></div><div id="kt_ecommerce_add_product_meta_description" name="kt_ecommerce_add_product_meta_description" className="min-h-100px mb-2 ql-container ql-snow"><div className="ql-editor ql-blank" data-gramm="false" contentEditable="true" data-placeholder="Type your text here..."><p><br /></p></div><div className="ql-clipboard" contentEditable="true" tabIndex={-1} /><div className="ql-tooltip ql-hidden"><a className="ql-preview" rel="noopener noreferrer" target="_blank" href="about:blank" /><input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL" /><a className="ql-action" /><a className="ql-remove" /></div></div>
+                                                    <div className="ql-toolbar ql-snow">
+                                                        <span className="ql-formats">
+                                                            <span className="ql-header ql-picker">
+                                                                <span
+                                                                    className="ql-picker-label"
+                                                                    tabIndex={0}
+                                                                    role="button"
+                                                                    aria-expanded="false"
+                                                                    aria-controls="ql-picker-options-1"
+                                                                >
+                                                                    <svg viewBox="0 0 18 18">
+                                                                        {" "}
+                                                                        <polygon
+                                                                            className="ql-stroke"
+                                                                            points="7 11 9 13 11 11 7 11"
+                                                                        />{" "}
+                                                                        <polygon className="ql-stroke" points="7 7 9 5 11 7 7 7" />{" "}
+                                                                    </svg>
+                                                                </span>
+                                                                <span
+                                                                    className="ql-picker-options"
+                                                                    aria-hidden="true"
+                                                                    tabIndex={-1}
+                                                                    id="ql-picker-options-1"
+                                                                >
+                                                                    <span
+                                                                        tabIndex={0}
+                                                                        role="button"
+                                                                        className="ql-picker-item"
+                                                                        data-value={1}
+                                                                    />
+                                                                    <span
+                                                                        tabIndex={0}
+                                                                        role="button"
+                                                                        className="ql-picker-item"
+                                                                        data-value={2}
+                                                                    />
+                                                                    <span
+                                                                        tabIndex={0}
+                                                                        role="button"
+                                                                        className="ql-picker-item ql-selected"
+                                                                    />
+                                                                </span>
+                                                            </span>
+                                                            <select className="ql-header" style={{ display: "none" }}>
+                                                                <option value={1} />
+                                                                <option value={2} />
+                                                                <option selected="selected" />
+                                                            </select>
+                                                        </span>
+                                                        <span className="ql-formats">
+                                                            <button type="button" className="ql-bold">
+                                                                <svg viewBox="0 0 18 18">
+                                                                    {" "}
+                                                                    <path
+                                                                        className="ql-stroke"
+                                                                        d="M5,4H9.5A2.5,2.5,0,0,1,12,6.5v0A2.5,2.5,0,0,1,9.5,9H5A0,0,0,0,1,5,9V4A0,0,0,0,1,5,4Z"
+                                                                    />{" "}
+                                                                    <path
+                                                                        className="ql-stroke"
+                                                                        d="M5,9h5.5A2.5,2.5,0,0,1,13,11.5v0A2.5,2.5,0,0,1,10.5,14H5a0,0,0,0,1,0,0V9A0,0,0,0,1,5,9Z"
+                                                                    />{" "}
+                                                                </svg>
+                                                            </button>
+                                                            <button type="button" className="ql-italic">
+                                                                <svg viewBox="0 0 18 18">
+                                                                    {" "}
+                                                                    <line className="ql-stroke" x1={7} x2={13} y1={4} y2={4} />{" "}
+                                                                    <line className="ql-stroke" x1={5} x2={11} y1={14} y2={14} />{" "}
+                                                                    <line className="ql-stroke" x1={8} x2={10} y1={14} y2={4} />{" "}
+                                                                </svg>
+                                                            </button>
+                                                            <button type="button" className="ql-underline">
+                                                                <svg viewBox="0 0 18 18">
+                                                                    {" "}
+                                                                    <path
+                                                                        className="ql-stroke"
+                                                                        d="M5,3V9a4.012,4.012,0,0,0,4,4H9a4.012,4.012,0,0,0,4-4V3"
+                                                                    />{" "}
+                                                                    <rect
+                                                                        className="ql-fill"
+                                                                        height={1}
+                                                                        rx="0.5"
+                                                                        ry="0.5"
+                                                                        width={12}
+                                                                        x={3}
+                                                                        y={15}
+                                                                    />{" "}
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                        <span className="ql-formats">
+                                                            <button type="button" className="ql-image">
+                                                                <svg viewBox="0 0 18 18">
+                                                                    {" "}
+                                                                    <rect
+                                                                        className="ql-stroke"
+                                                                        height={10}
+                                                                        width={12}
+                                                                        x={3}
+                                                                        y={4}
+                                                                    />{" "}
+                                                                    <circle className="ql-fill" cx={6} cy={7} r={1} />{" "}
+                                                                    <polyline
+                                                                        className="ql-even ql-fill"
+                                                                        points="5 12 5 11 7 9 8 10 11 7 13 9 13 12 5 12"
+                                                                    />{" "}
+                                                                </svg>
+                                                            </button>
+                                                            <button type="button" className="ql-code-block">
+                                                                <svg viewBox="0 0 18 18">
+                                                                    {" "}
+                                                                    <polyline
+                                                                        className="ql-even ql-stroke"
+                                                                        points="5 7 3 9 5 11"
+                                                                    />{" "}
+                                                                    <polyline
+                                                                        className="ql-even ql-stroke"
+                                                                        points="13 7 15 9 13 11"
+                                                                    />{" "}
+                                                                    <line className="ql-stroke" x1={10} x2={8} y1={5} y2={13} />{" "}
+                                                                </svg>
+                                                            </button>
+                                                        </span>
+                                                    </div>
+                                                    <div
+                                                        id="kt_ecommerce_add_product_meta_description"
+                                                        name="kt_ecommerce_add_product_meta_description"
+                                                        className="min-h-100px mb-2 ql-container ql-snow"
+                                                    >
+                                                        <div
+                                                            className="ql-editor ql-blank"
+                                                            data-gramm="false"
+                                                            contentEditable="true"
+                                                            data-placeholder="Type your text here..."
+                                                        >
+                                                            <p>
+                                                                <br />
+                                                            </p>
+                                                        </div>
+                                                        <div className="ql-clipboard" contentEditable="true" tabIndex={-1} />
+                                                        <div className="ql-tooltip ql-hidden">
+                                                            <a
+                                                                className="ql-preview"
+                                                                rel="noopener noreferrer"
+                                                                target="_blank"
+                                                                href="about:blank"
+                                                            />
+                                                            <input
+                                                                type="text"
+                                                                data-formula="e=mc^2"
+                                                                data-link="https://quilljs.com"
+                                                                data-video="Embed URL"
+                                                            />
+                                                            <a className="ql-action" />
+                                                            <a className="ql-remove" />
+                                                        </div>
+                                                    </div>
                                                     {/*end::Editor*/}
                                                     {/*begin::Description*/}
-                                                    <div className="text-muted fs-7">Set a meta tag description to the product for increased SEO ranking.</div>
+                                                    <div className="text-muted fs-7">
+                                                        Set a meta tag description to the product for increased SEO ranking.
+                                                    </div>
                                                     {/*end::Description*/}
                                                 </div>
                                                 {/*end::Input group*/}
@@ -1196,17 +1484,26 @@ export default function UserForm() {
                                                     <label className="form-label">Meta Tag Keywords</label>
                                                     {/*end::Label*/}
                                                     {/*begin::Editor*/}
-                                                    <input id="kt_ecommerce_add_product_meta_keywords" name="kt_ecommerce_add_product_meta_keywords" className="form-control mb-2" />
+                                                    <input
+                                                        id="kt_ecommerce_add_product_meta_keywords"
+                                                        name="kt_ecommerce_add_product_meta_keywords"
+                                                        className="form-control mb-2"
+                                                    />
                                                     {/*end::Editor*/}
                                                     {/*begin::Description*/}
-                                                    <div className="text-muted fs-7">Set a list of keywords that the product is related to. Separate the keywords by adding a comma <code>,</code> between each keyword.</div>
+                                                    <div className="text-muted fs-7">
+                                                        Set a list of keywords that the product is related to. Separate the
+                                                        keywords by adding a comma <code>,</code> between each keyword.
+                                                    </div>
                                                     {/*end::Description*/}
                                                 </div>
                                                 {/*end::Input group*/}
                                             </div>
                                             {/*end::Card header*/}
                                         </div>
-                                        {/*end::Meta options*/}              </div>
+                                        {/*end::Meta options*/}
+                                    </div>
+
                                 </div>
                                 {/*end::Tab pane*/}
                             </div>

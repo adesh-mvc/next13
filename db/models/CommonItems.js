@@ -6,9 +6,14 @@ mongoose.Promise = global.Promise;
 
 const Item = new Schema({
     ItemType: {
-        type: String
+        type: String,
+
+        trim: true
     },
-    Items: []
+    Items: [{
+        RenderOrder: Number,
+        Title: String
+    }]
 });
 
 export default module.exports = mongoose.model.CommonItem || mongoose.model('CommonItem', Item);

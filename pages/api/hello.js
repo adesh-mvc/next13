@@ -3,3 +3,6 @@
 export default function handler(req, res) {
   res.status(200).json({ name: 'John Doe' })
 }
+
+
+// https://www.apollographql.com/blog/apollo-client/how-to-use-apollo-client-with-next-js-13/https://www.apollographql.com/blog/apollo-client/how-to-use-apollo-client-with-next-js-13/

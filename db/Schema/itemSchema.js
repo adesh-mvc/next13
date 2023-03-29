@@ -8,6 +8,7 @@ const typeDefs = gql`
         Items:[subItem]
     }
      type subItem{
+        id:ID
         RenderOrder: Int
         Title:String
      }
@@ -22,6 +23,7 @@ const typeDefs = gql`
 
     type Query{
         getItems:[CommonItem]
+        getSingleItem(ItemType: String!):[CommonItem]
     }
     type Mutation{
         newItem(input: ItemInsert): CommonItem
