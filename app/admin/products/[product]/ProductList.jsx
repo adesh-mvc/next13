@@ -15,7 +15,7 @@ query{
   }
 `;
 const GET_GROUP_ITEMS = gql`
-query($ItemType: String!){
+query singleItem($ItemType: [String]){
     getSingleItem(ItemType: $ItemType) {
       id
       ItemType
@@ -27,26 +27,27 @@ query($ItemType: String!){
   }
 `
 export default async function ProductList() {
-    const client = getClient({ clientNoCache: false });
-    const { data } = await client.query({
-        query: GET_GROUP_ITEMS, variables: {
-            ItemType: "Species"
-        }
-    });
-    console.log(data)
-
-    // const getAllCountries = () => {
-    //     client
-    //         .query({
-    //             query: GET_ITEMS
-    //         })
-    //         .then((res) => {
-    //             console.log('rettuen: ', res.data);
-    //         })
-    //         .catch((err) => console.log(err));
-    // };
-    // getAllCountries()
-    return (
-        <h1>Product table </h1>
-    )
+  const client = getClient({ clientNoCache: false });
+  const { data } = await client.query({
+    query: GET_GROUP_ITEMS, variables: {
+      ItemType: ["Sports", "Species"]
+    }
+  });
+  const [sports] = data.getSingleItem
+  console.log(sports.Items)
+  //console.log(data)
+  // const getAllCountries = () => {
+  //     client
+  //         .query({
+  //             query: GET_ITEMS
+  //         })
+  //         .then((res) => {
+  //             console.log('rettuen: ', res.data);
+  //         })
+  //         .catch((err) => console.log(err));
+  // };
+  // getAllCountries()
+  return (
+    <h1>Product table </h1>
+  )
 }

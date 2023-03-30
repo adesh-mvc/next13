@@ -32,7 +32,11 @@ const server = new ApolloServer({
     // schema: buildSubgraphSchema({
     //     typeDefs: [productTable], resolvers: [resolvers], introspection: true, playground: true
     // })
-    typeDefs: [itemTable, productTable, adminUserTable], resolvers: [itemResolver, productResolver, adminResolver], introspection: true, playground: true
+    typeDefs: [itemTable, productTable, adminUserTable],
+    resolvers: [itemResolver, productResolver, adminResolver],
+    dataSources: () => ({}),
+    introspection: true,
+    playground: true
 })
 
 

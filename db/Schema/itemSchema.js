@@ -23,7 +23,7 @@ const typeDefs = gql`
 
     type Query{
         getItems:[CommonItem]
-        getSingleItem(ItemType: String!):[CommonItem]
+        getSingleItem(ItemType: [String]):[CommonItem]
     }
     type Mutation{
         newItem(input: ItemInsert): CommonItem

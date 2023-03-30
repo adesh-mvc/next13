@@ -13,8 +13,11 @@ const ItemResolvers = {
             }
         },
         getSingleItem: async (_, Title) => {
-            console.log('where:', Title)
+
+            const { ItemType } = Title;
+            console.log('where:', ItemType)
             try {
+
                 const single = await ItemModel.find(Title);
                 return single;
             }
@@ -28,7 +31,7 @@ const ItemResolvers = {
         newItem: async (_, { input }) => {
             try {
                 const { ItemType, Items } = input;
-                console.log(ItemType)
+
                 const item = await ItemModel.findOne({ ItemType: ItemType });
                 if (item) {
                     throw new Error('sorry already exit');
