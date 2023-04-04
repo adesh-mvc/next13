@@ -10,6 +10,8 @@ const ProductsSchema = new Schema({
         required: true,
         trim: true,
     },
+
+    image: String,
     productionCapacity: {
         type: Number,
         required: true,
@@ -30,7 +32,7 @@ const ProductsSchema = new Schema({
     },
 })
 
-ProductsSchema.index({ name: 'text' })
+// ProductsSchema.index({ name: 'text' })
 
 module.exports =
     mongoose.models.Product || mongoose.model('Product', ProductsSchema)

@@ -4,16 +4,15 @@ import React, { useEffect, useState } from 'react';
 
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
-
-
-
-
+import ClientProviders from '@/lib/apollo-client';
 
 
 // import KTApp from '@/public/assets/js/KTApp';
 // console.log('KTApp:', KTApp)
+
+
 import Header from './component/Header';
-import Toolbar from './component/Breadcrumb';
+
 import Footer from './component/Footer';
 // import OtherElements from './component/OtherElements';
 
@@ -30,14 +29,12 @@ export default function AdminLayout({ children }) {
   }, []);
 
   return (
-    <html lang="en" >
-
-      <head />
+    <>
       <Script src={`/assets/plugins/global/plugins.bundle.js`} />
       <Script src={`/assets/js/scripts.bundle.js`} />
 
 
-      <body>
+      <ClientProviders>
 
         <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed" data-bs-theme={themeMode}>
           {/*begin::Main*/}
@@ -50,10 +47,12 @@ export default function AdminLayout({ children }) {
                 className="wrapper d-flex flex-column flex-row-fluid"
                 id="kt_wrapper"
               >
+                {/*  <ClientProviders> */}
                 <Header />
-                <Toolbar />
+                {/*    <Toolbar /> */}
                 {children}
                 <Footer />
+                {/*     </ClientProviders> */}
               </div>
               {/*end::Wrapper*/}
             </div>
@@ -62,8 +61,8 @@ export default function AdminLayout({ children }) {
           {/*end::Root*/}
           {/*  <OtherElements /> */}
         </div>
+      </ClientProviders>
 
-      </body>
       {/* <Script src={`${process.env.NEXTAUTH_URL}/assets/plugins/custom/datatables/datatables.bundle.js`} /> */}
 
       {/* <Script src={`${process.env.THEME_JS}plugins/custom/fullcalendar/fullcalendar.bundle.js`} /> */}
@@ -77,6 +76,7 @@ export default function AdminLayout({ children }) {
       <Script src={'assets/js/custom/utilities/modals/create-app.js'}></Script>
       <Script src={'assets/js/custom/utilities/modals/users-search.js'}></Script> */}
       {/*end::Custom Javascript*/}
-    </html >
+    </>
   )
 }
+

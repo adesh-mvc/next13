@@ -19,6 +19,7 @@
     "eslint-config-next": "13.1.6",
     "graphql": "^16.6.0",
     "graphql-tag": "^2.12.6",
+    "graphql-upload": "^16.0.2",
     "mongoose": "^6.9.1",
     "next": "13.1.6",
     "next-auth": "^4.19.2",

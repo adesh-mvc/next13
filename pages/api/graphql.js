@@ -5,10 +5,12 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 import itemTable from "@/db/Schema/itemSchema";
 import productTable from "../../db/Schema/productSchema";
 import adminUserTable from "../../db/Schema/adminSchema";
+import uploadSchema from "../../db/Schema/uploadSchema";
 //import typeDefs from '../../db/Schema/schema-xx';
 import itemResolver from "@/db/Resolvers/itemResolvers";
 import productResolver from "../../db/Resolvers/productResolvers";
 import adminResolver from "../../db/Resolvers/adminResolvers";
+import uploadResolver from "../../db/Resolvers/uploadResolvers";
 import connectDb from "../../db/config";
 // console.log("RESOLVER:", Product)
 connectDb();

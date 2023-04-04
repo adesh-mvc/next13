@@ -1724,15 +1724,15 @@ const MenuWrapperItems = (currentPath) => {
                                     <div className="d-flex flex-column flex-lg-row gap-2">
                                         <Link
                                             className="btn btn-sm btn-light-primary fw-bold"
-                                            href="#"
+                                            href="/admin/products/list"
                                         >
-                                            User List
+                                            Product List
                                         </Link>
                                         <Link
                                             className="btn btn-sm btn-light-success fw-bold"
-                                            href="#"
+                                            href="/admin/products/add"
                                         >
-                                            Add New User
+                                            Add New Product
                                         </Link>
                                         <Link
                                             className="btn btn-sm btn-light-danger fw-bold"

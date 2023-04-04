@@ -1,31 +1,42 @@
-"use client";
+import { getClient, clientNoCache } from "@/lib/client";
 
-import { useQuery, gql } from "@apollo/client";
-
-const GET_PRODUCT = gql`
-query Products{
-  getProducts {
-    id
-    name
-    productionCapacity
-    price
+import { gql } from "@apollo/client";
+const GET_ITEMS = gql`
+query{
+    getItems {
+      id
+      ItemType
+      Items {
+        id
+        Title
+      }
+    }
   }
-}
 `;
-export default function ProductList() {
-  // const { data, loading, error } = useQuery(GET_PRODUCT);
-  // if (loading) {
-  //   return null;
-  // }
+const GET_GROUP_ITEMS = gql`
+query singleItem($ItemType: [String]){
+    getSingleItem(ItemType: $ItemType) {
+      id
+      ItemType
+      Items {
+        id
+        Title
+      }
+    }
+  }
+`;
+export default async function ProductList() {
+  // working fine
+  const client = getClient({ clientNoCache: false });
+  const { data } = await client.query({
+    query: GET_GROUP_ITEMS, variables: {
+      ItemType: ["Sports"]
+    }
+  });
+  console.log(data.getSingleItem)
+  const [sports] = data.getSingleItem
+  console.log(sports.Items)
 
-  // if (error) {
-  //   console.error(error);
-  //   return null;
-  // }
-
-  // console.log(data)
-  const product = useQuery(GET_PRODUCT);
-  console.log('useQuery', product)
   return (
     <>
       <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">

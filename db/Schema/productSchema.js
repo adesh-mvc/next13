@@ -5,6 +5,7 @@ const productTable = gql`
   type Product {
     id: ID
     name: String
+    image:String
     productionCapacity: Int
     price: Float
     description: String
@@ -12,6 +13,7 @@ const productTable = gql`
 
   input ProductInput {
     name: String!
+    image:String,
     productionCapacity: Int!
     price: Float!
     description: String
