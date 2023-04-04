@@ -78,3 +78,39 @@ const BpaModel = new Schema({
 });
 
 module.exports = mongoose.models.BpaMst || mongoose.model('BpaMst', BpaModel);
+
+
+
+/* 
+query BpaList{
+  getBpaList {
+    BpaCode
+    BpaName
+  }
+}
+
+
+mutation AddBpa($input: InsertBpa) {
+newBpa (input: $input){
+  BpaType
+  BpaName
+  BpaCode
+  WebLink
+  Logo
+  LogoAlign
+}
+}
+
+
+{
+  "input": {
+    "BpaType":"642bec573d46d0a5bc34123c",
+    "BpaName":"Payer One",
+    "BpaCode":"PO",
+    "WebLink":"http://192.168.5.234/careerdp",
+    "Logo":"logo.png",
+    "LogoAlign":"left"
+  }
+}
+
+*/

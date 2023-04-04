@@ -6,11 +6,13 @@ import itemTable from "@/db/Schema/itemSchema";
 import productTable from "../../db/Schema/productSchema";
 import adminUserTable from "../../db/Schema/adminSchema";
 import uploadSchema from "../../db/Schema/uploadSchema";
+import bpaSchema from "../../db/Schema/bpaSchema";
 //import typeDefs from '../../db/Schema/schema-xx';
 import itemResolver from "@/db/Resolvers/itemResolvers";
 import productResolver from "../../db/Resolvers/productResolvers";
 import adminResolver from "../../db/Resolvers/adminResolvers";
-import uploadResolver from "../../db/Resolvers/uploadResolvers";
+// import uploadResolver from "../../db/Resolvers/uploadResolvers";
+import bapResolver from '@/db/Resolvers/bpaResolver';
 import connectDb from "../../db/config";
 // console.log("RESOLVER:", Product)
 connectDb();
@@ -34,8 +36,8 @@ const server = new ApolloServer({
     // schema: buildSubgraphSchema({
     //     typeDefs: [productTable], resolvers: [resolvers], introspection: true, playground: true
     // })
-    typeDefs: [itemTable, productTable, adminUserTable],
-    resolvers: [itemResolver, productResolver, adminResolver],
+    typeDefs: [itemTable, productTable, adminUserTable, bpaSchema],
+    resolvers: [itemResolver, productResolver, adminResolver, bapResolver],
     dataSources: () => ({}),
     introspection: true,
     playground: true

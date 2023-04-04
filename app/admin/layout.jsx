@@ -1,10 +1,10 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-import { ClientProviders } from '@/lib/apollo-client';
+import ClientProviders from '@/lib/apollo-client';
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
-import ClientProviders from '@/lib/apollo-client';
+
 
 
 // import KTApp from '@/public/assets/js/KTApp';
