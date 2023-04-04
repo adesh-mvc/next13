@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState } from 'react';
-
+import { ClientProviders } from '@/lib/apollo-client';
 import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
 import ClientProviders from '@/lib/apollo-client';
@@ -47,12 +47,20 @@ export default function AdminLayout({ children }) {
                 className="wrapper d-flex flex-column flex-row-fluid"
                 id="kt_wrapper"
               >
+<<<<<<< HEAD
                 {/*  <ClientProviders> */}
+=======
+                  <ClientProviders>
+>>>>>>> 5414a781e67bfc4094e5a0c20d81f5b68ef7cd07
                 <Header />
                 {/*    <Toolbar /> */}
                 {children}
                 <Footer />
+<<<<<<< HEAD
                 {/*     </ClientProviders> */}
+=======
+                  </ClientProviders>
+>>>>>>> 5414a781e67bfc4094e5a0c20d81f5b68ef7cd07
               </div>
               {/*end::Wrapper*/}
             </div>
