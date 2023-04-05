@@ -1,4 +1,6 @@
 "use client";
+
+import React, { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 
 const ADD_PRODUCT = gql`
@@ -8,37 +10,57 @@ mutation AddProduct($input: ProductInput) {
         productionCapacity
         price
         description
-        
     }
 }
 `;
 const ProductForm = () => {
+    const [product_data, setProductData] = useState({});
+
+
+
+
+    const [AddProduct, { data, loading, error }] = useMutation(ADD_PRODUCT, product_data);
+    if (loading) return 'Submitting...';
+    if (error) return `Submission error! ${error.message}`;
+    console.log('data:', data)
     // https://tkdodo.eu/blog/mastering-mutations-in-react-query
+    const handleSubmit_x = async (event) => {
+        // Stop the form from submitting and refreshing the page.
+        event.preventDefault()
+        Swal.fire({
+            html: "Sorry, looks like there are some errors detected, please try again. <br/><br/>Please note that there may be errors in the <strong>General</strong> or <strong>Advanced</strong> tabs",
+            icon: "error",
+            buttonsStyling: false,
+            confirmButtonText: "Ok, got it!",
+            customClass: {
+                confirmButton: "btn btn-primary"
+            }
+        });
+    }
     const handleSubmit = async (event) => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
-
+        if (!event.target.ProductName.value.length) {
+            alert('Name is required')
+        }
         // Get data from the form.
         const fd = {
             name: event.target.ProductName.value,
-            productionCapacity: event.target.productionCapacity.value,
-            price: event.target.price.value,
+            productionCapacity: parseInt(event.target.productionCapacity.value),
+            price: parseFloat(event.target.price.value),
             description: event.target.description.value,
             image: event.target.image.value
         }
 
-        const { data, loading, error } = useMutation(ADD_PRODUCT, {
+        setProductData({
             variables: {
-                "input": {
-                    "name": "Samsung Mobile",
-                    "description": "You can use variables to simplify mutation client logic just like you can with queries",
-                    "price": 1508.50,
-                    "productionCapacity": 29
-                }
+                "input": fd
             }
         });
-        if (loading) return 'Submitting...';
-        if (error) return `Submission error! ${error.message}`;
+
+        AddProduct(product_data);
+
+
         // const product = useQuery(ADD_PRODUCT, {
         //     Variables: {
         //         "input": data
@@ -76,19 +98,19 @@ const ProductForm = () => {
             {/*  // We pass the event to the handleSubmit() function on submit. */}
             <form onSubmit={handleSubmit}>
                 <label htmlFor="product_name">Product Name</label>
-                <input type="text" id="product_name" name="ProductName" required />
+                <input type="text" id="product_name" name="ProductName" />
 
                 <label htmlFor="per_unit">Per unit</label>
 
-                <input type="text" id="per_unit" name="productionCapacity" required />
+                <input type="text" id="per_unit" name="productionCapacity" />
 
                 <label htmlFor="product_price">Product price</label>
-                <input type="text" id="product_price" name="price" required />
+                <input type="text" id="product_price" name="price" />
 
                 <label htmlFor="product_desc">Description</label>
-                <input type="text" id="product_desc" name="description" required />
+                <input type="text" id="product_desc" name="description" />
                 <label htmlFor="thumb">Thumb URL</label>
-                <input type="text" id="thumb" name="image" required />
+                <input type="text" id="thumb" name="image" />
 
                 <button type="submit">Submit</button>
             </form>
