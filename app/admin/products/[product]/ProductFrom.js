@@ -41,17 +41,26 @@ const ProductForm = () => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
         if (!event.target.ProductName.value.length) {
-            alert('Name is required')
+            Swal.fire({
+                html: "Sorry, looks like there are some errors detected, please try again. <br/><br/>Please note that there may be errors in the <strong>General</strong> or <strong>Advanced</strong> tabs",
+                icon: "error",
+                buttonsStyling: false,
+                confirmButtonText: "Ok, got it!",
+                customClass: {
+                    confirmButton: "btn btn-primary"
+                }
+            });
+            return false;
         }
         // Get data from the form.
         const fd = {
             name: event.target.ProductName.value,
-            productionCapacity: parseInt(event.target.productionCapacity.value),
-            price: parseFloat(event.target.price.value),
+            productionCapacity: parseInt(event.target.productionCapacity.value) ? parseInt(event.target.productionCapacity.value) : 0,
+            price: parseFloat(event.target.price.value) ? parseFloat(event.target.price.value) : 0,
             description: event.target.description.value,
             image: event.target.image.value
         }
-
+        console.log("Form Data:", fd)
         setProductData({
             variables: {
                 "input": fd

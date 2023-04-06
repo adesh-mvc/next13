@@ -4,15 +4,28 @@ const productResolver = {
     Query: {
         //Products
         getProducts: async () => {
+
             try {
                 const products = await Product.find({});
+                /* .sort( { _id: 1 } )
+                .skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
+                .limit( nPerPage ); */
+                const numRows = await Product.count({});
+                console.log('total Records:', numRows)
+                const dataSet = { Rows: products, TotalRows: numRows }
                 return products;
             }
             catch (err) {
                 console.log(err)
             }
         },
-
+        productDataSet: async (_, args) => {
+            const { limit, offset } = args;
+            const products = await Product.find({}).limit(limit);
+            const numRows = await Product.count({});
+            // console.log('total Records:', products)
+            return { "NumRows": numRows }
+        },
         getProduct: async (_, { id }) => {
             const product = await Product.findById(id);
             if (!product) {

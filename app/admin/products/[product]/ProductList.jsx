@@ -3,29 +3,38 @@
 import { useQuery, gql } from "@apollo/client";
 
 const GET_PRODUCT = gql`
-query Products{
+query Products($limit: Int!, $offset: Int){
   getProducts {
     id
     name
     productionCapacity
     price
+    image
+  }
+  productDataSet(limit: $limit, offset: $offset) {
+    NumRows   
   }
 }
 `;
 export default function ProductList() {
-  // const { data, loading, error } = useQuery(GET_PRODUCT);
-  // if (loading) {
-  //   return null;
-  // }
+  const { data, loading, error } = useQuery(GET_PRODUCT, {
+    variables: {
+      "limit": 2,
+      "offset": 0,
+    }
+  });
+  if (loading) {
+    return null;
+  }
 
-  // if (error) {
-  //   console.error(error);
-  //   return null;
-  // }
+  if (error) {
+    console.error(error);
+    return null;
+  }
 
   // console.log(data)
-  const product = useQuery(GET_PRODUCT);
-  console.log('useQuery', product)
+  // const product = useQuery(GET_PRODUCT);
+  console.log('useQuery', data)
   return (
     <>
       <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">
@@ -474,2023 +483,228 @@ export default function ProductList() {
                     {/*end::Table head*/}
                     {/*begin::Table body*/}
                     <tbody className="fw-semibold text-gray-600">
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      {/*begin::Table row*/}
-                      {/*end::Table row*/}
-                      <tr className="odd">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/1.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 1
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">03665009</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={49}>
-                          <span className="fw-bold ms-3">49</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">60.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-4">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Inactive">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-danger">Inactive</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
+                      {data.getProducts.map((row, index) => {
+
+                        const class_name = (index + 1) % 2 === 0 ? 'even' : 'odd';
+                        return (<>
+                          <tr className={class_name} >
+                            {/*begin::Checkbox*/}
+                            <td>
+                              <div className="form-check form-check-sm form-check-custom form-check-solid">
+                                <input
+                                  className="form-check-input"
+                                  type="checkbox"
+                                  defaultValue={row.id}
                                 />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
+                              </div>
+                            </td>
+                            {/*end::Checkbox*/}
+                            {/*begin::Category-*/}
+                            <td>
+                              <div className="d-flex align-items-center">
+                                {/*begin::Thumbnail*/}
+                                <a
+                                  href="edit-product.html"
+                                  className="symbol symbol-50px"
+                                >
+                                  <span
+                                    className="symbol-label"
+                                    style={{
+                                      backgroundImage:
+                                        `url(${row.image})`
+                                    }}
+                                  />
+                                </a>
+                                {/*end::Thumbnail*/}
+                                <div className="ms-5">
+                                  {/*begin::Title*/}
+                                  <a
+                                    href="edit-product.html"
+                                    className="text-gray-800 text-hover-primary fs-5 fw-bold"
+                                    data-kt-ecommerce-product-filter="product_name"
+                                  >
+                                    Product 1
+                                  </a>
+                                  {/*end::Title*/}
+                                </div>
+                              </div>
+                            </td>
+                            {/*end::Category-*/}
+                            {/*begin::SKU-*/}
+                            <td className="text-end pe-0">
+                              <span className="fw-bold">03665009</span>
+                            </td>
+                            {/*end::SKU-*/}
+                            {/*begin::Qty-*/}
+                            <td className="text-end pe-0" data-order={49}>
+                              <span className="fw-bold ms-3">49</span>
+                            </td>
+                            {/*end::Qty-*/}
+                            {/*begin::Price-*/}
+                            <td className="text-end pe-0">60.00</td>
+                            {/*end::Price-*/}
+                            {/*begin::Rating*/}
+                            <td className="text-end pe-0" data-order="rating-4">
+                              <div className="rating justify-content-end">
+                                <div className="rating-label checked">
+                                  {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
+                                  <span className="svg-icon svg-icon-2">
+                                    <svg
+                                      width={24}
+                                      height={24}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </span>
+                                  {/*end::Svg Icon*/}{" "}
+                                </div>
+                                <div className="rating-label checked">
+                                  {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
+                                  <span className="svg-icon svg-icon-2">
+                                    <svg
+                                      width={24}
+                                      height={24}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </span>
+                                  {/*end::Svg Icon*/}{" "}
+                                </div>
+                                <div className="rating-label checked">
+                                  {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
+                                  <span className="svg-icon svg-icon-2">
+                                    <svg
+                                      width={24}
+                                      height={24}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </span>
+                                  {/*end::Svg Icon*/}{" "}
+                                </div>
+                                <div className="rating-label checked">
+                                  {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
+                                  <span className="svg-icon svg-icon-2">
+                                    <svg
+                                      width={24}
+                                      height={24}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </span>
+                                  {/*end::Svg Icon*/}{" "}
+                                </div>
+                                <div className="rating-label ">
+                                  {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
+                                  <span className="svg-icon svg-icon-2">
+                                    <svg
+                                      width={24}
+                                      height={24}
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
+                                        fill="currentColor"
+                                      />
+                                    </svg>
+                                  </span>
+                                  {/*end::Svg Icon*/}{" "}
+                                </div>
+                              </div>
+                            </td>
+                            {/*end::Rating*/}
+                            {/*begin::Status-*/}
+                            <td className="text-end pe-0" data-order="Inactive">
+                              {/*begin::Badges*/}
+                              <div className="badge badge-light-danger">Inactive</div>
+                              {/*end::Badges*/}
+                            </td>
+                            {/*end::Status-*/}
+                            {/*begin::Action-*/}
+                            <td className="text-end">
                               <a
                                 href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
+                                className="btn btn-sm btn-light btn-active-light-primary"
+                                data-kt-menu-trigger="click"
+                                data-kt-menu-placement="bottom-end"
                               >
-                                Delete
+                                Actions
+                                {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
+                                <span className="svg-icon svg-icon-5 m-0">
+                                  <svg
+                                    width={24}
+                                    height={24}
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                  >
+                                    <path
+                                      d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
+                                      fill="currentColor"
+                                    />
+                                  </svg>
+                                </span>
+                                {/*end::Svg Icon*/}{" "}
                               </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="even">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/2.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
+                              {/*begin::Menu*/}
+                              <div
+                                className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                data-kt-menu="true"
                               >
-                                Product 2
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">03771006</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={30}>
-                          <span className="fw-bold ms-3">30</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">67.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-4">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Published">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-success">Published</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="odd">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/3.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 3
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">02281005</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={25}>
-                          <span className="fw-bold ms-3">25</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">77.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-3">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Inactive">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-danger">Inactive</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="even">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/4.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 4
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">02266004</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={20}>
-                          <span className="fw-bold ms-3">20</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">65.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-4">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Inactive">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-danger">Inactive</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="odd">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/5.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 5
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">04845009</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={23}>
-                          <span className="fw-bold ms-3">23</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">221.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-4">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Inactive">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-danger">Inactive</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="even">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/6.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 6
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">03534002</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={13}>
-                          <span className="fw-bold ms-3">13</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">282.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-4">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Inactive">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-danger">Inactive</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="odd">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/7.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 7
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">02932001</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={14}>
-                          <span className="fw-bold ms-3">14</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">94.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-3">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Scheduled">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-primary">Scheduled</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="even">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/8.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 8
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">01128008</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={12}>
-                          <span className="fw-bold ms-3">12</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">119.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-4">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Published">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-success">Published</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
-                      <tr className="odd">
-                        {/*begin::Checkbox*/}
-                        <td>
-                          <div className="form-check form-check-sm form-check-custom form-check-solid">
-                            <input
-                              className="form-check-input"
-                              type="checkbox"
-                              defaultValue={1}
-                            />
-                          </div>
-                        </td>
-                        {/*end::Checkbox*/}
-                        {/*begin::Category-*/}
-                        <td>
-                          <div className="d-flex align-items-center">
-                            {/*begin::Thumbnail*/}
-                            <a
-                              href="edit-product.html"
-                              className="symbol symbol-50px"
-                            >
-                              <span
-                                className="symbol-label"
-                                style={{
-                                  backgroundImage:
-                                    "url(../../../assets/media/stock/ecommerce/9.gif)"
-                                }}
-                              />
-                            </a>
-                            {/*end::Thumbnail*/}
-                            <div className="ms-5">
-                              {/*begin::Title*/}
-                              <a
-                                href="edit-product.html"
-                                className="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                data-kt-ecommerce-product-filter="product_name"
-                              >
-                                Product 9
-                              </a>
-                              {/*end::Title*/}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Category-*/}
-                        {/*begin::SKU-*/}
-                        <td className="text-end pe-0">
-                          <span className="fw-bold">03406005</span>
-                        </td>
-                        {/*end::SKU-*/}
-                        {/*begin::Qty-*/}
-                        <td className="text-end pe-0" data-order={49}>
-                          <span className="fw-bold ms-3">49</span>
-                        </td>
-                        {/*end::Qty-*/}
-                        {/*begin::Price-*/}
-                        <td className="text-end pe-0">234.00</td>
-                        {/*end::Price-*/}
-                        {/*begin::Rating*/}
-                        <td className="text-end pe-0" data-order="rating-3">
-                          <div className="rating justify-content-end">
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label checked">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                            <div className="rating-label ">
-                              {/*begin::Svg Icon | path: icons/duotune/general/gen029.svg*/}
-                              <span className="svg-icon svg-icon-2">
-                                <svg
-                                  width={24}
-                                  height={24}
-                                  viewBox="0 0 24 24"
-                                  fill="none"
-                                  xmlns="http://www.w3.org/2000/svg"
-                                >
-                                  <path
-                                    d="M11.1359 4.48359C11.5216 3.82132 12.4784 3.82132 12.8641 4.48359L15.011 8.16962C15.1523 8.41222 15.3891 8.58425 15.6635 8.64367L19.8326 9.54646C20.5816 9.70867 20.8773 10.6186 20.3666 11.1901L17.5244 14.371C17.3374 14.5803 17.2469 14.8587 17.2752 15.138L17.7049 19.382C17.7821 20.1445 17.0081 20.7069 16.3067 20.3978L12.4032 18.6777C12.1463 18.5645 11.8537 18.5645 11.5968 18.6777L7.69326 20.3978C6.99192 20.7069 6.21789 20.1445 6.2951 19.382L6.7248 15.138C6.75308 14.8587 6.66264 14.5803 6.47558 14.371L3.63339 11.1901C3.12273 10.6186 3.41838 9.70867 4.16744 9.54646L8.3365 8.64367C8.61089 8.58425 8.84767 8.41222 8.98897 8.16962L11.1359 4.48359Z"
-                                    fill="currentColor"
-                                  />
-                                </svg>
-                              </span>
-                              {/*end::Svg Icon*/}{" "}
-                            </div>
-                          </div>
-                        </td>
-                        {/*end::Rating*/}
-                        {/*begin::Status-*/}
-                        <td className="text-end pe-0" data-order="Published">
-                          {/*begin::Badges*/}
-                          <div className="badge badge-light-success">Published</div>
-                          {/*end::Badges*/}
-                        </td>
-                        {/*end::Status-*/}
-                        {/*begin::Action-*/}
-                        <td className="text-end">
-                          <a
-                            href="#"
-                            className="btn btn-sm btn-light btn-active-light-primary"
-                            data-kt-menu-trigger="click"
-                            data-kt-menu-placement="bottom-end"
-                          >
-                            Actions
-                            {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                            <span className="svg-icon svg-icon-5 m-0">
-                              <svg
-                                width={24}
-                                height={24}
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                xmlns="http://www.w3.org/2000/svg"
-                              >
-                                <path
-                                  d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                  fill="currentColor"
-                                />
-                              </svg>
-                            </span>
-                            {/*end::Svg Icon*/}{" "}
-                          </a>
-                          {/*begin::Menu*/}
-                          <div
-                            className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                            data-kt-menu="true"
-                          >
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a href="edit-product.html" className="menu-link px-3">
-                                Edit
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                            {/*begin::Menu item*/}
-                            <div className="menu-item px-3">
-                              <a
-                                href="#"
-                                className="menu-link px-3"
-                                data-kt-ecommerce-product-filter="delete_row"
-                              >
-                                Delete
-                              </a>
-                            </div>
-                            {/*end::Menu item*/}
-                          </div>
-                          {/*end::Menu*/}
-                        </td>
-                        {/*end::Action-*/}
-                      </tr>
+                                {/*begin::Menu item*/}
+                                <div className="menu-item px-3">
+                                  <a href="edit-product.html" className="menu-link px-3">
+                                    Edit
+                                  </a>
+                                </div>
+                                {/*end::Menu item*/}
+                                {/*begin::Menu item*/}
+                                <div className="menu-item px-3">
+                                  <a
+                                    href="#"
+                                    className="menu-link px-3"
+                                    data-kt-ecommerce-product-filter="delete_row"
+                                  >
+                                    Delete
+                                  </a>
+                                </div>
+                                {/*end::Menu item*/}
+                              </div>
+                              {/*end::Menu*/}
+                            </td>
+                            {/*end::Action-*/}
+                          </tr>
+                        </>)
+                      })}
+
+
+
                       <tr className="even">
                         {/*begin::Checkbox*/}
                         <td>
