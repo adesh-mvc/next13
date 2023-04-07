@@ -3,28 +3,36 @@ const Product = require('../models/product');
 const productResolver = {
     Query: {
         //Products
-        getProducts: async () => {
+        getProducts: async (_, args) => {
+            const { limit, page } = args;
 
             try {
-                const products = await Product.find({});
+                var products = [];
+                if (limit) {
+                    console.log(args)
+                    products = await Product.find({}).skip(limit * page).limit(limit);
+                } else {
+                    products = await Product.find({});
+                }
+
                 /* .sort( { _id: 1 } )
                 .skip( pageNumber > 0 ? ( ( pageNumber - 1 ) * nPerPage ) : 0 )
                 .limit( nPerPage ); */
-                const numRows = await Product.count({});
-                console.log('total Records:', numRows)
-                const dataSet = { Rows: products, TotalRows: numRows }
+
+                // console.log('total Records:', products)
+
                 return products;
             }
             catch (err) {
                 console.log(err)
             }
         },
-        productDataSet: async (_, args) => {
-            const { limit, offset } = args;
-            const products = await Product.find({}).limit(limit);
+        productDataSet: async () => {
+            // const { limit, offset } = args;
+            // const products = await Product.find({}).limit(limit);
             const numRows = await Product.count({});
-            // console.log('total Records:', products)
-            return { "NumRows": numRows }
+            // console.log('total Records:', ...products)
+            return [{ "NumRows": numRows, "Page": 2 }]
         },
         getProduct: async (_, { id }) => {
             const product = await Product.findById(id);

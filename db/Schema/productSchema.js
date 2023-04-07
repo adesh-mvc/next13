@@ -9,19 +9,20 @@ const productTable = gql`
     productionCapacity: Int
     price: Float
     description: String
-
-
   }
  type DataTable{
-  id: ID
-  name: String
-  image:String
-  productionCapacity: Int
-  price: Float
-  description: String
-    NumRows:Int
+    NumRows: Int
+    Page: Int
+    Table: [String]
  }
-
+type tabCol{
+  id: ID
+    name: String
+    image:String
+    productionCapacity: Int
+    price: Float
+    description: String
+}
   input ProductInput {
     name: String!
     image:String,
@@ -31,8 +32,8 @@ const productTable = gql`
   }
 
   type Query {
-    getProducts: [Product]
-    productDataSet(limit:Int!, offset:Int):[DataTable]
+    getProducts(limit:Int page:Int):[Product]
+    productDataSet:[DataTable]
     getProduct(id: ID!): Product
   }
 
