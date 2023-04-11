@@ -9,7 +9,7 @@ const productResolver = {
             try {
                 var products = [];
                 if (limit) {
-                    console.log(args)
+                    // console.log('args:',)
                     products = await Product.find({}).skip(limit * page).limit(limit);
                 } else {
                     products = await Product.find({});
@@ -32,7 +32,7 @@ const productResolver = {
             // const products = await Product.find({}).limit(limit);
             const numRows = await Product.count({});
             // console.log('total Records:', ...products)
-            return [{ "NumRows": numRows, "Page": 2 }]
+            return [{ "NumRows": numRows }]
         },
         getProduct: async (_, { id }) => {
             const product = await Product.findById(id);

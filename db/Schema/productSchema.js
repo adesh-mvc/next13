@@ -13,7 +13,7 @@ const productTable = gql`
  type DataTable{
     NumRows: Int
     Page: Int
-    Table: [String]
+  
  }
 type tabCol{
   id: ID
