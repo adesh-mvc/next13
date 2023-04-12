@@ -13,6 +13,7 @@
     "@apollo/server": "^4.3.3",
     "@as-integrations/next": "^1.2.0",
     "@next/font": "13.1.6",
+    "apollo-upload-client": "^17.0.0",
     "bcryptjs": "^2.4.3",
     "cookies": "^0.8.0",
     "eslint": "8.33.0",

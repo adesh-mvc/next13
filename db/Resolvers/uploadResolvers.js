@@ -1,5 +1,5 @@
 // import { GraphQLUpload } from "@types/graphql-upload";
-
+// import { GraphQLUpload } from 'apollo-upload-server';
 const uploadResolver = {
     upload: GraphQLUpload,
 

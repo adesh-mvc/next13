@@ -57,13 +57,14 @@ const productResolver = {
             }
         },
         updateProduct: async (_, { id, input }) => {
+
             let product = await Product.findById(id);
 
             if (!product) {
                 throw new Error('Product not found.')
             }
 
-            product = await Product.findOneAndUpdate({ _id, id }, input, {
+            product = await Product.findOneAndUpdate({ id }, input, {
                 new: true
             })
 

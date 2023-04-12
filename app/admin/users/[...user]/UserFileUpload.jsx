@@ -11,12 +11,14 @@ const SINGLE_UPLOAD = gql`
 `;
 const UserFileUpload = (() => {
     const [mutate, { loading, error }] = useMutation(SINGLE_UPLOAD);
-    const onChange = ({
+    function onChange({
         target: {
             validity,
-            files: [file]
-        }
-    },) => validity.valid && mutate({ variables: { file } });
+            files: [file],
+        },
+    }) {
+        if (validity.valid) mutate({ variables: { file } });
+    }
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
@@ -46,7 +48,7 @@ const UserFileUpload = (() => {
                     <label className="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow" data-kt-image-input-action="change" data-bs-toggle="tooltip" aria-label="Change avatar" data-bs-original-title="Change avatar" data-kt-initialized={1}>
                         <i className="bi bi-pencil-fill fs-7" />
                         {/*begin::Inputs*/}
-                        <input type="file" name="avatar" accept=".png, .jpg, .jpeg" />
+                        <input type="file" name="avatar" required onChange={onChange} accept=".png, .jpg, .jpeg" />
                         <input type="hidden" name="avatar_remove" />
                         {/*end::Inputs*/}
                     </label>

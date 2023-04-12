@@ -8,7 +8,7 @@ const a = `query Products{
     }
   }
   `;
-
+// const SINGLE_PRODUCT =
 const getitems = `
   query getitems{
     getItems {

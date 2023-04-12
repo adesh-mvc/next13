@@ -1,8 +1,10 @@
 "use client"
 
 const ActionHandler = (e) => {
-    e.trigger.addClass('show menu-dropdown')
-    console.log("action handler")
+
+    // console.log("action handler", document.classList.contains('show'))
+    e.target.classList.add('show', 'menu-dropdown')
+    e.target.nextSibling.classList.add('show')
     // var items = document.querySelectorAll('.show.menu-dropdown[data-kt-menu-trigger]:not([data-kt-menu-static="true"])');
     // var menu;
     // var item;
@@ -32,7 +34,29 @@ const ActionHandler = (e) => {
     // }
 
 }
+const delete_row = () => {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            Swal.fire(
+                'Deleted!',
+                'Your file has been deleted.',
+                'success'
+            )
+        }
+    })
+}
 export default function TableBody(props) {
+    // window.addEventListener('click', function () {
+    //     console.log("clicked outside ")
+    // })
     return (
         <>
             {props.data.getProducts.map((row, index) => {
@@ -71,7 +95,7 @@ export default function TableBody(props) {
                                 <div className="ms-5">
                                     {/*begin::Title*/}
                                     <a
-                                        href="edit-product.html"
+                                        href={`/admin/products/edit/${row.id}`}
                                         className="text-gray-800 text-hover-primary fs-5 fw-bold"
                                         data-kt-ecommerce-product-filter="product_name"
                                     >
@@ -201,7 +225,7 @@ export default function TableBody(props) {
                         {/*begin::Action-*/}
                         <td className="text-end">
                             <a
-                                href="#"
+                                href={void (0)}
                                 className="btn btn-sm btn-light btn-active-light-primary"
                                 data-kt-menu-trigger="click"
                                 data-kt-menu-placement="bottom-end"
@@ -233,7 +257,7 @@ export default function TableBody(props) {
                             >
                                 {/*begin::Menu item*/}
                                 <div className="menu-item px-3">
-                                    <a href="edit-product.html" className="menu-link px-3">
+                                    <a href={`/admin/products/edit/${row.id}`} className="menu-link px-3">
                                         Edit
                                     </a>
                                 </div>
@@ -241,8 +265,9 @@ export default function TableBody(props) {
                                 {/*begin::Menu item*/}
                                 <div className="menu-item px-3">
                                     <a
-                                        href="#"
+                                        href={void (0)}
                                         className="menu-link px-3"
+                                        onClick={delete_row}
                                         data-kt-ecommerce-product-filter="delete_row"
                                     >
                                         Delete
