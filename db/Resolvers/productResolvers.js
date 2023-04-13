@@ -64,7 +64,7 @@ const productResolver = {
                 throw new Error('Product not found.')
             }
 
-            product = await Product.findOneAndUpdate({ id }, input, {
+            product = await Product.findByIdAndUpdate({ _id: id }, input, {
                 new: true
             })
 

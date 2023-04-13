@@ -26,8 +26,8 @@ type tabCol{
   input ProductInput {
     name: String!
     image:String,
-    productionCapacity: Int!
-    price: Float!
+    productionCapacity: Int
+    price: Float
     description: String
   }
 

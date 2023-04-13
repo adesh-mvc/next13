@@ -46,7 +46,7 @@ export default function TableFooter(props) {
                             const rows = [];
                             for (let i = 0; i < totalpage; i++) {
                                 rows.push(
-                                    <li className={`paginate_button page-item ${!i ? `active` : ''}`}>
+                                    <li key={i} className={`paginate_button page-item ${!i ? `active` : ''}`}>
                                         <a
                                             href={void (0)}
                                             aria-controls="kt_ecommerce_products_table"

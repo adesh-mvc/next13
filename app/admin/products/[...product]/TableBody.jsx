@@ -63,7 +63,7 @@ export default function TableBody(props) {
 
                 const class_name = (index + 1) % 2 === 0 ? 'even' : 'odd';
                 return (<>
-                    <tr className={class_name} key={row.id}>
+                    <tr key={index} className={class_name} >
                         {/*begin::Checkbox*/}
                         <td>
                             <div className="form-check form-check-sm form-check-custom form-check-solid">

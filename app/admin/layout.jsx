@@ -22,7 +22,7 @@ const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['la
 
 export default function AdminLayout({ children }) {
 
-  const [themeMode, setThemeMode] = useState(null);
+  const [themeMode, setThemeMode] = useState('');
   useEffect(() => {
     setThemeMode('light');
 

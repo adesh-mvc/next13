@@ -2,7 +2,7 @@
 import Link from "next/link";
 
 const MenuWrapper = (currentPath) => {
-    console.log("renderPath", currentPath.renderPath)
+    // console.log("renderPath", currentPath.renderPath)
     // const router = useRouter();
 
     // console.log("router", currentPath);
