@@ -4,10 +4,11 @@ const productResolver = {
     Query: {
         //Products
         getProducts: async (_, args) => {
-            const { limit, page } = args;
+            const { limit, page, q } = args;
 
             try {
                 var products = [];
+
                 if (limit) {
                     // console.log('args:',)
                     products = await Product.find({}).skip(limit * page).limit(limit);
@@ -27,10 +28,11 @@ const productResolver = {
                 console.log(err)
             }
         },
-        productDataSet: async () => {
+        productDataSet: async (_, q) => {
             // const { limit, offset } = args;
             // const products = await Product.find({}).limit(limit);
-            const numRows = await Product.count({});
+            // /{ name: { $regex: '.*' + q + '.*' } }
+            const numRows = await Product.count();
             // console.log('total Records:', ...products)
             return [{ "NumRows": numRows }]
         },

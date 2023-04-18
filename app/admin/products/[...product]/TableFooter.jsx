@@ -31,7 +31,7 @@ export default function TableFooter(props) {
                             id="kt_ecommerce_products_table_previous"
                         >
                             <a
-                                href="#"
+                                href={void (0)}
                                 aria-controls="kt_ecommerce_products_table"
                                 data-dt-idx={0}
                                 tabIndex={0}
@@ -45,21 +45,28 @@ export default function TableFooter(props) {
                             const totalpage = props.pageCount;
                             const rows = [];
                             for (let i = 0; i < totalpage; i++) {
-                                rows.push(
-                                    <li key={i} className={`paginate_button page-item ${!i ? `active` : ''}`}>
-                                        <a
-                                            href={void (0)}
-                                            aria-controls="kt_ecommerce_products_table"
-                                            data-page={i}
-                                            data-dt-idx={1}
-                                            tabIndex={i}
-                                            onClick={props.pagination}
-                                            className="page-link"
-                                        >
-                                            {i + 1}
-                                        </a>
-                                    </li>
-                                );
+                                if (i < 3) {
+                                    rows.push(
+                                        <li key={i + 1} className={`paginate_button page-item ${!i ? `active` : ''}`}>
+                                            <a
+                                                href={void (0)}
+                                                aria-controls="kt_ecommerce_products_table"
+                                                data-page={i}
+                                                data-dt-idx={1}
+                                                tabIndex={i}
+                                                onClick={props.pagination}
+                                                className="page-link"
+                                            >
+                                                {i + 1}
+                                            </a>
+                                        </li>
+
+                                    );
+                                }
+                                if (i >= 3 && i < 5) {
+                                    rows.push(<li className={`page-item`}>...</li>)
+                                }
+
                             }
                             return rows;
                         })()}
@@ -70,7 +77,7 @@ export default function TableFooter(props) {
                             id="kt_ecommerce_products_table_next"
                         >
                             <a
-                                href="#"
+                                href={void (0)}
                                 aria-controls="kt_ecommerce_products_table"
                                 data-dt-idx={6}
                                 tabIndex={0}

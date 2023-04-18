@@ -1,10 +1,12 @@
 import ProductList from "./ProductList";
 import ProductForm from "./ProductFrom";
+import { getClient } from "@/lib/client"
 
 
 
 export default function page({ params }) {
     const renderPath = params.product;
+    const client = getClient();
     const viewTemplate = (currentpath) => {
         // console.log(currentpath[currentpath.indexOf('list') + 1])
         if (currentpath.indexOf('list') !== -1) {
@@ -13,8 +15,9 @@ export default function page({ params }) {
         } else if (currentpath.indexOf('add') !== -1) {
             return <ProductForm docId={0} />
         } else if (currentpath.indexOf('edit') !== -1) {
-            const id = currentpath[currentpath.indexOf('edit') + 1] ? currentpath[currentpath.indexOf('edit') + 1] : '';
 
+            const id = currentpath[currentpath.indexOf('edit') + 1] ? currentpath[currentpath.indexOf('edit') + 1] : '';
+            // await client.query(query:);
             return <ProductForm docId={id} />
         } else {
             return <>Error page going render...</>

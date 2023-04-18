@@ -5,8 +5,8 @@ import TableBody from "./TableBody";
 import TableFooter from "./TableFooter";
 
 const GET_PRODUCT = gql`
-query Products($limit: Int, $page: Int){
-  getProducts(limit: $limit,page: $page) {
+query Products($limit: Int, $page: Int, $q: String){
+  getProducts(limit: $limit,page: $page, q: $q) {
     id
     name
     productionCapacity
@@ -15,8 +15,7 @@ query Products($limit: Int, $page: Int){
   }
   productDataSet {
     NumRows
-    Page
-    
+       
   }
 }
 `;
@@ -27,7 +26,8 @@ export default function ProductList(pagination) {
   const { data, loading, error, fetchMore } = useQuery(GET_PRODUCT, {
     variables: {
       limit: perPage,
-      page: 0
+      page: 0,
+      // q: 'k'
     },
     // Important for component refreshing with new data
     // notifyOnNetworkStatusChange: true
@@ -44,7 +44,7 @@ export default function ProductList(pagination) {
   }
   // setTableData(data.getProducts);
   const ProductData = async (event) => {
-    console.log(event.target.getAttribute('data-page'))
+    console.log('pagination:', document.getElementsByClassName('page-link').length)
     await fetchMore({
       variables: {
         page: parseInt(event.target.getAttribute('data-page')),
@@ -398,7 +398,7 @@ export default function ProductList(pagination) {
                   {/*end::Select2*/}
                 </div>
                 {/*begin::Add product*/}
-                <a href="add-product.html" className="btn btn-primary">
+                <a href="/admin/products/add" className="btn btn-primary">
                   Add Product
                 </a>
                 {/*end::Add product*/}

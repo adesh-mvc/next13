@@ -32,8 +32,8 @@ type tabCol{
   }
 
   type Query {
-    getProducts(limit:Int page:Int):[Product]
-    productDataSet:[DataTable]
+    getProducts(limit:Int page:Int q:String):[Product]
+    productDataSet(q:String):[DataTable]
     getProduct(id: ID!): Product
   }
 
