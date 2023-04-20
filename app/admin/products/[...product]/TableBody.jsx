@@ -1,5 +1,10 @@
 "use client"
 
+// check all checkbox
+
+
+
+
 const ActionHandler = (e) => {
 
     // console.log("action handler", document.classList.contains('show'))
@@ -70,6 +75,9 @@ export default function TableBody(props) {
                                 <input
                                     className="form-check-input"
                                     type="checkbox"
+                                    onChange={props.AllChecked}
+                                    /*     defaultChecked={false} */
+                                    checked={props.CheckStatus}
                                     defaultValue={row.id}
                                 />
                             </div>

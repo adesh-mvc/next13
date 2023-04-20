@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useMutation, useQuery, gql } from "@apollo/client";
 
 import ProductAdd from "./ProductAdd";
@@ -39,7 +40,7 @@ query singleProduct($getProductId: ID!){
 }
 `;
 const ProductForm = (props) => {
-
+    const router = useRouter();
     const [childData, setChildData] = useState({})
     const [product_data, setProductData] = useState({});
 
@@ -87,6 +88,7 @@ const ProductForm = (props) => {
             catch (e) {
                 console.log('Apollo error during product add');
             }
+
         } else {
 
             try {
@@ -98,16 +100,13 @@ const ProductForm = (props) => {
                 });
                 if (loading) return 'Loading...';
                 if (error) return `Submission error! ${error.message}`;
-                if (data) {
-
-                }
             } catch (e) {
                 console.log('Apollo error during edit porduct.')
             }
             // console.log('data after add:', data)
+
         }
-
-
+        router.push('/admin/products/list', { query: { action: "success" } });
 
 
     }
