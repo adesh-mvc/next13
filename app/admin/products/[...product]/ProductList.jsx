@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from "@apollo/client";
 import DataTable, { ExpanderComponentProps } from "react-data-table-component";
@@ -30,14 +30,22 @@ export default function ProductList(pagination) {
   const [selectedRows, setSelectedRows] = useState([]);
   const [toggleCleared, setToggleCleared] = useState(false);
   const [tableData, setData] = useState();
-  const handleRowSelected = React.useCallback(state => {
-    setSelectedRows(state.selectedRows);
+  const [page, setPage] = useState(1);
+  // const [pending, setPending] = useState(true);
+  const handleRowSelected = useCallback(state => {
+    // setSelectedRows(state.selectedRows);
   }, []);
   const [isLoading, setLoading] = useState(false);
-  const [totalRows, setTotalRows] = useState(0);
-  const [perPage, setPerPage] = useState(3);
 
+  const [perPage, setPerPage] = useState(10);
 
+  const actionsMemo = React.useMemo(() => {
+    // <Export onExport={() => downloadCSV(data)} />
+    <a href="/admin/products/add" className="btn btn-primary">
+      export
+    </a>
+    console.log('export button')
+  }, []);
   const contextActions = React.useMemo(() => {
     const handleDelete = () => {
 
@@ -63,6 +71,13 @@ export default function ProductList(pagination) {
 
 
   const router = useRouter();
+  const customFunction = (dataset) => {
+    return (<>
+      <a href={`/admin/products/edit/${dataset.id}`} className="btn btn-success">
+        edit
+      </a>
+    </>)
+  }
   const columns = [
     {
       name: 'Product Name',
@@ -76,15 +91,20 @@ export default function ProductList(pagination) {
       name: 'Price',
       selector: row => row.price,
     },
+    {
+      name: 'Action',
+      selector: row => customFunction(row),
+    }
   ];
   // const perPage = 3;
 
   // setLoading(true);
 
   const { data, loading, error, fetchMore } = useQuery(GET_PRODUCT, {
+
     variables: {
       limit: perPage,
-      page: 0,
+      page: page,
       // q: 'k'
     },
     // Important for component refreshing with new data
@@ -98,24 +118,36 @@ export default function ProductList(pagination) {
     return null;
   }
   if (loading) {
-    return <h1>Loading table...</h1>;
+    // return <h1>Loading...</h1>
+    return () => setLoading(true);
   }
-  const [TotalRow] = data.productDataSet;
-  console.log('TotalRow', TotalRow)
+  // else {
+  //   return () => setLoading(false);
+  // }
+
 
 
   // setData(data.getProducts);
   // setTotalRows(data.productDataSet);
   // setLoading(false);
   // setTableData(data.getProducts);
-  const ProductData = async (event) => {
-    // console.log('pagination:', document.getElementsByClassName('page-link').length)
-    await fetchMore({
+
+  const handlePageChange = pageno => {
+    setPage(pageno)
+    console.log('page:', pageno)
+
+  };
+  var [TotalRow] = data.productDataSet;
+  const handlePerRowsChange = (newPerPage, page) => {
+    setLoading(true);
+    console.log('handlePerRowsChange:')
+    fetchMore({
       variables: {
-        page: parseInt(event.target.getAttribute('data-page')),
-        limit: perPage,
+        page: page,
+        limit: newPerPage,
       },
       // concatenate old and new entries
+
       updateQuery: (previousResult, { fetchMoreResult }) => {
 
         // console.log('fetchMoreResult:', fetchMoreResult.getProducts);
@@ -128,24 +160,50 @@ export default function ProductList(pagination) {
 
         // const newEntries = fetchMoreResult.getProducts;
         // console.log('newEntries:', previousResult.getProducts);
-        //return { ...previousResult.getProducts, ...newEntries }
-        return fetchMoreResult
-      },
-    });
+        // return { ...previousResult.getProducts, ...newEntries }
+
+        console.log('fetchMore:', data.getProducts)
+        // return fetchMoreResult
+        TotalRow = data.productDataSet;
+        return fetchMoreResult;
+      }
+    }
+
+    ).then(resuls => {
+
+      setLoading(false);
+      setPerPage(newPerPage);
+      //  return resuls;
+    })
     // setTableData(table);
     // console.log('tableData:', tableData)
   }
 
-  const pages = TotalRow.NumRows / perPage;
-  const NoOfPages = TotalRow.NumRows % perPage !== 0 ? parseInt(pages) + 1 : pages;
 
-  console.log('fetchMore:', data.getProducts)
+  console.log('TotalRow', TotalRow)
+
 
   // data provides access to your row data
   const ExpandedComponent = ({ data }) => {
     return <pre>{JSON.stringify(data, null, 2)
     }</pre >;
   };
+  const subHeaderComponent = (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <input type="text" placeholder="search" />
+      <select>
+        <option>--select status--</option>
+      </select>
+      &nbsp;
+      <a href="/admin/products/add" className="btn btn-primary">
+        Add Product
+      </a>
+      {/* <TextField id="outlined-basic" label="Search" variant="outlined" size="small" style={{ margin: '5px' }} />
+      <Icon1 style={{ margin: '5px' }} color="action" />
+      <Icon2 style={{ margin: '5px' }} color="action" />
+      <Icon3 style={{ margin: '5px' }} color="action" /> */}
+    </div>
+  );
   return (
     <>
       <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">
@@ -367,7 +425,9 @@ export default function ProductList(pagination) {
             <DataTable
               columns={columns}
               data={data.getProducts}
-              title="Product Table"
+              title="Product List"
+              subHeader
+              subHeaderComponent={subHeaderComponent}
               selectableRows
               contextActions={contextActions}
               onSelectedRowsChange={handleRowSelected}
@@ -375,12 +435,18 @@ export default function ProductList(pagination) {
               expandableRows expandableRowsComponent={ExpandedComponent}
               expandableRowsHideExpander
               expandOnRowClicked
-              paginationprogressPending={isLoading}
+              /*  progressPending={pending} */
+              progressPending={isLoading}
               pagination
               paginationServer
+              /*  paginationprogressPending={isLoading} */
               paginationTotalRows={TotalRow.NumRows}
-            // onChangeRowsPerPage={handlePerRowsChange}
-            // onChangePage={handlePageChange}
+
+              onChangeRowsPerPage={handlePerRowsChange}
+              onChangePage={handlePageChange}
+
+              pointerOnHover
+              actions={actionsMemo}
             />
           </div>
           {/*end::Products*/}

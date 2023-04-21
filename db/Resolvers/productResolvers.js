@@ -11,7 +11,9 @@ const productResolver = {
 
                 if (limit) {
                     // console.log('args:',)
-                    products = await Product.find({}).skip(limit * page).limit(limit);
+                    products = await Product.find({})
+                        .skip(limit * (page - 1))
+                        .limit(limit);
                 } else {
                     products = await Product.find({});
                 }

@@ -1,5 +1,6 @@
 "use client"
 import React, { useState, useEffect } from "react";
+
 const ProductAdd = (props) => {
     const [product, setProduct] = useState({
         name: "",
@@ -58,6 +59,9 @@ const ProductAdd = (props) => {
         <input type="text" id="product_desc" name="description" onChange={inputChange} defaultValue={product.description} />
         <label htmlFor="thumb">Thumb URL</label>
         <input type="text" id="thumb" name="image" onChange={inputChange} defaultValue={product.image} />
+
+
     </>);
+
 }
 export default ProductAdd;

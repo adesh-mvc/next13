@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQuery, gql } from "@apollo/client";
 
 import ProductAdd from "./ProductAdd";
+import TestCheckBox from "./TestCheckbox"
 import UserFileUpload from "../../users/[...user]/UserFileUpload";
 
 const ADD_PRODUCT = gql`
@@ -128,6 +129,10 @@ const ProductForm = (props) => {
                 {/*  <UserFileUpload /> */}
                 <button type="submit">Submit</button>
             </form>
+
+
+            <br />
+            <TestCheckBox />
         </>
     )
 }
