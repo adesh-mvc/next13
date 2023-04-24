@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from "@apollo/client";
-import TableHeader from "./TableHeader";
-import TableHead from "./TableHead";
-import TableBody from "./TableBody";
-import TableFooter from "./TableFooter";
-import CheckBoxChecked from "../../component/common/CheckBoxChecked";
+import DataTable, { ExpanderComponentProps } from "react-data-table-component";
+
+
+
+
 
 const GET_PRODUCT = gql`
 query Products($limit: Int, $page: Int, $q: String){
@@ -15,6 +15,7 @@ query Products($limit: Int, $page: Int, $q: String){
     id
     name
     productionCapacity
+    description
     price
     image
   }
@@ -26,20 +27,84 @@ query Products($limit: Int, $page: Int, $q: String){
 `;
 // https://www.apollographql.com/blog/apollo-client/pagination/pagination-and-infinite-scrolling/#the-solution-fetchmore
 export default function ProductList(pagination) {
-  const [allCheckbox, setAllCheckbox] = useState(false);
-  const [headCheckbox, setheadCheckbox] = useState(0);
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [toggleCleared, setToggleCleared] = useState(false);
+  const [tableData, setData] = useState();
+  const [page, setPage] = useState(1);
+  // const [pending, setPending] = useState(true);
+  const handleRowSelected = useCallback(state => {
+    // setSelectedRows(state.selectedRows);
+  }, []);
+  const [isLoading, setLoading] = useState(false);
 
-  const [singleCheckbox, setSingleCheckbox] = useState(false);
+  const [perPage, setPerPage] = useState(10);
 
+  const actionsMemo = React.useMemo(() => {
+    // <Export onExport={() => downloadCSV(data)} />
+    <a href="/admin/products/add" className="btn btn-primary">
+      export
+    </a>
+    console.log('export button')
+  }, []);
+  const contextActions = React.useMemo(() => {
+    const handleDelete = () => {
+
+      if (window.confirm(`Are you sure you want to delete:\r ${selectedRows.map(r => r.title)}?`)) {
+        setToggleCleared(!toggleCleared);
+        setData(differenceBy(data, selectedRows, 'title'));
+      }
+    };
+
+    return (
+      <>
+        <a href={void (0)} className="btn btn-danger" onClick={handleDelete}>
+          Delete
+        </a>
+        <a href="/admin/products/add" className="btn btn-primary">
+          Add Product
+        </a>
+      </>
+
+
+    );
+  }, [tableData, selectedRows, toggleCleared]);
 
 
   const router = useRouter();
+  const customFunction = (dataset) => {
+    return (<>
+      <a href={`/admin/products/edit/${dataset.id}`} className="btn btn-success">
+        edit
+      </a>
+    </>)
+  }
+  const columns = [
+    {
+      name: 'Product Name',
+      selector: row => row.name,
+    },
+    {
+      name: 'P U',
+      selector: row => row.productionCapacity,
+    },
+    {
+      name: 'Price',
+      selector: row => row.price,
+    },
+    {
+      name: 'Action',
+      selector: row => customFunction(row),
+    }
+  ];
+  // const perPage = 3;
 
-  const perPage = 3;
+  // setLoading(true);
+
   const { data, loading, error, fetchMore } = useQuery(GET_PRODUCT, {
+
     variables: {
       limit: perPage,
-      page: 0,
+      page: page,
       // q: 'k'
     },
     // Important for component refreshing with new data
@@ -53,17 +118,36 @@ export default function ProductList(pagination) {
     return null;
   }
   if (loading) {
-    return <h1>Loading table...</h1>;
+    // return <h1>Loading...</h1>
+    return () => setLoading(true);
   }
+  // else {
+  //   return () => setLoading(false);
+  // }
+
+
+
+  // setData(data.getProducts);
+  // setTotalRows(data.productDataSet);
+  // setLoading(false);
   // setTableData(data.getProducts);
-  const ProductData = async (event) => {
-    // console.log('pagination:', document.getElementsByClassName('page-link').length)
-    await fetchMore({
+
+  const handlePageChange = pageno => {
+    setPage(pageno)
+    console.log('page:', pageno)
+
+  };
+  var [TotalRow] = data.productDataSet;
+  const handlePerRowsChange = (newPerPage, page) => {
+    setLoading(true);
+    console.log('handlePerRowsChange:')
+    fetchMore({
       variables: {
-        page: parseInt(event.target.getAttribute('data-page')),
-        limit: perPage,
+        page: page,
+        limit: newPerPage,
       },
       // concatenate old and new entries
+
       updateQuery: (previousResult, { fetchMoreResult }) => {
 
         // console.log('fetchMoreResult:', fetchMoreResult.getProducts);
@@ -76,45 +160,50 @@ export default function ProductList(pagination) {
 
         // const newEntries = fetchMoreResult.getProducts;
         // console.log('newEntries:', previousResult.getProducts);
-        //return { ...previousResult.getProducts, ...newEntries }
-        return fetchMoreResult
-      },
-    });
+        // return { ...previousResult.getProducts, ...newEntries }
+
+        console.log('fetchMore:', data.getProducts)
+        // return fetchMoreResult
+        TotalRow = data.productDataSet;
+        return fetchMoreResult;
+      }
+    }
+
+    ).then(resuls => {
+
+      setLoading(false);
+      setPerPage(newPerPage);
+      //  return resuls;
+    })
     // setTableData(table);
     // console.log('tableData:', tableData)
   }
-  const [TotalRow] = data.productDataSet;
-  const pages = TotalRow.NumRows / perPage;
-  const NoOfPages = TotalRow.NumRows % perPage !== 0 ? parseInt(pages) + 1 : pages;
-  const paginationData = {
-    size: NoOfPages,
-    page: 1,
-    step: 2
-  }
-  // console.log(data)
-  // const product = useQuery(GET_PRODUCT);
-  // console.log('useQuery', pagination)
 
-  // check all
-  const CheckedToggle = (e) => {
-    // if (e.target.checked) {
-    //   setAllCheckbox(true);
-    // } else {
-    //   setAllCheckbox(false);
-    // }
-    if (e.target.name === 'all' && e.target.checked) {
-      setheadCheckbox(1);
-      setAllCheckbox(true);
-    } else if (e.target.name === 'all' && !e.target.checked) {
-      setheadCheckbox(0);
-      setAllCheckbox(false);
-    }
-    console.log("tracked checkbox:", e.target.checked)
-  }
 
-  const SingleCheckedToggle = () => {
+  console.log('TotalRow', TotalRow)
 
-  }
+
+  // data provides access to your row data
+  const ExpandedComponent = ({ data }) => {
+    return <pre>{JSON.stringify(data, null, 2)
+    }</pre >;
+  };
+  const subHeaderComponent = (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <input type="text" placeholder="search" />
+      <select>
+        <option>--select status--</option>
+      </select>
+      &nbsp;
+      <a href="/admin/products/add" className="btn btn-primary">
+        Add Product
+      </a>
+      {/* <TextField id="outlined-basic" label="Search" variant="outlined" size="small" style={{ margin: '5px' }} />
+      <Icon1 style={{ margin: '5px' }} color="action" />
+      <Icon2 style={{ margin: '5px' }} color="action" />
+      <Icon3 style={{ margin: '5px' }} color="action" /> */}
+    </div>
+  );
   return (
     <>
       <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">
@@ -333,44 +422,32 @@ export default function ProductList(pagination) {
         <div className="content flex-row-fluid" id="kt_content">
           {/*begin::Products*/}
           <div className="card card-flush">
-            {/*begin::Card header*/}
-            <TableHeader />
-            {/*end::Card header*/}
-            {/*begin::Card body*/}
-            <div className="card-body pt-0">
-              {/*begin::Table*/}
-              <div
-                id="kt_ecommerce_products_table_wrapper"
-                className="dataTables_wrapper dt-bootstrap4 no-footer"
-              >
-                <div className="table-responsive">
-                  <table
-                    className="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
-                    id="kt_ecommerce_products_table"
-                  >
-                    {/*begin::Table head*/}
-                    <thead>
-                      {/*begin::Table row*/}
-                      <TableHead AllChecked={CheckedToggle} checkedVal={headCheckbox} />
-                      {/*end::Table row*/}
-                    </thead>
-                    {/*end::Table head*/}
-                    {/*begin::Table body*/}
-                    <tbody className="fw-semibold text-gray-600">
-                      <TableBody data={data} AllChecked={CheckedToggle} CheckStatus={allCheckbox} />
+            <DataTable
+              columns={columns}
+              data={data.getProducts}
+              title="Product List"
+              subHeader
+              subHeaderComponent={subHeaderComponent}
+              selectableRows
+              contextActions={contextActions}
+              onSelectedRowsChange={handleRowSelected}
+              clearSelectedRows={toggleCleared}
+              expandableRows expandableRowsComponent={ExpandedComponent}
+              expandableRowsHideExpander
+              expandOnRowClicked
+              /*  progressPending={pending} */
+              progressPending={isLoading}
+              pagination
+              paginationServer
+              /*  paginationprogressPending={isLoading} */
+              paginationTotalRows={TotalRow.NumRows}
 
+              onChangeRowsPerPage={handlePerRowsChange}
+              onChangePage={handlePageChange}
 
-
-
-                    </tbody>
-                    {/*end::Table body*/}
-                  </table>
-                </div>
-                <TableFooter pageCount={NoOfPages} pagination={ProductData} />
-              </div>
-              {/*end::Table*/}
-            </div>
-            {/*end::Card body*/}
+              pointerOnHover
+              actions={actionsMemo}
+            />
           </div>
           {/*end::Products*/}
         </div>

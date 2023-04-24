@@ -16,10 +16,11 @@ const TableHead = (props) => {
                         className="form-check-input"
                         type="checkbox"
                         data-kt-check="true"
-                        onChange={props.AllChecked}
+                        onChange={(event) => props.AllChecked(event.target.checked)}
+                        /*  checked={props.CheckStatus} */
                         data-kt-check-target="#kt_ecommerce_products_table .form-check-input"
                         defaultValue={1}
-                        value={props.checkedVal}
+                        /*  value={props.checkedVal} */
                         name="all"
                     />
                 </div>

@@ -234,7 +234,7 @@ export default function TableFooter(props) {
                                         <a
                                             href={void (0)}
                                             aria-controls="kt_ecommerce_products_table"
-                                            data-page={i}
+                                            data-page={i + 1}
                                             data-dt-idx={1}
                                             tabIndex={i}
                                             onClick={props.pagination}
