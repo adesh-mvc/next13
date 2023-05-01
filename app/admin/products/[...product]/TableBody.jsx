@@ -1,7 +1,8 @@
 "use client"
 
-// check all checkbox
+import { useState } from "react"
 
+// check all checkbox
 
 
 
@@ -59,10 +60,17 @@ const delete_row = () => {
     })
 }
 export default function TableBody(props) {
-    const { toggleCheck, CheckStatus, dataList } = props;
+    // const { toggleCheck, CheckStatus } = props;
     // window.addEventListener('click', function () {
     //     console.log("clicked outside ")
     // })
+
+
+    const [checkBody, setCheckBody] = useState([])
+
+    console.log("checkBody", props.data.getProducts)
+    // props.getData(checkBody)
+
     return (
         <>
             {props.data.getProducts ? (
@@ -78,11 +86,12 @@ export default function TableBody(props) {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        onChange={(e) => toggleCheck(documentId)}
-                                        dataList={dataList(documentId)}
-                                        /*     defaultChecked={false} */
-                                        checked={CheckStatus[documentId]}
-                                        defaultValue="1"
+                                        /*   onChange={(e) => toggleCheck(documentId)} */
+                                        defaultValue={console.log("default:", documentId)}
+                                        data-row={documentId}
+                                    /*     defaultChecked={false} */
+                                    /* checked={CheckStatus[documentId]} */
+                                    // defaultValue={documentId}
                                     />
                                 </div>
                             </td>
