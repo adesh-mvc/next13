@@ -5,21 +5,26 @@ const SINGLE_UPLOAD = gql`
       filename
       mimetype
       encoding
-      url
+      
     }
   }
 `;
 const UserFileUpload = (() => {
     const [mutate, { loading, error }] = useMutation(SINGLE_UPLOAD);
-    function onChange({
-        target: {
-            validity,
-            files: [file],
-        },
-    }) {
-        if (validity.valid) mutate({ variables: { file } });
+    // function onChange({
+    //     target: {
+    //         validity,
+    //         files,
+    //     }
+    // }) {
+    //     // mutate({ variables: { file: files[0] } });
+    //     if (validity.valid) mutate({ variables: { file: files[0] } });
+    // }
+    const onChange = ({ target: { files } }) => {
+        const file = files[0]
+        console.log(file)
+        file && mutate({ variables: { file: file } })
     }
-
     if (loading) return <div>Loading...</div>;
     if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
 
@@ -38,7 +43,7 @@ const UserFileUpload = (() => {
             <div className="card-body text-center pt-0">
                 {/*begin::Image input*/}
                 {/*begin::Image input placeholder*/}
-                <style dangerouslySetInnerHTML={{ __html: "\n                .image-input-placeholder {\n                    background-image: url('../../../assets/media/svg/files/blank-image.svg');\n                }\n\n                [data-bs-theme=\"dark\"] .image-input-placeholder {\n                    background-image: url('../../../assets/media/svg/files/blank-image-dark.svg');\n                }                \n            " }} />
+                <style dangerouslySetInnerHTML={{ __html: "\n  .image-input-placeholder {\n                    background-image: url('../../../assets/media/svg/files/blank-image.svg');\n                }\n\n                [data-bs-theme=\"dark\"] .image-input-placeholder {\n                    background-image: url('../../../assets/media/svg/files/blank-image-dark.svg');\n                }                \n            " }} />
                 {/*end::Image input placeholder*/}
                 <div className="image-input image-input-empty image-input-outline image-input-placeholder mb-3" data-kt-image-input="true">
                     {/*begin::Preview existing avatar*/}

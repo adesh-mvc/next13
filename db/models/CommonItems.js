@@ -16,5 +16,5 @@ const Item = new Schema({
     }]
 });
 
-export default module.exports = mongoose.models.CommonItem || mongoose.model('CommonItem', Item);
+module.exports = mongoose.models.CommonItem || mongoose.model('CommonItem', Item);
 

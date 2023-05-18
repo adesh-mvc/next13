@@ -1,5 +1,5 @@
-const bcrypt = require('bcryptjs');;
-const Admin = require('../models/admin-book');
+const bcrypt = import('bcryptjs');;
+const Admin = import('../models/admin-book');
 
 const adminResolver = {
     Query: {

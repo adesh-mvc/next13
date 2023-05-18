@@ -34,5 +34,4 @@ const ProductsSchema = new Schema({
 
 // ProductsSchema.index({ name: 'text' })
 
-module.exports =
-    mongoose.models.Product || mongoose.model('Product', ProductsSchema)
+module.exports = mongoose.models.Product || mongoose.model('Product', ProductsSchema)

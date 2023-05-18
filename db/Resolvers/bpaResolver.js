@@ -1,5 +1,5 @@
-const BpaModel = require('../models/bpa-model');
-
+// const BpaModel = require('../models/bpa-model');
+import BpaModel from "../models/bpa-model";
 const bapResolver = {
     Query: {
         getBpaList: async () => {

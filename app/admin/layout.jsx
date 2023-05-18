@@ -17,15 +17,14 @@ import Footer from './component/Footer';
 // import OtherElements from './component/OtherElements';
 
 import Script from 'next/script';
-import { Inter } from '@next/font/google'
-const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
+// import { Inter } from '@next/font/google'
+// const inter = Inter({ weight: ['300', '400', '500', '600', '700'], subsets: ['latin'] })
 
 export default function AdminLayout({ children }) {
 
   const [themeMode, setThemeMode] = useState('');
   useEffect(() => {
     setThemeMode('light');
-
   }, []);
 
   return (

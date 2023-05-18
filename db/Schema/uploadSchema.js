@@ -3,17 +3,15 @@ import { gql } from "graphql-tag";
 const uploadSchema = gql`
 # in the resolver map below.
 scalar Upload
-type File {
+type File {  
     filename: String!
     mimetype: String!
     encoding: String!
   }
   type Query {
-
-    otherFields: Boolean!
+    _ : Boolean 
   }
-  type Mutation {
-  
+  type Mutation {  
     singleUpload(file: Upload!): File!
   }
 `;

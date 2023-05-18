@@ -5,50 +5,37 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQuery, gql } from "@apollo/client";
 
 import ProductAdd from "./ProductAdd";
-import TestCheckBox from "./TestCheckbox"
-import UserFileUpload from "../../users/[...user]/UserFileUpload";
-import Tree from "./test/TreeView"
-const treeData = [
+import DragDrop from "./DragDrop";
+
+// import TestCheckBox from "./TestCheckbox"
+// import UserFileUpload from "../../users/[...user]/UserFileUpload";
+// import Tree from "./test/TreeView"
+
+// DragDrop data
+// export Status = 'good' | 'bad' | 'normal'
+const DargDropData = [
     {
-        key: "0",
-        label: "Documents",
-        children: [
-            {
-                key: "0-0",
-                label: "Document 1-1",
-                children: [
-                    {
-                        key: "0-1-1",
-                        label: "Document-0-1.doc",
-                    },
-                    {
-                        key: "0-1-2",
-                        label: "Document-0-2.doc",
-                    },
-                ],
-            },
-        ],
+        id: 1,
+        content: 'Aqua-man',
+        status: 'good'
     },
     {
-        key: "1",
-        label: "Desktop",
-        children: [
-            {
-                key: "1-0",
-                label: "document1.doc",
-            },
-            {
-                key: "0-0",
-                label: "documennt-2.doc",
-            },
-        ],
+        id: 2,
+        content: 'Flash',
+        status: 'normal'
     },
     {
-        key: "2",
-        label: "Downloads",
-        children: [],
+        id: 3,
+        content: 'Green Lantern',
+        status: 'good'
     },
-];
+    {
+        id: 4,
+        content: 'Batman',
+        status: 'bad'
+    },
+]
+
 const ADD_PRODUCT = gql`
 mutation AddProduct($input: ProductInput) {
         newProduct (input: $input){
@@ -85,7 +72,20 @@ const ProductForm = (props) => {
     const router = useRouter();
     const [childData, setChildData] = useState({})
     const [product_data, setProductData] = useState({});
+    const [tariff, setTariff] = useState({ normal: [], bad: [] });
 
+    const tariffHandler = (th) => {
+        console.log('tariffHandler', th)
+        // th.map((item) => {
+        //     if (item.status !== 'good') {
+        //         setTariff(result => ({
+        //             ...result,
+        //             [item.status]: item.id
+        //         }))
+
+        //     }
+        // })
+    }
 
 
     const childToParent = (dataSet) => {
@@ -152,6 +152,7 @@ const ProductForm = (props) => {
 
 
     }
+
     if (props.docId) {
         const single = useQuery(SINGLE_PRODUCT, {
             variables: {
@@ -162,20 +163,27 @@ const ProductForm = (props) => {
         if (single.error) return `Submission error! ${error.message}`;
         docRow = single.data?.getProduct
     }
+    useEffect(() => {
+        console.log(tariff)
+    }, [tariff])
     return (
         <>
             {/*  // We pass the event to the handleSubmit() function on submit. */}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} encType={'multipart/form-data'}>
                 <ProductAdd row={docRow} childto={childToParent} />
                 {/*  <UserFileUpload /> */}
+                <DragDrop
+                    data={DargDropData}
+                    mytariff={tariffHandler}
+                />
                 <button type="submit">Submit</button>
             </form>
 
 
             <br />
-            <TestCheckBox />
+            {/*  <TestCheckBox /> */}
             <br />
-            <Tree treeData={treeData} />
+            {/*   <Tree treeData={treeData} /> */}
         </>
     )
 }

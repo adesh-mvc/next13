@@ -1,7 +1,7 @@
 import ProductList from "./ProductList";
 import ProductForm from "./ProductFrom";
 import { getClient } from "@/lib/client"
-
+import "./dragdrop.css"
 
 
 export default function page({ params }) {

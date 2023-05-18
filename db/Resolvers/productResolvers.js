@@ -1,5 +1,4 @@
-const Product = require('../models/product');
-
+import Product from "../models/product";
 const productResolver = {
     Query: {
         //Products
