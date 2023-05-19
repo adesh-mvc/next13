@@ -20,7 +20,7 @@ query Products($limit: Int, $page: Int, $q: String){
     price
     image
   }
-  productDataSet {
+  productDataSet(q: $q) {
     NumRows
        
   }
@@ -31,6 +31,7 @@ const ProductList = () => {
   const [rowPerPage, setRowPerPage] = useState(5)
   // use in pagination
   const [currentPage, setCurrentPage] = useState(1);
+  const [searchStr, setSearchStr] = useState(null);
   const [totalRows, setTotalRows] = useState(0);
 
   // check checkbox
@@ -46,7 +47,7 @@ const ProductList = () => {
     variables: {
       limit: rowPerPage,
       page: 1,
-      // q: 'k'
+      q: 'mobile'
     },
     // Important for component refreshing with new data
     // notifyOnNetworkStatusChange: true
@@ -63,24 +64,23 @@ const ProductList = () => {
   }
 
 
-  if (!totalRows) {
-
-  }
 
   var [TotalRow] = data.productDataSet;
 
-  const PageSize = () => {
 
-  }
-  const ServerSideRender = async (currentPageNo, limit = '') => {
+  const ServerSideRender = async (currentPageNo, limit = '', search = '') => {
     console.log("ServerSideRender:", currentPageNo)
-    setCurrentPage(currentPageNo);
+
+    let curent = currentPageNo ? currentPageNo : currentPage;
     let renderRows = limit ? limit : rowPerPage;
+    let str = search ? search : '';
+    setCurrentPage(currentPageNo);
     setRowPerPage(renderRows)
     await fetchMore({
       variables: {
-        page: currentPageNo,
+        page: curent,
         limit: renderRows,
+        q: str
       },
       // concatenate old and new entries
       updateQuery: (previousResult, { fetchMoreResult }) => {
@@ -96,7 +96,11 @@ const ProductList = () => {
       },
     });
   }
-
+  const MainSerarch = (str) => {
+    console.log('MainSerarch:', str.target.value)
+    setSearchStr(str.target.value);
+    ServerSideRender(1, rowPerPage, str.target.value);
+  }
 
 
 
@@ -353,7 +357,11 @@ const ProductList = () => {
           {/*begin::Products*/}
           <div className="card card-flush">
             {/*begin::Card header*/}
-            <TableHeader />
+            <TableHeader
+              // (page, rows, q) => ServerSideRender(page, rows, q)
+              onPageChange={MainSerarch}
+              searchString={searchStr}
+            />
             {/*end::Card header*/}
             {/*begin::Card body*/}
             <div className="card-body pt-0">

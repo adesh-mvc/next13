@@ -1,6 +1,6 @@
 "use client"
 
-const TableHeader = () => {
+const TableHeader = ({ onPageChange, searchString }) => {
     return (<>
         <div className="card-header align-items-center py-5 gap-2 gap-md-5">
             {/*begin::Card title*/}
@@ -38,6 +38,8 @@ const TableHeader = () => {
                         data-kt-ecommerce-product-filter="search"
                         className="form-control form-control-solid w-250px ps-14"
                         placeholder="Search Product"
+                        defaultValue={searchString}
+                        onKeyUp={onPageChange}
                     />
                 </div>
                 {/*end::Search*/}

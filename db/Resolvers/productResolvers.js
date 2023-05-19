@@ -9,8 +9,11 @@ const productResolver = {
                 var products = [];
 
                 if (limit) {
-                    // console.log('args:',)
-                    products = await Product.find({})
+
+
+                    const param = q ? { "name": new RegExp(`${q}`, "i") } : {};
+                    console.log('args q:', param)
+                    products = await Product.find(param)
                         .skip(limit * (page - 1))
                         .limit(limit);
                 } else {
@@ -29,11 +32,14 @@ const productResolver = {
                 console.log(err)
             }
         },
-        productDataSet: async (_, q) => {
-            // const { limit, offset } = args;
+        productDataSet: async (_, args) => {
+            const { q } = args;
             // const products = await Product.find({}).limit(limit);
             // /{ name: { $regex: '.*' + q + '.*' } }
-            const numRows = await Product.count();
+            const param = q ? { "name": new RegExp(`${q}`, "i") } : ``;
+            console.log('args q count:', args)
+            const numRows = await Product.count(param);
+
             // console.log('total Records:', ...products)
             return [{ "NumRows": numRows }]
         },
