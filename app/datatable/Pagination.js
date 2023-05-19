@@ -22,7 +22,7 @@ const Pagination = props => {
     });
 
     // If there are less than 2 times in pagination range we shall not render the component
-    if (currentPage === 0 || paginationRange.length < 2) {
+    if (currentPage === 0) { /* || paginationRange.length < 2 */
         return null;
     }
     const onNext = () => {
@@ -32,19 +32,25 @@ const Pagination = props => {
     const onPrevious = () => {
         onPageChange(currentPage - 1);
     };
+    const onChangeLimit = (e) => {
+        console.log("onChangeLimit", e.target.value);
+        onPageChange(currentPage, parseInt(e.target.value));
+    };
     let lastPage = paginationRange[paginationRange.length - 1];
     return (
         <div className="row">
             <div className="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start">
                 <div
                     className="dataTables_length"
-                    id="kt_ecommerce_products_table_length"
+                    id="kt_datatable_table_length"
                 >
                     <label>
                         <select
-                            name="kt_ecommerce_products_table_length"
-                            aria-controls="kt_ecommerce_products_table"
+                            name="kt_datatable_table_length"
+                            aria-controls="kt_datatable_table"
                             className="form-select form-select-sm form-select-solid"
+                            defaultValue={pageSize}
+                            onChange={onChangeLimit}
                         >
                             <option value={10}>10</option>
                             <option value={25}>25</option>
@@ -67,6 +73,7 @@ const Pagination = props => {
                             className={classNames('paginate_button page-item previous', {
                                 disabled: currentPage === 1
                             })}
+                            /*  { currentPage === 1 ? 'disabled' : ''} */
                             onClick={onPrevious}
                         >
                             <a href={void (0)} data-dt-idx="0" tabindex="0" class="page-link"><i class="previous"></i></a>

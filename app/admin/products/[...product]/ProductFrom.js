@@ -172,10 +172,10 @@ const ProductForm = (props) => {
             <form onSubmit={handleSubmit} encType={'multipart/form-data'}>
                 <ProductAdd row={docRow} childto={childToParent} />
                 {/*  <UserFileUpload /> */}
-                <DragDrop
+                {/* <DragDrop
                     data={DargDropData}
                     mytariff={tariffHandler}
-                />
+                /> */}
                 <button type="submit">Submit</button>
             </form>
 

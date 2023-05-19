@@ -1,15 +1,13 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
-// import "../../../../public/assets/js/custom/apps/c"
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuery, gql } from "@apollo/client";
-import TableHeader from "./TableHeader";
-import TableHead from "./TableHead";
-import TableBody from "./TableBody";
-import TableFooter from "./TableFooter";
-import Pagination from "../../../datatable/Pagination";
-import CheckBoxChecked from "../../component/common/CheckBoxChecked";
+import DataTable, { ExpanderComponentProps } from "react-data-table-component";
+
+
+
+
 
 const GET_PRODUCT = gql`
 query Products($limit: Int, $page: Int, $q: String){
@@ -17,6 +15,7 @@ query Products($limit: Int, $page: Int, $q: String){
     id
     name
     productionCapacity
+    description
     price
     image
   }
@@ -27,31 +26,85 @@ query Products($limit: Int, $page: Int, $q: String){
 }
 `;
 // https://www.apollographql.com/blog/apollo-client/pagination/pagination-and-infinite-scrolling/#the-solution-fetchmore
-const ProductList = () => {
-  // use in pagination
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalRows, setTotalRows] = useState(0);
+export default function ProductList(pagination) {
+  const [selectedRows, setSelectedRows] = useState([]);
+  const [toggleCleared, setToggleCleared] = useState(false);
+  const [tableData, setData] = useState();
+  const [page, setPage] = useState(1);
+  // const [pending, setPending] = useState(true);
+  const handleRowSelected = useCallback(state => {
+    // setSelectedRows(state.selectedRows);
+  }, []);
+  const [isLoading, setLoading] = useState(false);
 
-  // check checkbox
-  const [checkedAll, setCheckedAll] = useState(false);
-  const [boxChecked, setBoxChecked] = useState([])
-  const [checkedList, setCheckedList] = useState([]);
+  const [perPage, setPerPage] = useState(30);
+
+  const actionsMemo = React.useMemo(() => {
+    // <Export onExport={() => downloadCSV(data)} />
+    <a href="/admin/products/add" className="btn btn-primary">
+      export
+    </a>
+    console.log('export button')
+  }, []);
+  const contextActions = React.useMemo(() => {
+    const handleDelete = () => {
+
+      if (window.confirm(`Are you sure you want to delete:\r ${selectedRows.map(r => r.title)}?`)) {
+        setToggleCleared(!toggleCleared);
+        setData(differenceBy(data, selectedRows, 'title'));
+      }
+    };
+
+    return (
+      <>
+        <a href={void (0)} className="btn btn-danger" onClick={handleDelete}>
+          Delete
+        </a>
+        <a href="/admin/products/add" className="btn btn-primary">
+          Add Product
+        </a>
+      </>
 
 
-  const [allCheckbox, setAllCheckbox] = useState(false);
-  const [headCheckbox, setheadCheckbox] = useState(0);
-
-  const [singleCheckbox, setSingleCheckbox] = useState(false);
-
+    );
+  }, [tableData, selectedRows, toggleCleared]);
 
 
   const router = useRouter();
+  const customFunction = (dataset) => {
+    return (<>
+      <a href={`/admin/products/edit/${dataset.id}`} className="btn btn-success">
+        edit
+      </a>
+    </>)
+  }
+  const columns = [
+    {
+      name: 'Product Name',
+      selector: row => row.name,
+    },
+    {
+      name: 'P U',
+      selector: row => row.productionCapacity,
+    },
+    {
+      name: 'Price',
+      selector: row => row.price,
+    },
+    {
+      name: 'Action',
+      selector: row => customFunction(row),
+    }
+  ];
+  // const perPage = 3;
 
-  const perPage = 5;
+  // setLoading(true);
+
   const { data, loading, error, fetchMore } = useQuery(GET_PRODUCT, {
+
     variables: {
       limit: perPage,
-      page: 1,
+      page: page,
       // q: 'k'
     },
     // Important for component refreshing with new data
@@ -65,77 +118,92 @@ const ProductList = () => {
     return null;
   }
   if (loading) {
-    return <h1>Loading table...</h1>;
+    // return <h1>Loading...</h1>
+    return () => setLoading(true);
   }
+  // else {
+  //   return () => setLoading(false);
+  // }
 
 
-  if (!totalRows) {
 
-  }
+  // setData(data.getProducts);
+  // setTotalRows(data.productDataSet);
+  // setLoading(false);
+  // setTableData(data.getProducts);
 
+  const handlePageChange = pageno => {
+    setPage(pageno)
+    console.log('page:', pageno)
+
+  };
   var [TotalRow] = data.productDataSet;
-
-
-  const ServerSideRender = async (currentPageNo) => {
-    console.log("ServerSideRender:", currentPageNo)
-    setCurrentPage(currentPageNo);
-    await fetchMore({
+  const handlePerRowsChange = (newPerPage, page) => {
+    setLoading(true);
+    console.log('handlePerRowsChange:')
+    fetchMore({
       variables: {
-        page: currentPageNo,
-        limit: perPage,
+        page: page,
+        limit: newPerPage,
       },
       // concatenate old and new entries
+
       updateQuery: (previousResult, { fetchMoreResult }) => {
-        // if (!fetchMoreResult) return previousResult;
-        // return Object.assign({}, fetchMoreResult, {
-        //   getProducts: [...previousResult.getProducts, ...fetchMoreResult.getProducts]
-        //   // getProducts: [...fetchMoreResult.getProducts]
-        // });
-        //setTotalRows();
-        [TotalRow] = fetchMoreResult.productDataSet;
-        console.log('fetchMoreResult:', TotalRow.NumRows)
-        return fetchMoreResult
-      },
-    });
-  }
 
+        // console.log('fetchMoreResult:', fetchMoreResult.getProducts);
 
+        // const newEntries = fetchMoreResult.data.feed.entries;
+        // return { feed: {
+        //   nextCursor: fetchMoreResult.data.feed.nextCursor,
+        //   entries: [...previousResult.feed.entries, ...newEntries],
+        // }};
 
+        // const newEntries = fetchMoreResult.getProducts;
+        // console.log('newEntries:', previousResult.getProducts);
+        // return { ...previousResult.getProducts, ...newEntries }
 
-
-
-  // check all
-  const toggleCheck = (inputName) => {
-    console.log('inputName:', inputName)
-    // setCheckedList((prevState) => {
-    //   const newState = { ...prevState };
-    //   newState[inputName] = !prevState[inputName];
-    //   return newState;
-    // });
-  };
-
-
-  const selectAll = (value) => {
-    setCheckedAll(value);
-    // console.log(checkedAll, checkedList)
-    // console.log('ADESH', checkedList)
-    setCheckedList((prevState) => {
-      const newState = { ...prevState };
-      console.log('newState', newState)
-      for (const inputName in newState) {
-        newState[inputName] = value;
+        // console.log('fetchMore:', data.getProducts)
+        // return fetchMoreResult
+        // TotalRow = data.productDataSet;
+        return fetchMoreResult;
       }
-      return newState;
-    });
+    }
 
+    ).then(resuls => {
+
+      setLoading(false);
+      setPerPage(newPerPage);
+      //  return resuls;
+    })
+    // setTableData(table);
+    // console.log('tableData:', tableData)
   }
 
 
+  console.log('TotalRow', TotalRow)
 
-  function getData(value) {
-    console.log("value", value)
-  }
 
+  // data provides access to your row data
+  const ExpandedComponent = ({ data }) => {
+    return <pre>{JSON.stringify(data, null, 2)
+    }</pre >;
+  };
+  const subHeaderComponent = (
+    <div style={{ display: 'flex', alignItems: 'center' }}>
+      <input type="text" placeholder="search" />
+      <select>
+        <option>--select status--</option>
+      </select>
+      &nbsp;
+      <a href="/admin/products/add" className="btn btn-primary">
+        Add Product
+      </a>
+      {/* <TextField id="outlined-basic" label="Search" variant="outlined" size="small" style={{ margin: '5px' }} />
+      <Icon1 style={{ margin: '5px' }} color="action" />
+      <Icon2 style={{ margin: '5px' }} color="action" />
+      <Icon3 style={{ margin: '5px' }} color="action" /> */}
+    </div>
+  );
   return (
     <>
       <div className="toolbar mb-n1 pt-3 mb-lg-n3 pt-lg-6" id="kt_toolbar">
@@ -354,51 +422,32 @@ const ProductList = () => {
         <div className="content flex-row-fluid" id="kt_content">
           {/*begin::Products*/}
           <div className="card card-flush">
-            {/*begin::Card header*/}
-            <TableHeader />
-            {/*end::Card header*/}
-            {/*begin::Card body*/}
-            <div className="card-body pt-0">
-              {/*begin::Table*/}
-              <div
-                id="kt_ecommerce_products_table_wrapper"
-                className="dataTables_wrapper dt-bootstrap4 no-footer"
-              >
-                <div className="table-responsive">
-                  <table
-                    className="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
-                    id="kt_ecommerce_products_table"
-                  >
-                    {/*begin::Table head*/}
-                    <thead>
-                      {/*begin::Table row*/}
-                      <TableHead AllChecked={selectAll} CheckStatus={checkedAll} />
-                      {/*end::Table row*/}
-                    </thead>
-                    {/*end::Table head*/}
-                    {/*begin::Table body*/}
-                    <tbody className="fw-semibold text-gray-600">
-                      <TableBody data={data} /* getData={getData}  *//*  CheckStatus={(id) => checkedList(id)} */ /* toggleCheck={(id) => toggleCheck(id)}  */ />
+            <DataTable
+              columns={columns}
+              data={data.getProducts}
+              title="Product List"
+              subHeader
+              subHeaderComponent={subHeaderComponent}
+              selectableRows
+              contextActions={contextActions}
+              onSelectedRowsChange={handleRowSelected}
+              clearSelectedRows={toggleCleared}
+              expandableRows expandableRowsComponent={ExpandedComponent}
+              expandableRowsHideExpander
+              expandOnRowClicked
+              /*  progressPending={pending} */
+              progressPending={isLoading}
+              pagination
+              paginationServer
+              /*  paginationprogressPending={isLoading} */
+              paginationTotalRows={TotalRow.NumRows}
 
+              onChangeRowsPerPage={handlePerRowsChange}
+              onChangePage={handlePageChange}
 
-
-
-                    </tbody>
-                    {/*end::Table body*/}
-                  </table>
-                </div>
-                <Pagination
-                  className=""
-                  currentPage={currentPage}
-                  totalCount={TotalRow.NumRows}
-                  pageSize={perPage}
-                  onPageChange={page => ServerSideRender(page)}
-                />
-                {/* <TableFooter pageCount={NoOfPages} pagination={ProductData} /> */}
-              </div>
-              {/*end::Table*/}
-            </div>
-            {/*end::Card body*/}
+              pointerOnHover
+              actions={actionsMemo}
+            />
           </div>
           {/*end::Products*/}
         </div>
@@ -408,5 +457,3 @@ const ProductList = () => {
     </>
   )
 }
-
-export default ProductList;
