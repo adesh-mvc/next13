@@ -37,7 +37,7 @@ const productResolver = {
             // const products = await Product.find({}).limit(limit);
             // /{ name: { $regex: '.*' + q + '.*' } }
             const param = q ? { "name": new RegExp(`${q}`, "i") } : ``;
-            console.log('args q count:', args)
+            console.log('args q count:', param)
             const numRows = await Product.count(param);
 
             // console.log('total Records:', ...products)

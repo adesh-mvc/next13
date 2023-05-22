@@ -31,7 +31,7 @@ const ProductList = () => {
   const [rowPerPage, setRowPerPage] = useState(5)
   // use in pagination
   const [currentPage, setCurrentPage] = useState(1);
-  const [searchStr, setSearchStr] = useState(null);
+  const [searchStr, setSearchStr] = useState("");
   const [totalRows, setTotalRows] = useState(0);
 
   // check checkbox
@@ -42,16 +42,49 @@ const ProductList = () => {
 
   const router = useRouter();
 
+  const fetchApiCall = () => {
+    fetch('http://localhost:3000/api/graphql', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        query: `
+            query Products($limit: Int, $page: Int, $q: String){
+              getProducts(limit: $limit,page: $page, q: $q) {
+                id
+                name
+                productionCapacity
+                price
+                image
+              }
+              productDataSet(q: $q) {
+                NumRows
+                  
+              }
+            }
+        `,
+        variables: {
+          limit: rowPerPage,
+          page: 1,
+          q: searchStr
+        }
+      }),
+    })
+      .then(res => res.json())
+      .then(res => console.log('res.data:', res.data));
+  }
+  useEffect(() => {
+    fetchApiCall();
+  }, [currentPage]);
   // const perPage = 5;
   const { data, loading, error, fetchMore } = useQuery(GET_PRODUCT, {
     variables: {
       limit: rowPerPage,
       page: 1,
-      q: 'mobile'
+      q: searchStr
     },
     // Important for component refreshing with new data
     // notifyOnNetworkStatusChange: true
-    // pollInterval: 500,
+    pollInterval: 20000,
   });
 
 
@@ -73,14 +106,16 @@ const ProductList = () => {
 
     let curent = currentPageNo ? currentPageNo : currentPage;
     let renderRows = limit ? limit : rowPerPage;
-    let str = search ? search : '';
+    let str = search ? search : searchStr;
+
     setCurrentPage(currentPageNo);
-    setRowPerPage(renderRows)
+    setRowPerPage(renderRows);
+
     await fetchMore({
       variables: {
         page: curent,
         limit: renderRows,
-        q: str
+        q: searchStr
       },
       // concatenate old and new entries
       updateQuery: (previousResult, { fetchMoreResult }) => {
@@ -96,10 +131,19 @@ const ProductList = () => {
       },
     });
   }
-  const MainSerarch = (str) => {
-    console.log('MainSerarch:', str.target.value)
-    setSearchStr(str.target.value);
-    ServerSideRender(1, rowPerPage, str.target.value);
+
+
+  const MainSearch = (str) => {
+    // str.preventDefault()
+    console.log('MainSearch:', str.target.value)
+
+    if (str.target.value.length > 2) {
+      setSearchStr(str.target.value);
+      // ServerSideRender(1, rowPerPage, str.target.value);
+    } else {
+      setSearchStr('');
+      // ServerSideRender(1, rowPerPage, '');
+    }
   }
 
 
@@ -133,10 +177,6 @@ const ProductList = () => {
   }
 
 
-
-  function getData(value) {
-    console.log("value", value)
-  }
 
   return (
     <>
@@ -358,8 +398,8 @@ const ProductList = () => {
           <div className="card card-flush">
             {/*begin::Card header*/}
             <TableHeader
-              // (page, rows, q) => ServerSideRender(page, rows, q)
-              onPageChange={MainSerarch}
+
+              searchAction={MainSearch}
               searchString={searchStr}
             />
             {/*end::Card header*/}
@@ -399,7 +439,7 @@ const ProductList = () => {
                   totalCount={TotalRow.NumRows}
                   pageSize={rowPerPage}
 
-                  onPageChange={(page, rows) => ServerSideRender(page, rows)}
+                  pageChange={(page, rows) => ServerSideRender(page, rows)}
                 />
                 {/* <TableFooter pageCount={NoOfPages} pagination={ProductData} /> */}
               </div>

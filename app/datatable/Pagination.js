@@ -6,7 +6,7 @@ import { usePagination, DOTS } from "./usePagination";
 
 const Pagination = props => {
     const {
-        onPageChange,
+        pageChange,
         totalCount,
         siblingCount = 1,
         currentPage,
@@ -26,15 +26,15 @@ const Pagination = props => {
         return null;
     }
     const onNext = () => {
-        onPageChange(currentPage + 1);
+        pageChange(currentPage + 1);
     };
 
     const onPrevious = () => {
-        onPageChange(currentPage - 1);
+        pageChange(currentPage - 1);
     };
     const onChangeLimit = (e) => {
         console.log("onChangeLimit", e.target.value);
-        onPageChange(currentPage, parseInt(e.target.value));
+        pageChange(currentPage, parseInt(e.target.value));
     };
     let lastPage = paginationRange[paginationRange.length - 1];
     return (
@@ -91,7 +91,7 @@ const Pagination = props => {
                                     className={classNames('paginate_button page-item', {
                                         active: pageNumber === currentPage
                                     })}
-                                    onClick={() => onPageChange(pageNumber)}
+                                    onClick={() => pageChange(pageNumber)}
                                     data-page={pageNumber}
                                 >
                                     <a href={void (0)} tabindex="0" class="page-link">{pageNumber}</a>

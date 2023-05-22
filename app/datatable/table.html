@@ -1,0 +1,140 @@
+<table id="datatable" class="display table table-striped dataTable no-footer" role="grid"
+   aria-describedby="datatable_info" style="width: 401px;">
+   <thead>
+      <tr role="row">
+         <th class="first-column-googlerankings rank_tooltip sorting_asc" tabindex="0" aria-controls="datatable"
+            rowspan="1" colspan="1" aria-label="Rank: activate to sort column descending" style="width: 35px;"
+            aria-sort="ascending" data-original-title="" title="">Rank</th>
+         <th class="second-column-googlerankings results_tooltip sorting" tabindex="0" aria-controls="datatable"
+            rowspan="1" colspan="1" aria-label="Results: activate to sort column ascending" style="width: 282px;"
+            data-original-title="" title="">Results</th>
+      </tr>
+   </thead>
+   <tbody>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">1</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://www.vogue.com/fashion">Fashion News and Trends: Designers, Models, Style Guides</a><br><a
+               class="google-url" href="https://www.vogue.com/fashion">https://www.vogue.com › fashion</a><br></td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">2</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://www.fashionnova.com/">Fashion Nova | Fashion Online For Women | Affordable ...</a><br><a
+               class="google-url" href="https://www.fashionnova.com/">https://www.fashionnova.com</a><br>Fashion Nova is
+            the top online fashion store for women. Shop sexy club dresses, jeans, shoes, bodysuits, skirts and more.
+            Cheap &amp; affordable fashion online.</td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">3</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://en.wikipedia.org/wiki/Fashion">Fashion</a><br><a class="google-url"
+               href="https://en.wikipedia.org/wiki/Fashion">https://en.wikipedia.org › wiki › Fashion</a><br></td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">4</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://www.theguardian.com/fashion">Fashion news, advice and pictures | The Guardian</a><br><a
+               class="google-url" href="https://www.theguardian.com/fashion">https://www.theguardian.com ›
+               fashion</a><br></td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">5</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://fashionmagazine.com/">FASHION Magazine</a><br><a class="google-url"
+               href="https://fashionmagazine.com/">https://fashionmagazine.com</a><br></td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">6</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://www.harpersbazaar.com/fashion/">Runway Trends, Fashion Designers, and Style Tips</a><br><a
+               class="google-url" href="https://www.harpersbazaar.com/fashion/">https://www.harpersbazaar.com ›
+               fashion</a><br></td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">7</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://www.fashionrevolution.org/">Fashion Revolution</a><br><a class="google-url"
+               href="https://www.fashionrevolution.org/">https://www.fashionrevolution.org</a><br>We believe in a global
+            fashion industry that conserves and restores the environment and values people over growth and profit. JOIN
+            THE FASHION REVOLUTION. Good ...</td>
+      </tr>
+      <tr role="row" class="odd">
+         <td class="first-column-googlerankings rank_tooltip sorting_1">8</td>
+         <td class=" second-column-googlerankings results_tooltip"><a class="google-title"
+               href="https://www.instyle.com/fashion">Fashion Trends, Latest Fashion Ideas and Style Tips</a><br><a
+               class="google-url" href="https://www.instyle.com/fashion">https://www.instyle.com › fashion</a><br>We
+            won't just tell you about the hottest trends — from jeans, to shoes, to jackets — we'll show you how to get
+            the look (and let you know when it's on sale).</td>
+      </tr>
+   </tbody>
+</table>
+
+<script>
+   function tableToCSV() {
+
+      // Variable to store the final csv data
+      var csv_data = [];
+
+      // Get each row data
+      var rows = document.getElementsByTagName('tr');
+      // console.log('rows:', rows)
+      for (var i = 3; i < rows.length; i++) {
+
+         // Get each column data
+         var cols = rows[i].querySelectorAll('td');
+         const detailCols = cols[1].innerText.replace(/,/g, " ").split("\n");
+         detailCols.unshift(cols[0].innerText);
+         // console.log(`rows ${i}:`, detailCols)
+         csv_data.push(detailCols);
+      }
+
+
+      // Call this function to download csv file 
+      // downloadCSVFile(csv_data);
+      download_csv_file(csv_data);
+   }
+
+
+   function download_csv_file(csvFileData) {
+      //define the heading for each row of the data  
+      var csv = 'S.NO,Keywords,Domain Name,Description\n';
+      //merge the data with CSV  
+      csvFileData.forEach(function (row) {
+         csv += row.join(',');
+         csv += "\n";
+      });
+      //display the created CSV data on the web browser   
+      // document.write(csv);
+      var hiddenElement = document.createElement('a');
+      hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+      hiddenElement.target = '_blank';
+
+      //provide the name for the CSV file to be downloaded  
+      hiddenElement.download = 'product.csv';
+      hiddenElement.click();
+   }
+
+
+
+
+   // function downloadCSVFile(csv_data) {
+
+   //    CSVFile = new Blob([csv_data], {
+   //       type: "text/csv"
+   //    });
+
+   //    var temp_link = document.createElement('a');
+
+   //    temp_link.download = "GfG.csv";
+   //    var url = window.URL.createObjectURL(CSVFile);
+   //    temp_link.href = url;
+
+   //    temp_link.style.display = "none";
+   //    document.body.appendChild(temp_link);
+   //    temp_link.click();
+   //    document.body.removeChild(temp_link);
+   // }
+   tableToCSV();
+
+</script>
