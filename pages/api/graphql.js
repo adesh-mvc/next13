@@ -6,7 +6,7 @@ import { startServerAndCreateNextHandler } from '@as-integrations/next';
 const { graphqlUploadExpress } = require("graphql-upload-minimal");
 
 import itemTable from "@/db/Schema/itemSchema";
-import productTable from "../../db/Schema/productSchema";
+import productTable from "../../db/Schema/productSchema.js";
 import adminUserTable from "../../db/Schema/adminSchema";
 import uploadSchema from "../../db/Schema/uploadSchema";
 import bpaSchema from "../../db/Schema/bpaSchema";

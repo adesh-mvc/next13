@@ -1,14 +1,25 @@
 import { gql } from 'graphql-tag';
-
+import { BPA } from "./InterFaceHandler";
 const productTable = gql`
+interface BPA {
+  id: ID
+  BpaName:String
+}
+
   # Products
   type Product {
-    id: ID
+    id: ID!
     name: String
     image:String
     productionCapacity: Int
     price: Float
     description: String
+    BpaMst:BpaMst
+  }
+  
+  type BpaMst implements BPA{    
+    id:ID
+    BpaName : String
   }
  type DataTable{
     NumRows: Int
@@ -35,6 +46,9 @@ type tabCol{
     getProducts(limit:Int page:Int q:String):[Product]
     productDataSet(q:String):[DataTable]
     getProduct(id: ID!): Product
+    BpaProduct:[Product]
+    BpaMst:[BpaMst]
+    myBpa:[BPA]
   }
 
   type Mutation {
@@ -46,4 +60,6 @@ type tabCol{
 
 `
 
-module.exports = productTable
+module.exports = productTable;
+
+// https://stackoverflow.com/questions/45227332/is-it-possible-to-implement-multiple-interfaces-in-graphql

@@ -46,20 +46,21 @@ const ProductAdd = (props) => {
     props.childto(product);
 
     return (<>
-        <label htmlFor="product_name">Product Name</label>
-        <input type="text" id="product_name" name="name" onChange={inputChange} defaultValue={product.name} />
-        <label htmlFor="per_unit">Per unit</label>
+        <div class="card-body pt-0">
+            <label htmlFor="product_name">Product Name</label>
+            <input type="text" id="product_name" name="name" onChange={inputChange} defaultValue={product.name} />
+            <label htmlFor="per_unit">Per unit</label>
 
-        <input type="text" id="per_unit" name="productionCapacity" onChange={inputChangeInt} defaultValue={product.productionCapacity} />
+            <input type="text" id="per_unit" name="productionCapacity" onChange={inputChangeInt} defaultValue={product.productionCapacity} />
 
-        <label htmlFor="product_price">Product price</label>
-        <input type="text" id="product_price" name="price" onChange={inputChangeFloat} defaultValue={product.price} />
+            <label htmlFor="product_price">Product price</label>
+            <input type="text" id="product_price" name="price" onChange={inputChangeFloat} defaultValue={product.price} />
 
-        <label htmlFor="product_desc">Description</label>
-        <input type="text" id="product_desc" name="description" onChange={inputChange} defaultValue={product.description} />
-        <label htmlFor="thumb">Thumb URL</label>
-        <input type="text" id="thumb" name="image" onChange={inputChange} defaultValue={product.image} />
-
+            <label htmlFor="product_desc">Description</label>
+            <input type="text" id="product_desc" name="description" onChange={inputChange} defaultValue={product.description} />
+            <label htmlFor="thumb">Thumb URL</label>
+            <input type="text" id="thumb" name="image" onChange={inputChange} defaultValue={product.image} />
+        </div>
 
     </>);
 

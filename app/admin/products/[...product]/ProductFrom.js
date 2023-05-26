@@ -163,9 +163,9 @@ const ProductForm = (props) => {
         if (single.error) return `Submission error! ${error.message}`;
         docRow = single.data?.getProduct
     }
-    useEffect(() => {
-        console.log(tariff)
-    }, [tariff])
+    // useEffect(() => {
+    //     console.log(tariff)
+    // }, [tariff])
     return (
         <>
             {/*  // We pass the event to the handleSubmit() function on submit. */}

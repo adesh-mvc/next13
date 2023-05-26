@@ -1,5 +1,25 @@
 import Product from "../models/product";
+import Bpa from "../models/bpa-model";
+const prepare = (o) => {
+    console.log(o)
+    // o._id = o._id.toString()
+    // return o
+}
 const productResolver = {
+    BpaMst: {
+        __resolveReference(data) {
+            console.log("Host:")
+            return { data }; // returns "Host" or "Guest"
+        },
+    },
+    BPA: {
+        __resolveType: (rt) => {
+            console.log("__resolverType:", rt)
+            return { rt }
+        }
+    },
+
+
     Query: {
         //Products
         getProducts: async (_, args) => {
@@ -50,7 +70,19 @@ const productResolver = {
             }
             return product;
         },
+        BpaProduct: async () => {
+            return await Product.find({});
+            // return [{ id: 1, name: "product 1", BpaMst: { BpaName: "product bpa" } }];
+        },
+        BpaMst: async () => await Bpa.find({})
+        // authors: () => Author.find(),
+        // books: () => Book.find()
+
     },
+
+
+
+
 
     Mutation: {
         // products

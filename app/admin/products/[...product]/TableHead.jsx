@@ -2,6 +2,7 @@
 
 
 const TableHead = (props) => {
+
     return (<>
         <tr className="text-start text-gray-400 fw-bold fs-7 text-uppercase gs-0">
             <th
@@ -17,7 +18,7 @@ const TableHead = (props) => {
                         type="checkbox"
                         data-kt-check="true"
                         onChange={(event) => props.AllChecked(event.target.checked)}
-                        /*  checked={props.CheckStatus} */
+                        checked={props.CheckStatus}
                         data-kt-check-target="#kt_ecommerce_products_table .form-check-input"
                         defaultValue={1}
                         /*  value={props.checkedVal} */

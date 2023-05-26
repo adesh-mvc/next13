@@ -1,4 +1,4 @@
-import productTable from "./productSchema";
+import productTable from "./productSchema.js";
 import adminUserTable from "./adminSchema";
 
 

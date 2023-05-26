@@ -68,7 +68,7 @@ export default function TableBody(props) {
 
     const [checkBody, setCheckBody] = useState([])
 
-    console.log("checkBody", props.data.getProducts)
+    console.log("checkBody", props.checkedbox)
     // props.getData(checkBody)
 
     return (
@@ -86,11 +86,13 @@ export default function TableBody(props) {
                                     <input
                                         className="form-check-input"
                                         type="checkbox"
-                                        /*   onChange={(e) => toggleCheck(documentId)} */
+                                        name={`index[${documentId}]`}
+                                        onClick={props.currentToggle}
+                                        // onChange={(e) => props.currentToggle}
                                         defaultValue={console.log("default:", documentId)}
                                         data-row={documentId}
-                                    /*     defaultChecked={false} */
-                                    /* checked={CheckStatus[documentId]} */
+                                        /*     defaultChecked={false} */
+                                        checked={props.checkedbox[`index[${documentId}]`]}
                                     // defaultValue={documentId}
                                     />
                                 </div>

@@ -5,13 +5,18 @@ const bapResolver = {
         getBpaList: async () => {
             try {
                 const bpa = await BpaModel.find({});
+
                 return bpa;
             }
             catch (err) {
                 console.log(err)
             }
-        }
+        },
+
+
     },
+
+
     Mutation: {
         newBpa: async (_, { input }) => {
             try {

@@ -33,9 +33,11 @@ const ProductList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchStr, setSearchStr] = useState("");
   const [totalRows, setTotalRows] = useState(0);
-
+  const [status, setStatus] = useState('');
   // check checkbox
   const [checkedAll, setCheckedAll] = useState(false);
+  const [rowCheck, setRowCheck] = useState(false);
+  const [deleteCount, setDeleteCount] = useState(0);
 
 
 
@@ -75,6 +77,13 @@ const ProductList = () => {
   useEffect(() => {
     fetchApiCall();
   }, [currentPage]);
+
+
+
+  const ProductStatus = (status) => {
+    console.log("ProductStatus", status)
+  }
+
   // const perPage = 5;
   const { data, loading, error, fetchMore } = useQuery(GET_PRODUCT, {
     variables: {
@@ -148,34 +157,40 @@ const ProductList = () => {
 
 
 
-
-
-  // check all
-  const toggleCheck = (inputName) => {
-    console.log('inputName:', inputName)
-    // setCheckedList((prevState) => {
-    //   const newState = { ...prevState };
-    //   newState[inputName] = !prevState[inputName];
-    //   return newState;
-    // });
-  };
-
-
   const selectAll = (value) => {
     setCheckedAll(value);
-    // console.log(checkedAll, checkedList)
-    // console.log('ADESH', checkedList)
-    setCheckedList((prevState) => {
-      const newState = { ...prevState };
-      console.log('newState', newState)
-      for (const inputName in newState) {
-        newState[inputName] = value;
-      }
-      return newState;
+    const boxes = document.querySelectorAll('tbody input[type=checkbox]');
+    let checkcounter = 0;
+    boxes.forEach((check) => {
+      value ? checkcounter++ : checkcounter
+      setRowCheck(
+        (rowCheck) => ({
+          ...rowCheck,
+          [check.name]: value
+        })
+      );
     });
-
+    setDeleteCount(checkcounter);
   }
+  const currentToggle = (e) => {
+    const boxes = document.querySelectorAll('tbody input[type=checkbox]:checked');
+    console.log("boxesvfgkop", boxes.length)
+    // boxes.forEach((check) => {
 
+    // });
+    if (!boxes.length) {
+      setCheckedAll(false);
+    } else {
+      setCheckedAll(true);
+    }
+    setRowCheck(
+      (rowCheck) => ({
+        ...rowCheck,
+        [e.target.name]: e.target.checked
+      })
+    );
+    setDeleteCount(boxes.length);
+  }
 
 
   return (
@@ -398,9 +413,10 @@ const ProductList = () => {
           <div className="card card-flush">
             {/*begin::Card header*/}
             <TableHeader
-
+              status_change={ProductStatus}
               searchAction={MainSearch}
               searchString={searchStr}
+              DeleteCount={deleteCount}
             />
             {/*end::Card header*/}
             {/*begin::Card body*/}
@@ -424,7 +440,10 @@ const ProductList = () => {
                     {/*end::Table head*/}
                     {/*begin::Table body*/}
                     <tbody className="fw-semibold text-gray-600">
-                      <TableBody data={data} /* getData={getData}  *//*  CheckStatus={(id) => checkedList(id)} */ /* toggleCheck={(id) => toggleCheck(id)}  */ />
+                      <TableBody data={data}
+                        checkedbox={rowCheck}
+                        currentToggle={currentToggle}
+                      /* getData={getData}  *//*  CheckStatus={(id) => checkedList(id)} */ /* toggleCheck={(id) => toggleCheck(id)}  */ />
 
 
 
