@@ -1,16 +1,25 @@
 "use client"
+// import "./dbtable.css";
+import { useState, useEffect } from "react"
 
-import { useState } from "react"
 
 // check all checkbox
 
 
-
 const ActionHandler = (e) => {
+    const activeMenu = document.querySelectorAll('.show.menu-dropdown');
+    if (activeMenu.length > 0) {
+        activeMenu.forEach(element => {
+            e.target.closest('td').lastChild.removeAttribute("style");
+            element.closest('td').lastChild.classList.remove('show');
+            element.classList.remove('show', 'menu-dropdown');
+            console.log("action handler", document.querySelectorAll('.show.menu-dropdown'));
+        });
+    }
+    e.target.closest('td').lastChild.style.cssText = 'z-index: 107; position: fixed; inset:  102px 0px auto auto; margin: 0px; transform: translate(-59px, 234px);'
+    e.target.classList.add('show', 'menu-dropdown');
+    e.target.closest('td').lastChild.classList.add('show');
 
-    // console.log("action handler", document.classList.contains('show'))
-    e.target.classList.add('show', 'menu-dropdown')
-    e.target.nextSibling.classList.add('show')
     // var items = document.querySelectorAll('.show.menu-dropdown[data-kt-menu-trigger]:not([data-kt-menu-static="true"])');
     // var menu;
     // var item;
@@ -247,58 +256,51 @@ export default function TableBody(props) {
                             {/*end::Status-*/}
                             {/*begin::Action-*/}
                             <td className="text-end">
-                                <a
-                                    href={void (0)}
-                                    className="btn btn-sm btn-light btn-active-light-primary"
-                                    data-kt-menu-trigger="click"
-                                    data-kt-menu-placement="bottom-end"
-                                    onClick={ActionHandler}
 
-                                >
-                                    Actions
-                                    {/*begin::Svg Icon | path: icons/duotune/arrows/arr072.svg*/}
-                                    <span className="svg-icon svg-icon-5 m-0">
-                                        <svg
-                                            width={24}
-                                            height={24}
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                        >
-                                            <path
-                                                d="M11.4343 12.7344L7.25 8.55005C6.83579 8.13583 6.16421 8.13584 5.75 8.55005C5.33579 8.96426 5.33579 9.63583 5.75 10.05L11.2929 15.5929C11.6834 15.9835 12.3166 15.9835 12.7071 15.5929L18.25 10.05C18.6642 9.63584 18.6642 8.96426 18.25 8.55005C17.8358 8.13584 17.1642 8.13584 16.75 8.55005L12.5657 12.7344C12.2533 13.0468 11.7467 13.0468 11.4343 12.7344Z"
-                                                fill="currentColor"
-                                            />
-                                        </svg>
-                                    </span>
-                                    {/*end::Svg Icon*/}{" "}
-                                </a>
-                                {/*begin::Menu*/}
-                                <div
-                                    className="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                    data-kt-menu="true"
-                                >
-                                    {/*begin::Menu item*/}
-                                    <div className="menu-item px-3">
-                                        <a href={`/admin/products/edit/${row.id}`} className="menu-link px-3">
-                                            Edit
-                                        </a>
-                                    </div>
-                                    {/*end::Menu item*/}
-                                    {/*begin::Menu item*/}
-                                    <div className="menu-item px-3">
-                                        <a
-                                            href={void (0)}
-                                            className="menu-link px-3"
-                                            onClick={delete_row}
-                                            data-kt-ecommerce-product-filter="delete_row"
-                                        >
-                                            Delete
-                                        </a>
-                                    </div>
-                                    {/*end::Menu item*/}
+
+                                <div className="dropdown">
+                                    <button
+                                        className="btn btn-sm btn-light btn-active-light-primary dropdown-toggle"
+                                        type="button"
+                                        id="dropdownMenuButton2"
+                                        data-bs-toggle="dropdown"
+                                        aria-expanded="false"
+                                    >
+                                        action
+                                    </button>
+                                    <ul
+                                        className="dropdown-menu dropdown-menu"
+                                        aria-labelledby="dropdownMenuButton"
+                                    >
+                                        {/*   <li>
+                                            <a className="dropdown-item active" href="#">
+                                                Action
+                                            </a>
+                                        </li> */}
+                                        <li>
+
+                                            <a className="dropdown-item" href={`/admin/products/edit/${row.id}`}>
+                                                <i class="bi bi-pencil-square text-primary"> edit</i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <hr className="dropdown-divider" />
+                                        </li>
+                                        <li>
+                                            <a className="dropdown-item" href={void (0)} onClick={delete_row}>
+                                                <i class="bi bi-trash text-danger"></i> delete
+                                            </a>
+                                        </li>
+                                        {/* 
+                                        <li>
+                                            <a className="dropdown-item" href="#">
+                                                Separated link
+                                            </a>
+                                        </li> */}
+                                    </ul>
                                 </div>
-                                {/*end::Menu*/}
+
+
                             </td>
                             {/*end::Action-*/}
                         </tr>

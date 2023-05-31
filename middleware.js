@@ -11,8 +11,8 @@ export default withAuth(
         let cookie = req.cookies.get('nextjs')?.value
         // console.log(cookie) // => 'fast'
         const allCookies = req.cookies.getAll()
-        // console.log(allCookies)
-        // console.log('req.nextauth.token ', req.nextauth.token)
+        console.log(allCookies)
+        console.log('req.nextauth.token ', req.nextauth.token)
         if (req.nextauth.token?.role === 'superadmin') {
             console.log('req.nextauth.token 1', req.nextUrl.pathname);
 

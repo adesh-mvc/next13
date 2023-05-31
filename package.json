@@ -25,9 +25,11 @@
     "graphql-tag": "^2.12.6",
     "graphql-upload": "^16.0.2",
     "graphql-upload-minimal": "^1.5.4",
+    "imapflow": "^1.0.128",
     "mongoose": "^6.9.1",
     "next": "13.1.6",
     "next-auth": "^4.19.2",
+    "nodemailer": "^6.9.3",
     "react": "18.2.0",
     "react-data-table-component": "^7.5.3",
     "react-dom": "18.2.0"

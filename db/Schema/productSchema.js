@@ -14,7 +14,7 @@ interface BPA {
     productionCapacity: Int
     price: Float
     description: String
-    BpaMst:BpaMst
+    bpamst: [BpaMst]
   }
   
   type BpaMst implements BPA{    
@@ -47,7 +47,7 @@ type tabCol{
     productDataSet(q:String):[DataTable]
     getProduct(id: ID!): Product
     BpaProduct:[Product]
-    BpaMst:[BpaMst]
+    
     myBpa:[BPA]
   }
 

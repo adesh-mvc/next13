@@ -50,18 +50,20 @@ const server = new ApolloServer({
     // gateway,
 
     // subscriptions: false,
-    /*  uploads: {
-         maxFileSize: 10000000, // 10 MB
-         maxFiles: 20
-     }, */
-    uploads: false,
-    graphqlUploadExpress: { maxFileSize: 10000, maxFiles: 10 },
+    uploads: {
+        maxFileSize: 10000000, // 10 MB
+        maxFiles: 20
+    },
+
+    // graphqlUploadExpress: { maxFileSize: 10000, maxFiles: 10 },
     typeDefs: [itemTable, productTable, adminUserTable, bpaSchema, uploadSchema],
     resolvers: [itemResolver, productResolver, adminResolver, bapResolver, uploadResolver],
-    csrfPrevention: false,
+    // csrfPrevention: false,
+    csrfPrevention: true,
     dataSources: () => ({}),
     introspection: true,
     // cors: { origin: "http://localhost:3000/" },
+
     playground: true
 })
 

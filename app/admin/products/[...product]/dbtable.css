@@ -1,0 +1,8 @@
+.action.show {
+    z-index: 107;
+    position: fixed;
+    inset: 102px 0px auto auto;
+    margin: 0px;
+    transform: translate(-59px, 234px);
+    border: 1px solid coral;
+}

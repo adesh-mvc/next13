@@ -426,10 +426,18 @@ const ProductList = () => {
                 id="kt_ecommerce_products_table_wrapper"
                 className="dataTables_wrapper dt-bootstrap4 no-footer"
               >
+                <Pagination
+                  className=""
+                  currentPage={currentPage}
+                  totalCount={TotalRow.NumRows}
+                  pageSize={rowPerPage}
+
+                  pageChange={(page, rows) => ServerSideRender(page, rows)}
+                />
                 <div className="table-responsive">
                   <table
                     className="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer"
-                    id="kt_ecommerce_products_table"
+                    id="datatable_product_table"
                   >
                     {/*begin::Table head*/}
                     <thead>

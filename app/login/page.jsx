@@ -27,8 +27,8 @@ const Login = () => {
             if (result?.error) {
                 alert(result.error)
             } else {
-
-                router.push('/admin');
+                console.log(result.url)
+                return router.push('/admin');
             }
             // console.log(result);
         } catch (error) {

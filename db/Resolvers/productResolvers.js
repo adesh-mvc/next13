@@ -6,20 +6,32 @@ const prepare = (o) => {
     // return o
 }
 const productResolver = {
-    BpaMst: {
-        __resolveReference(data) {
-            console.log("Host:")
-            return { data }; // returns "Host" or "Guest"
-        },
-    },
-    BPA: {
-        __resolveType: (rt) => {
-            console.log("__resolverType:", rt)
-            return { rt }
+    /*   BpaMst: {
+          __resolveReference(data) {
+              console.log("Host:")
+              return { data }; // returns "Host" or "Guest"
+          },
+      }, */
+    /*    BPA: {
+           __resolveType: (rt) => {
+               console.log("__resolverType:", rt)
+               return { rt }
+           }
+       }, */
+    Product: {
+        bpamst: async (productData) => {
+            const List = await Bpa.find({});
+            const BN = List.filter((list) => {
+                if (list.id.toString() === productData.name.toString()) {
+                    return list.BpaName
+                }
+            });
+            return BN;
         }
     },
+    BpaMst: {
 
-
+    },
     Query: {
         //Products
         getProducts: async (_, args) => {
@@ -74,9 +86,6 @@ const productResolver = {
             return await Product.find({});
             // return [{ id: 1, name: "product 1", BpaMst: { BpaName: "product bpa" } }];
         },
-        BpaMst: async () => await Bpa.find({})
-        // authors: () => Author.find(),
-        // books: () => Book.find()
 
     },
 
