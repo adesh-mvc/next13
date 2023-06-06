@@ -98,6 +98,36 @@ export default function EmailTable() {
                         //mark attributes email as read
                         msg.once('attributes', function (attrs) {
                             let uid = attrs.uid;
+                            var attachments = findAttachmentParts(attrs.struct);
+                            console.log(prefix + 'Has attachments: %d', attachments.length);
+                            if (attachments.length) {
+                                for (var i = 0, len = attachments.length; i < len; ++i) {
+                                    var attachment = attachments[i];
+                                    /*This is how each attachment looks like {
+                                        partID: '2',
+                                        type: 'application',
+                                        subtype: 'octet-stream',
+                                        params: { name: 'file-name.ext' },
+                                        id: null,
+                                        description: null,
+                                        encoding: 'BASE64',
+                                        size: 44952,
+                                        md5: null,
+                                        disposition: { type: 'ATTACHMENT', params: { filename: 'file-name.ext' } },
+                                        language: null
+                                      }
+                                    */
+                                    console.log(prefix + 'Fetching attachment %s', attachment.params.name);
+                                    var f = imap.fetch(attrs.uid, { //do not use imap.seq.fetch here
+                                        bodies: [attachment.partID],
+                                        struct: true
+                                    });
+                                    if (attachment.params.name) {
+                                        //build function to process attachment message
+                                        f.on('message', buildAttMessageFunction(attachment));
+                                    }
+                                }
+                            }
                             imap.addFlags(uid, ['\\Seen'], function (err) {
                                 if (err) {
                                     console.log(err);
@@ -105,6 +135,9 @@ export default function EmailTable() {
                                     console.log("Done, marked email as read!")
                                 }
                             });
+
+
+
                         });
                         msg.once('end', function () {
                             console.log(prefix + 'Finished');
