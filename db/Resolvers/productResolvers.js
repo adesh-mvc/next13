@@ -77,6 +77,7 @@ const productResolver = {
         },
         getProduct: async (_, { id }) => {
             const product = await Product.findById(id);
+            console.log("Product Row:", product);
             if (!product) {
                 throw new Error('Product not found.');
             }
@@ -86,7 +87,10 @@ const productResolver = {
             return await Product.find({});
             // return [{ id: 1, name: "product 1", BpaMst: { BpaName: "product bpa" } }];
         },
-
+        dropDown: async (_, { qty }) => {
+            const obj = qty ? { "productionCapacity": qty } : {}
+            return await Product.find(obj);
+        }
     },
 
 
@@ -97,11 +101,12 @@ const productResolver = {
         // products
         newProduct: async (_, { input }) => {
             try {
-                const product = new Product(input);
+                console.log("newProduct:", input)
+                // const product = new Product(input);
 
-                const result = await product.save();
+                // const result = await product.save();
 
-                return result;
+                // return result;
             } catch (err) {
                 console.log(err)
             }

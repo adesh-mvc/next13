@@ -26,11 +26,8 @@ const ProductsSchema = new Schema({
         type: String,
         trim: true,
     },
-    createAt: {
-        type: Date,
-        defalut: Date.now(),
-    },
-})
+
+}, { timestamps: true })
 
 // ProductsSchema.index({ name: 'text' })
 

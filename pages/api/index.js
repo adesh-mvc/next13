@@ -68,7 +68,9 @@ const server = new ApolloServer({
 })
 
 
-export default startServerAndCreateNextHandler(server);
+export default startServerAndCreateNextHandler(server, {
+    context: async (req, res) => ({ req, res, user: true }),
+});
 
 // https://github.com/apollo-server-integrations/apollo-server-integration-next
 //https://graphql.org/graphql-js/mutations-and-input-types/

@@ -7,7 +7,7 @@ import { useMutation, useQuery, gql } from "@apollo/client";
 import ProductAdd from "./ProductAdd";
 import UserFileUpload from "../../users/[...user]/UserFileUpload";
 import DragDrop from "./DragDrop";
-
+import { useForm } from "react-hook-form";
 // import TestCheckBox from "./TestCheckbox"
 // import UserFileUpload from "../../users/[...user]/UserFileUpload";
 // import Tree from "./test/TreeView"
@@ -66,10 +66,13 @@ query singleProduct($getProductId: ID!){
         productionCapacity
         description
         image
+        createAt
       }
 }
 `;
 const ProductForm = (props) => {
+
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const router = useRouter();
     const [childData, setChildData] = useState({})
     const [product_data, setProductData] = useState({});
@@ -101,10 +104,10 @@ const ProductForm = (props) => {
     // console.log('data:', data)
     // https://tkdodo.eu/blog/mastering-mutations-in-react-query
 
-    const handleSubmit = (event) => {
+    const productSubmit = (event) => {
         // Stop the form from submitting and refreshing the page.
         event.preventDefault()
-        console.log('childData handlesubmit', childData);
+        console.log('childData productSubmit', childData);
 
         if (!childData.name.length) {
             Swal.fire({
@@ -117,7 +120,6 @@ const ProductForm = (props) => {
             return false;
         }
         // Get data from the form.
-
         if (!props.docId) {
 
             try {
@@ -133,12 +135,15 @@ const ProductForm = (props) => {
             }
 
         } else {
+            let dataSubmit = { ...childData };
+            dataSubmit['image'] = "https://www.google.com/imgres?imgurl=https%3A%2F%2Fcdn-icons-png.flaticon.com%2F512%2F5261%2F5261211.png&tbnid=YDdG3rPGUNfE-M&vet=12ahUKEwiMss2bieP_AhWmpmMGHStJCg0QMygCegUIARD3AQ..i&imgrefurl=https%3A%2F%2Fwww.flaticon.com%2Ffree-icon%2Fsdk_5261211&docid=fMFUc7lG4_5zCM&w=512&h=512&q=sdk%20icons&ved=2ahUKEwiMss2bieP_AhWmpmMGHStJCg0QMygCegUIARD3AQ"
 
+            console.log('Apollo error during product add:' + dataSubmit);
             try {
                 EditProduct({
                     variables: {
                         updateProductId: props.docId,
-                        "input": childData
+                        "input": dataSubmit
                     }
                 });
                 if (loading) return 'Loading...';
@@ -169,10 +174,10 @@ const ProductForm = (props) => {
     // }, [tariff])
     return (
         <>
-            {/*  // We pass the event to the handleSubmit() function on submit. */}
-            <form onSubmit={handleSubmit} encType={'multipart/form-data'}>
+            {/*  // We pass the event to the productSubmit() function on submit. */}
+            <form onSubmit={productSubmit} encType={'multipart/form-data'}>
                 <ProductAdd row={docRow} childto={childToParent} />
-                <UserFileUpload />
+                {/*   <UserFileUpload /> */}
                 {/* <DragDrop
                     data={DargDropData}
                     mytariff={tariffHandler}

@@ -135,6 +135,17 @@ export default function TableBody(props) {
                                         </a>
                                         {/*end::Title*/}
                                     </div>
+                                    <div className="ms-5">
+                                        {/*begin::Title*/}
+                                        <a
+                                            href={`/admin/products/edit/${row.id}`}
+                                            className="text-gray-800 text-hover-primary fs-5 fw-bold"
+                                            data-kt-ecommerce-product-filter="product_name"
+                                        >
+                                            {row.name}
+                                        </a>
+                                        {/*end::Title*/}
+                                    </div>
                                 </div>
                             </td>
                             {/*end::Category-*/}
@@ -281,6 +292,12 @@ export default function TableBody(props) {
 
                                             <a className="dropdown-item" href={`/admin/products/edit/${row.id}`}>
                                                 <i class="bi bi-pencil-square text-primary"> edit</i>
+                                            </a>
+                                        </li>
+                                        <li>
+
+                                            <a className="dropdown-item" href={`/admin/products/detail/${row.id}`}>
+                                                <i class="bi bi-pencil-square text-primary"> Detail</i>
                                             </a>
                                         </li>
                                         <li>

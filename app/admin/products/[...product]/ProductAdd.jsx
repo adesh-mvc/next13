@@ -1,7 +1,9 @@
 "use client"
 import React, { useState, useEffect } from "react";
+// import useTostify from "@/lib/useTostify";
 
 const ProductAdd = (props) => {
+
     const [product, setProduct] = useState({
         name: "",
         productionCapacity: "",
@@ -9,6 +11,8 @@ const ProductAdd = (props) => {
         description: "",
         image: "",
     });
+
+
     // if (props.row) {
     //     setProduct({
     //         name: props.row?.name,
@@ -20,6 +24,7 @@ const ProductAdd = (props) => {
     // }
     useEffect(() => {
         if (props.row) {
+            console.log("props.row:", props.row);
             setProduct({
                 name: props.row?.name,
                 productionCapacity: props.row?.productionCapacity,
@@ -28,6 +33,7 @@ const ProductAdd = (props) => {
                 image: props.row?.image
             })
         }
+
     }, [])
     const inputChange = (e) => {
 

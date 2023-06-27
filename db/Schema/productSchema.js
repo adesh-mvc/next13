@@ -1,6 +1,8 @@
 import { gql } from 'graphql-tag';
 import { BPA } from "./InterFaceHandler";
 const productTable = gql`
+scalar DateTime
+scalar Date
 interface BPA {
   id: ID
   BpaName:String
@@ -14,6 +16,8 @@ interface BPA {
     productionCapacity: Int
     price: Float
     description: String
+    date: Date
+    createAt: DateTime
     bpamst: [BpaMst]
   }
   
@@ -40,6 +44,8 @@ type tabCol{
     productionCapacity: Int
     price: Float
     description: String
+    date: Date
+    
   }
 
   type Query {
@@ -47,7 +53,7 @@ type tabCol{
     productDataSet(q:String):[DataTable]
     getProduct(id: ID!): Product
     BpaProduct:[Product]
-    
+    dropDown(qty:Int):[Product]
     myBpa:[BPA]
   }
 

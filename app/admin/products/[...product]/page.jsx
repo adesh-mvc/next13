@@ -1,5 +1,6 @@
 import ProductList from "./ProductList";
 import ProductForm from "./ProductFrom";
+import ProductDetail from "./ProductDetail";
 import { getClient } from "@/lib/client"
 import "./dragdrop.css"
 
@@ -15,11 +16,16 @@ export default function page({ params }) {
         } else if (currentpath.indexOf('add') !== -1) {
             return <ProductForm docId={0} />
         } else if (currentpath.indexOf('edit') !== -1) {
-
             const id = currentpath[currentpath.indexOf('edit') + 1] ? currentpath[currentpath.indexOf('edit') + 1] : '';
             // await client.query(query:);
             return <ProductForm docId={id} />
-        } else {
+        } else if (currentpath.indexOf('detail') !== -1) {
+
+            const id = currentpath[currentpath.indexOf('detail') + 1] ? currentpath[currentpath.indexOf('detail') + 1] : '';
+            // await client.query(query:);
+            return <ProductDetail docId={id} />
+        }
+        else {
             return <>Error page going render...</>
         }
     }
