@@ -8,7 +8,11 @@ const nextConfig = {
     // skipMiddlewareUrlNormalize: true,
     // runtime: "experimental-edge",
   },
-
+  api: {
+    bodyParser: {
+      sizeLimit: '10mb',
+    },
+  },
   webpack: (
     config,
     { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }

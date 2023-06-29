@@ -24,13 +24,18 @@ export const Disc1 = () => {
         console.log(value)
         let totalAmt = 0;
         bl.forEach(element => {
-            if (typeof (element.value) == 'undefined') return false;
-            console.log("BILLAmt", element.value, element.name, totalAmt)
-            if (element.name === name) {
-                totalAmt = totalAmt - parseFloat(element.value)
-            }
+            if (typeof element.value == 'undefined') return false;
             totalAmt = totalAmt + parseFloat(element.value)
+            if (!isNaN(totalAmt)) {
+                console.log("BILLAmt", element.value, element.name, totalAmt)
+                setStatusData({
+                    ...statusData,
+                    ['BillAmt']: parseFloat(totalAmt).toFixed(2)
+                });
+            }
         });
+        console.log("TOTAL:", totalAmt)
+
         // setStatusData({
         //     ...statusData,
         //     ['BillAmt']: totalAmt
@@ -193,7 +198,7 @@ export const Disc1 = () => {
             </div>
             <div className="mb-10 fv-row fv-plugins-icon-container col-3">
                 {/*begin::Label*/}
-                <label className="required form-label">Bil Amt</label>
+                <label className="required form-label">Bil Amt{statusData.BillAmt}</label>
 
                 <input
                     type="number"
@@ -201,7 +206,7 @@ export const Disc1 = () => {
                     name="BillAmt"
                     className="form-control mb-2"
                     placeholder="Product name"
-                    defaultValue={statusData.BillAmt}
+                    value={statusData.BillAmt}
                 />
 
                 {/* <div className="text-muted fs-7">

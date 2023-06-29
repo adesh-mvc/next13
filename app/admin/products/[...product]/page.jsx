@@ -1,3 +1,6 @@
+import { getServerSession } from "next-auth";
+import { AuthOptions } from "@/pages/api/auth/[...nextauth]";
+import { useSession } from "next-auth/react";
 import ProductList from "./ProductList";
 import ProductForm from "./ProductFrom";
 import ProductDetail from "./ProductDetail";
@@ -6,6 +9,11 @@ import "./dragdrop.css"
 
 
 export default function page({ params }) {
+    // const { session } = useSession()
+
+    // if (typeof window === "undefined") return null
+
+    // if (session) {
     const renderPath = params.product;
     const client = getClient();
     const viewTemplate = (currentpath) => {
@@ -35,4 +43,18 @@ export default function page({ params }) {
             {renderTemplate}
         </>
     )
+    // }
+    // return <p>Access Denied</p>
+}
+
+export async function getServerSideProps(context) {
+    return {
+        props: {
+            session: await getServerSession(
+                context.req,
+                context.res,
+                AuthOptions
+            )
+        }
+    }
 }

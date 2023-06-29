@@ -1,8 +1,10 @@
-import { withAuth } from "next-auth/middleware"
+import { withAuth } from "next-auth/middleware";
+import { AuthOptions } from "./pages/api/auth/[...nextauth]";
 import { NextResponse } from "next/server";
 
 
 export default withAuth(
+    // jwt: { decode: authOptions.jwt },
     // `withAuth` augments your `Request` with the user's token.
     function middleware(req) {
 
@@ -30,6 +32,7 @@ export default withAuth(
 
         // return NextResponse.next();
     },
+
     {
         callbacks: {
             authorized: ({ token }) => token?.role === "superadmin",
