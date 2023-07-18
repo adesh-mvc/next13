@@ -23,7 +23,10 @@ const nextConfig = {
   env: {
     THEME_IMAGE: "/assets/media/",
     THEME_JS: "http://localhost:3000/assets/",
-
+    ACCESS_KEY_ID: "AKIAYD42WOPWQW7TKFNR",
+    SECRET_ACCESS_KEY: "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",
+    REGION: "ap-south-1",
+    BUCKET_NAME: "mycdapp"
   },
 
 }

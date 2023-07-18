@@ -1,12 +1,26 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect } from "react";
+
+import { useMutation, gql } from "@apollo/client";
+
 import { easepick } from "@easepick/core";
 import { AmpPlugin } from "@easepick/amp-plugin";
 import { RangePlugin } from "@easepick/range-plugin";
 import { useState } from "react";
 
+const SINGLE_UPLOAD = gql`
+  mutation($file: Upload!) {
+    singleUpload(file: $file) {
+      filename
+      mimetype
+      encoding
+      
+    }
+  }
+`;
 const pickerData = (inputId, stateSetterFunction) => {
+
     const calender = new easepick.create({
         element: document.getElementById(inputId),
         css: [
@@ -38,6 +52,8 @@ const pickerData = (inputId, stateSetterFunction) => {
     return calender;
 }
 export default function ({ params }) {
+
+
     const [pickerDate, setPickerDate] = useState({ d1: '', d2: '', d3: '' });
 
     const DatepickerChange = (name, value) => {
@@ -57,10 +73,31 @@ export default function ({ params }) {
         const startDate = pickerData('d1', DatepickerChange);
         startDate.setDate("30/06/2023");
         pickerData('d2', DatepickerChange);
-    }, [])
+    }, []);
 
-    return (<>
+    const [mutate, { loading, error }] = useMutation(SINGLE_UPLOAD, {
+        context: {
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }
+    });
+
+
+    const uploadFile2 = (e) => {
+        console.log('uploadFile', e)
+    }
+    const uploadFile = ({ target: { files } }) => {
+        const file = files[0]
+        console.log(file)
+        file && mutate({ variables: { file: file } })
+    }
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>{JSON.stringify(error, null, 2)}</div>;
+    return (
+
         <form >
+            <input type="file" name="file_1" onChange={uploadFile} id="f1" />
             <input type="text" name="d1" placeholder="d1" defaultValue={pickerDate.d1} id="d1" />
             <br />
             <br />
@@ -70,5 +107,6 @@ export default function ({ params }) {
             <input type="text" name="d_3" onChange={(e) => DatepickerChange('d_3', e.target.value)} placeholder="D 3" defaultValue={pickerDate.d3} id="d_3" />
             <br />
             <br />
-        </form>    </>)
+        </form>
+    )
 }

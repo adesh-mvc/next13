@@ -1,5 +1,5 @@
 import { withAuth } from "next-auth/middleware";
-import { AuthOptions } from "./pages/api/auth/[...nextauth]";
+// import { AuthOptions } from "./pages/api/auth/[...nextauth]";
 import { NextResponse } from "next/server";
 
 

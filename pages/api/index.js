@@ -1,7 +1,7 @@
 import { ApolloServer } from '@apollo/server';
 import { ApolloGateway } from "@apollo/gateway";
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
-
+// import {graphqlUploadExpress } 
 
 const { graphqlUploadExpress } = require("graphql-upload-minimal");
 
@@ -50,10 +50,10 @@ const server = new ApolloServer({
     // gateway,
 
     // subscriptions: false,
-    uploads: {
-        maxFileSize: 10000000, // 10 MB
-        maxFiles: 20
-    },
+    // uploads: {
+    //     maxFileSize: 10000000, // 10 MB
+    //     maxFiles: 20
+    // },
 
     // graphqlUploadExpress: { maxFileSize: 10000, maxFiles: 10 },
     typeDefs: [itemTable, productTable, adminUserTable, bpaSchema, uploadSchema],

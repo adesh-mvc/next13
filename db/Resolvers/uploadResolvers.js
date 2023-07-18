@@ -15,8 +15,9 @@ const uploadResolver = {
     Upload: GraphQLUpload,
 
     Mutation: {
+        // https://stackoverflow.com/questions/64971480/cant-upload-files-with-apollo-client-graphql-in-next-js-app-post-body-missing
         singleUpload: async (_, args) => {
-            console.log(JSON.parse(args));
+            console.log(args);
             const { createReadStream, filename, mimetype, encoding } = await args;
             console.log('attachment:', filename, mimetype, encoding);
             // return args.file.then(file => {

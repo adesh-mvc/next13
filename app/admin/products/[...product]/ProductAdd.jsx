@@ -52,7 +52,7 @@ const ProductAdd = (props) => {
     props.childto(product);
 
     return (<>
-        <div class="card-body pt-0">
+        <div className="card-body pt-0">
             <label htmlFor="product_name">Product Name</label>
             <input type="text" id="product_name" name="name" onChange={inputChange} defaultValue={product.name} />
             <label htmlFor="per_unit">Per unit</label>
