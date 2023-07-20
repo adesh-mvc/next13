@@ -2,6 +2,8 @@
 import Toster from "./Toster";
 import { Uploader, ImageUpload } from "./S3Bucket";
 import FileUpload from "./FileUpload";
+import DropzoneUpload from "./DropzoneUpload";
+import DropzoneUploader from "./DropzoneUploader";
 export default function page({ params }) {
     // console.log(params.item)
     const Template = () => {
@@ -11,6 +13,10 @@ export default function page({ params }) {
             return <FileUpload />
         } else if (params.item.indexOf('upload') !== -1) {
             return <ImageUpload />
+        } else if (params.item.indexOf('dzone') !== -1) {
+            return <DropzoneUploader
+
+            />
         } else {
             return <h1>Hello World!</h1>
         }

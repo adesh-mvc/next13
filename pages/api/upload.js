@@ -1,28 +1,25 @@
 // https://www.mtechzilla.com/blogs/how-to-upload-images-and-videos-to-amazon-s3-with-next-js-and-aws-sdk-v3
 // https://www.adamrichardson.dev/blog/next-js-image-upload-
 // https://next-s3-upload.codingvalue.com/presigned-uploads
-// https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingAWSSDK.html
+// https://docs.aws.amazon.com/AmazonS3/latest/userguide/UsingAWSSDK.html   
 // https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-aws-javascript.html
 // https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/Package/-aws-sdk-s3-presigned-post/Variable/createPresignedPost/
 import { randomUUID } from 'crypto'
 import https from "https";
 import { PutObjectCommand, S3Client, HeadObjectCommand, CreateBucketCommand } from "@aws-sdk/client-s3";
-import { fromIni } from "@aws-sdk/credential-providers";
-import { HttpRequest } from "@aws-sdk/protocol-http";
+
 import {
     getSignedUrl,
     S3RequestPresigner,
 } from "@aws-sdk/s3-request-presigner";
-import { parseUrl } from "@aws-sdk/url-parser";
-import { formatUrl } from "@aws-sdk/util-format-url";
-import { Hash } from "@aws-sdk/hash-node";
+
 
 
 export const s3Client = new S3Client({
     region: process.env.REGION,
     credentials: {
-        accessKeyId: process.env.ACCESS_KEY_ID,
-        secretAccessKey: process.env.SECRET_ACCESS_KEY,
+        accessKeyId: process.env.S3_ACCESS_KEY,
+        secretAccessKey: process.env.S3_SECRET_KEY,
     }
 });
 
@@ -49,21 +46,13 @@ export default async function (req, res) {
     };
     const input = { // CreateBucketRequest
         // ACL: "private" || "public-read" || "public-read-write" || "authenticated-read",
-        Bucket: "cd-sample-104/adesh", // required
+        Bucket: "cd-sample-101", // required
         CreateBucketConfiguration: { // CreateBucketConfiguration
             LocationConstraint: process.env.REGION,
         },
-        // GrantFullControl: "STRING_VALUE",
-        // GrantRead: "STRING_VALUE",
-        // GrantReadACP: "STRING_VALUE",
-        // GrantWrite: "STRING_VALUE",
-        // GrantWriteACP: "STRING_VALUE",
-        // ObjectLockEnabledForBucket: true || false,
-        // ObjectOwnership: "BucketOwnerPreferred" || "ObjectWriter" || "BucketOwnerEnforced",
+
     };
-    // There are two ways to generate a presigned URL.
-    // 1. Use createPresignedUrl without the S3 client.
-    // 2. Use getSignedUrl in conjunction with the S3 client and GetObjectCommand.
+
     try {
         const data = await s3Client.send(
             new CreateBucketCommand(input)
