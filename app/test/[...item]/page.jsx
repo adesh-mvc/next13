@@ -7,6 +7,8 @@ import FileUpload from "./FileUpload";
 import DropzoneUpload from "./DropzoneUpload";
 import DropzoneUploader from "./DropzoneUploader";
 import DropZone from "./DropZone";
+import Devgenius from "./Devgenius";
+import Myuploader from "./Myuploader";
 import { useEffect } from "react";
 export default function page({ params }) {
     // reducer function to handle state changes
@@ -123,7 +125,9 @@ export default function page({ params }) {
             return <ImageUpload />
         } else if (params.item.indexOf('dzone') !== -1) {
             // return <DropZone data={data} dispatch={dispatch} />
-            return <App />
+            // return <App />
+            // return <Myuploader />
+            return <Devgenius />
         } else {
             return <h1>Hello World!</h1>
         }
