@@ -54,7 +54,6 @@ const Myuploader = () => {
     function initializeProgress(numFiles) {
         progressBar.value = 0
         uploadProgress = []
-
         for (let i = numFiles; i > 0; i--) {
             uploadProgress.push(0)
         }
