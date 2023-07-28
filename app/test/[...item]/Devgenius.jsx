@@ -35,17 +35,27 @@ function Devgenius() {
         let total = uploadProgress.reduce((tot, curr) => tot + curr, 0) / uploadProgress.length
         progressBar.value = total
     }
-    const handleUpload = (event) => {
+    const handleUpload = async (event) => {
         event.preventDefault();
         const formData = new FormData();
-        files.map((file) => {
-            formData.append('files', file);
-            // console.log(formData)
-        });
+        // files.map((file) => {
+        //     formData.append('files[]', file);
+        //     // console.log(formData)
+        // });
+        files.forEach((file) => formData.append("files[]", file));
         // data.append("upload", files);
         // for (var [key, value] of formData.entries()) {
-        //     console.log(key, value);
+        //     // console.log(key, value);
         // }
+        // console.log(formData.get()) http://192.168.5.234/core/upload-test.php
+        await axios.post("http://localhost:3000/api/file-merge",
+            formData,
+            {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                }
+            }
+        )
     }
     return (
         <div>
