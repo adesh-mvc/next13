@@ -42,7 +42,7 @@ function Devgenius() {
         //     formData.append('files[]', file);
         //     // console.log(formData)
         // });
-        files.forEach((file) => formData.append("files[]", file));
+        files.forEach((file) => formData.append("files", file));
         // data.append("upload", files);
         // for (var [key, value] of formData.entries()) {
         //     // console.log(key, value);

@@ -43,8 +43,8 @@ async function deleteObject() {
 }
 export default async function handler(req, res) {
 
-    const getobject = await getObjectUrl('38622f86-7de7-4fe9-b019-f0572d3692c0.image,png');
-    // const putobj = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
+    // const getobject = await getObjectUrl('38622f86-7de7-4fe9-b019-f0572d3692c0.image,png');
+    const putobj = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
     // const list = await listObject();
     // const delres = await deleteObject();
     console.log(putobj);

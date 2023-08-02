@@ -1,11 +1,9 @@
-
-import path from "path";
-
-import fs from "fs/promises";
+import { writeFile } from 'fs/promises'
+import { join } from "path";
+import { mkdir, stat } from "fs/promises";
 
 import formidable, { errors as formidableErrors } from 'formidable';
-
-import mergeFiles from "merge-files";
+import { FilesManager } from "turbodepot-node";
 // import { Nextreq,resp, NextResponse } from 'next/server'
 
 export const config = {
@@ -13,40 +11,29 @@ export const config = {
         bodyParser: false
     }
 };
+const saveFile = async (file) => {
+    const data = fs.readFileSync(file.path);
+    fs.writeFileSync(`./public/${file.name}`, data);
+    await fs.unlinkSync(file.path);
+    return;
+};
 
 export default async function handler(req, res) {
 
     // parse a file upload
-    const form = formidable({ uploadDir: `${__dirname}`, keepExtensions: true });
-    const uploadFolder = "upload";
-    form.multiples = true;
-    form.maxFileSize = 50 * 1024 * 1024; // 5MB
-    form.uploadDir = uploadFolder;
+    const form = formidable({});
     let fields;
     let files;
     try {
         [fields, files] = await form.parse(req);
-        console.log(files.files)
+        // console.log(files.files)
         let rawPath = [];
-
         files.files.map((file) => {
-            rawPath.push(`upload/${file.newFilename}`)
+            rawPath.push(file.filepath)
         })
-
-        const outputPath = form.uploadDir + '/merge.pdf';
-        // const status = await mergeFiles(rawPath, outputPath);
-        mergeFiles(rawPath, outputPath).then((status) => {
-            console.log("status", status)
-            if (status) {
-                const deleteFilePromises = rawPath.map(file =>
-                    fs.unlink(file),
-                );
-
-                // await Promise.all(deleteFilePromises);
-            }
-            // next
-        });
-
+        console.log(rawPath)
+        let filesManager = new FilesManager();
+        filesManager.mergeFiles(rawPath, 'merge.pdf', "\n");
     } catch (err) {
         // example to check for a very specific error
         if (err.code === formidableErrors.maxFieldsExceeded) {
