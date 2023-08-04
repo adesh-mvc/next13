@@ -42,13 +42,14 @@ function Devgenius() {
         //     formData.append('files[]', file);
         //     // console.log(formData)
         // });
+        formData.append("ACTION", "fileMerge")
         files.forEach((file) => formData.append("files", file));
         // data.append("upload", files);
         // for (var [key, value] of formData.entries()) {
         //     // console.log(key, value);
         // }
         // console.log(formData.get()) http://192.168.5.234/core/upload-test.php
-        await axios.post("http://localhost:3000/api/file-merge",
+        await axios.post("http://localhost:3000/api/files/bulk-upload",
             formData,
             {
                 headers: {

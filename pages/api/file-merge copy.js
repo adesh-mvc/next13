@@ -1,9 +1,11 @@
-import { writeFile } from 'fs/promises'
-import { join } from "path";
-import { mkdir, stat } from "fs/promises";
+
+import path from "path";
+
+import fs from "fs/promises";
 
 import formidable, { errors as formidableErrors } from 'formidable';
-import { FilesManager } from "turbodepot-node";
+
+import mergeFiles from "merge-files";
 // import { Nextreq,resp, NextResponse } from 'next/server'
 
 export const config = {
@@ -11,29 +13,49 @@ export const config = {
         bodyParser: false
     }
 };
-const saveFile = async (file) => {
-    const data = fs.readFileSync(file.path);
-    fs.writeFileSync(`./public/${file.name}`, data);
-    await fs.unlinkSync(file.path);
-    return;
-};
 
 export default async function handler(req, res) {
 
     // parse a file upload
-    const form = formidable({});
+    const form = formidable({
+        uploadDir: `${__dirname}`,
+        keepExtensions: true,
+        encoding: 'utf-8',
+        multiples: true,
+        filename: (name, ext, part, form) => {
+            return part.originalFilename; // Will be joined with options.uploadDir.
+        }
+    });
+    const uploadFolder = "upload";
+    form.multiples = true;
+    form.maxFileSize = 50 * 1024 * 1024; // 5MB
+    form.uploadDir = uploadFolder;
     let fields;
     let files;
+
     try {
         [fields, files] = await form.parse(req);
-        // console.log(files.files)
+
         let rawPath = [];
+
         files.files.map((file) => {
-            rawPath.push(file.filepath)
+            rawPath.push(`upload/${file.newFilename}`)
         })
-        console.log(rawPath)
-        let filesManager = new FilesManager();
-        filesManager.mergeFiles(rawPath, 'merge.pdf', "\n");
+
+        const outputPath = form.uploadDir + '/merge.pdf';
+        // const status = await mergeFiles(rawPath, outputPath);
+        mergeFiles(rawPath, outputPath).then((status) => {
+            console.log("status", status)
+            if (status) {
+                const deleteFilePromises = rawPath.map(file =>
+                    fs.unlink(file),
+                );
+
+                // await Promise.all(deleteFilePromises);
+            }
+            // next
+        });
+
     } catch (err) {
         // example to check for a very specific error
         if (err.code === formidableErrors.maxFieldsExceeded) {

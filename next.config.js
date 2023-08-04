@@ -1,13 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
-
+  swcMinify: true,
   experimental: {
     appDir: true,
     // skipTrailingSlashRedirect: true,
     // skipMiddlewareUrlNormalize: true,
     // runtime: "experimental-edge",
   },
+
+  /* async rewrites() {
+    return [
+      {
+        source: "/api/todos",
+        destination: "http://localhost:3001/api/todos",
+      },
+    ];
+  }, */
   api: {
     bodyParser: {
       sizeLimit: '10mb',
