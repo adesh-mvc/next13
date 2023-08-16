@@ -1,4 +1,5 @@
-import { S3Client, GetObjectAclCommand, PutObjectCommand, ListObjectsV2Command, DeleteObjectCommand } from "@aws-sdk/client-s3";
+const fs = require('fs');
+import { S3Client, GetObjectCommand, PutObjectCommand, ListObjectsV2Command, DeleteObjectC, GetObjectCommandommand } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 export const s3Client = new S3Client({
@@ -10,7 +11,7 @@ export const s3Client = new S3Client({
 });
 
 async function getObjectUrl(key) {
-    const command = new GetObjectAclCommand({
+    const command = new GetObjectCommand({
         Bucket: process.env.S3_BUCKET_NAME,
         Key: key
     })
@@ -34,6 +35,22 @@ async function listObject() {
     const res = await s3Client.send(command);
     return res;
 }
+const upload_file = async () => {
+    const fileContent = fs.readFileSync("upload/merge.pdf");
+    const command = new PutObjectCommand({
+        Bucket: process.env.S3_BUCKET_NAME,
+        Key: 'f1.pdf',
+        Body: fileContent,
+    });
+
+    try {
+        const response = await s3Client.send(command);
+        // console.log(response);
+        return response;
+    } catch (err) {
+        console.error(err);
+    }
+};
 async function deleteObject() {
     const command = new DeleteObjectCommand({
         Bucket: process.env.S3_BUCKET_NAME,
@@ -41,15 +58,16 @@ async function deleteObject() {
     })
     return await s3Client.send(command);
 }
-// export default async function handler(req, res) {
+export default async function handler(req, res) {
 
-//     // const getobject = await getObjectUrl('38622f86-7de7-4fe9-b019-f0572d3692c0.image,png');
-//     const putobj = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
-//     // const list = await listObject();
-//     // const delres = await deleteObject();
-//     console.log(putobj);
-//     res.status(200).json({ name: 'John Doe' })
-// }
+    const getobject = await getObjectUrl('f1.pdf');
+    //     const putobj = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
+    // const list = await listObject();
+    //     // const delres = await deleteObject();
+    // const putobj = await upload_file();
+    console.log(getobject);
+    res.status(200).json({ name: 'John Doe', url: getobject })
+}
 
 
 // https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/

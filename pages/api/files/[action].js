@@ -2,17 +2,24 @@
 import fs from "fs/promises";
 
 import formidable, { errors as formidableErrors } from 'formidable';
+import util from "util";
+import { exec } from 'node:child_process';
 import { putObject } from "../aws-crud-sample";
 import mergeFiles from "merge-files";
 // import { Nextreq,resp, NextResponse } from 'next/server'
-
+const execc = util.promisify(exec);
+// const exec = util.promisify(exec);
 export const config = {
     api: {
         bodyParser: false
 
     }
 };
-
+export async function merge_pdfs(pdfFiles, outputFile) {
+    const { stdout, stderr } = await execc(`gs -dNOPAUSE -sDEVICE=pdfwrite -sOUTPUTFILE=${outputFile} -dBATCH ${pdfFiles}`)
+    console.log('stdout:', stdout)
+    console.log('stderr:', stderr)
+}
 export default async function handler(req, res) {
     const { action } = req.query;
     console.log("action:", action)
@@ -43,9 +50,12 @@ export default async function handler(req, res) {
             files.files.map((file) => {
                 rawPath.push(`upload/${file.newFilename}`)
             })
+            // const pdfFiles = ['file_1.pdf','file_2.pdf']
+            const outputFile = 'merged_file.pdf'
 
+            merge_pdfs(rawPath, outputFile)
             const outputPath = form.uploadDir + '/merge.pdf';
-            // const status = await mergeFiles(rawPath, outputPath);
+            const status = await mergeFiles(rawPath, outputPath);
             mergeFiles(rawPath, outputPath).then((status) => {
                 console.log("status", status)
                 console.log(putobj)

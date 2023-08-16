@@ -22,11 +22,8 @@ const nextConfig = {
       sizeLimit: '10mb',
     },
   },
-  webpack: (
-    config,
-    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
-  ) => {
-    // Important: return the modified config
+  webpack(config) {
+    config.experiments = { ...config.experiments, topLevelAwait: true }
     return config
   },
   env: {
