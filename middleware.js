@@ -14,15 +14,12 @@ export default withAuth(
         // console.log(cookie) // => 'fast'
         const allCookies = req.cookies.getAll()
         console.log(allCookies)
-        console.log('req.nextauth.token ', req.nextauth.token)
+        // console.log('req.nextauth.token ::', req.nextauth.token)
         if (req.nextauth.token?.role === 'superadmin') {
             console.log('req.nextauth.token 1', req.nextUrl.pathname);
-
-
             if (req.nextUrl.pathname.startsWith('/admin')) {
                 return NextResponse.rewrite(new URL('/admin', req.url))
             }
-
             // return NextResponse.rewrite(new URL('/admin', req.url));
             // return NextResponse.redirect(new URL('/admin', req.url))
         } else {
@@ -46,3 +43,4 @@ export const config = { matcher: ["/admin"] }
 // https://www.mongodb.com/developer/products/atlas/crud-operations-with-graphql//
 
 //https://nextjs.org/docs/advanced-features/middleware
+// https://srini-dev.hashnode.dev/deploying-a-next-app-to-aws-ec2-with-github-actions-cicd
