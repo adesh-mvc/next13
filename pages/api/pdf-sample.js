@@ -90,6 +90,30 @@ export default function handler(req, res) {
     pdfDoc.addStructure(table);
     table.add(pdfDoc.struct('TD', () => { pdfDoc.text("Foo. "); }));
     table.add(pdfDoc.struct('TD', () => { pdfDoc.text("Bar. "); }));
+    //line to the middle
+    pdfDoc.lineCap('butt')
+        .moveTo(270, 90)
+        .lineTo(270, 230)
+        .stroke()
+
+    row(pdfDoc, 90);
+    row(pdfDoc, 110);
+    row(pdfDoc, 130);
+    row(pdfDoc, 150);
+    row(pdfDoc, 170);
+    row(pdfDoc, 190);
+    row(pdfDoc, 210);
+
+    textInRowFirst(pdfDoc, 'Nombre o razón social', 100);
+    textInRowFirst(pdfDoc, 'RUT', 120);
+    textInRowFirst(pdfDoc, 'Dirección', 140);
+    textInRowFirst(pdfDoc, 'Comuna', 160);
+    textInRowFirst(pdfDoc, 'Ciudad', 180);
+    textInRowFirst(pdfDoc, 'Telefono', 200);
+    textInRowFirst(pdfDoc, 'e-mail', 220);
+
+
+
     pdfDoc.end();
 
     // return res.status(201).json({ message: "adesgh" })

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import ClientProviders from '@/lib/apollo-client';
-import '@/public/assets/plugins/global/plugins.bundle.css';
+// import '@/public/assets/plugins/global/plugins.bundle.css';
 import '@/public/assets/css/style.bundle.css';
 
 
@@ -29,8 +29,8 @@ export default function AdminLayout({ children }) {
 
   return (
     <>
-      <Script src={`/assets/plugins/global/plugins.bundle.js`} />
-      <Script src={`/assets/js/scripts.bundle.js`} />
+      {/*   <Script src={`/assets/plugins/global/plugins.bundle.js`} />
+      <Script src={`/assets/js/scripts.bundle.js`} /> */}
 
 
       <ClientProviders>

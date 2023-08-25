@@ -1,17 +1,9 @@
 "use client"
 import { useEffect, useState } from "react";
 const TableHeader = ({ searchAction, searchString, status_change, DeleteCount }) => {
-    const [state, setState] = useState("")
-    useEffect(() => {
-        $('.status').select2({
-            placeholder: 'Select an option'
-        }).on("change", (e) => {
-            // alert("Change")
-            setState(e.target.value)
-        });
-    }, [state])
 
-    console.log("state", state);
+
+
 
     return (<>
 

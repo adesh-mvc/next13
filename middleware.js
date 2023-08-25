@@ -44,3 +44,5 @@ export const config = { matcher: ["/admin"] }
 
 //https://nextjs.org/docs/advanced-features/middleware
 // https://srini-dev.hashnode.dev/deploying-a-next-app-to-aws-ec2-with-github-actions-cicd
+
+// https://saturncloud.io/blog/troubleshooting-502-bad-gateway-from-relocated-instance-on-aws-ec2/

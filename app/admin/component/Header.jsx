@@ -14,7 +14,7 @@ export default function Header({ params }) {
     if (data === "data") {
         return "Loading or not authenticated..."
     }
-    console.log('session Admin Header:', data)
+
     return (
         <>
             {/*begin::Header*/}
@@ -30,7 +30,7 @@ export default function Header({ params }) {
                                 className="d-lg-none btn btn-icon btn-color-white bg-hover-white bg-hover-opacity-10 w-35px h-35px h-md-40px w-md-40px ms-n2 me-2"
                                 id="kt_header_navs_toggle"
                             >
-                                {/*begin::Svg Icon | path: icons/duotune/abstract/abs015.svg*/}
+
                                 <span className="svg-icon svg-icon-2">
                                     <svg
                                         width={24}
