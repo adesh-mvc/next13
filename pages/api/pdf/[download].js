@@ -11,14 +11,61 @@ const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 var PdfPrinter = require('pdfmake');
 var printer = new PdfPrinter(fonts, { bufferPages: true });
 var fs = require('fs');
+export const CSV = () => {
+
+    const filename = "pdf/saved_from_db.csv";
+    const csvWriter = createCsvWriter({
+        path: filename,
+        header: [
+            { id: 'name', title: 'Name' },
+            { id: 'surname', title: 'Surname' },
+            { id: 'age', title: 'Age' },
+            { id: 'gender', title: 'Gender' },
+        ]
+    });
+
+
+    const data = [
+        {
+            name: 'John',
+            surname: 'Snow',
+            age: 26,
+            gender: 'M'
+        }, {
+            name: 'Clair',
+            surname: 'White',
+            age: 33,
+            gender: 'F',
+        }, {
+            name: 'Fancy',
+            surname: 'Brown',
+            age: 78,
+            gender: 'F'
+        }
+    ];
+
+    csvWriter.writeRecords(data)       // returns a promise
+        .then(() => {
+            console.log('...Done');
+        });
+}
 export default async function handler(req, res) {
     var docDefinition = {
+        // document metadata
+        info: {
+            title: 'awesome Document',
+            author: 'john doe',
+            subject: 'subject of document',
+            keywords: 'keywords for document',
+        },
+        pageSize: 'A4',
+        pageMargins: [50, 60, 50, 60],
         footer: function (currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
         header: function (currentPage, pageCount, pageSize) {
             // you can apply any logic and return any valid pdfmake element
 
-            return [
-                { text: 'simple text', alignment: (currentPage % 2) ? 'left' : 'right' },
+            return [  //margin: [left, top, right, bottom]
+                { text: 'simple text', alignment: (currentPage % 2) ? 'left' : 'right', margin: [50, 35, 50, 5] },
                 { canvas: [{ type: 'rect', x: 170, y: 32, w: pageSize.width - 170, h: 40 }] }
             ]
         },
@@ -724,44 +771,7 @@ export default async function handler(req, res) {
 
     var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
     pdfDoc.pipe(fs.createWriteStream('pdf/document.pdf', { encoding: 'utf-8' }));
-
     pdfDoc.end();
-
-    const filename = "pdf/saved_from_db.csv";
-    const csvWriter = createCsvWriter({
-        path: filename,
-        header: [
-            { id: 'name', title: 'Name' },
-            { id: 'surname', title: 'Surname' },
-            { id: 'age', title: 'Age' },
-            { id: 'gender', title: 'Gender' },
-        ]
-    });
-
-
-    const data = [
-        {
-            name: 'John',
-            surname: 'Snow',
-            age: 26,
-            gender: 'M'
-        }, {
-            name: 'Clair',
-            surname: 'White',
-            age: 33,
-            gender: 'F',
-        }, {
-            name: 'Fancy',
-            surname: 'Brown',
-            age: 78,
-            gender: 'F'
-        }
-    ];
-
-    csvWriter.writeRecords(data)       // returns a promise
-        .then(() => {
-            console.log('...Done');
-        });
     res.status(200).json({ name: 'John Doe' })
     // download(pdfBytes, "pdf-lib_form_flattening_example.pdf", "application/pdf");
 }

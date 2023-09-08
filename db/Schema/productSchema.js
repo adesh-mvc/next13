@@ -49,7 +49,7 @@ type tabCol{
   }
 
   type Query {
-    getProducts(limit:Int page:Int q:String):[Product]
+    getProducts(limit:Int page:Int q:String,productionCapacity:Int):[Product]
     productDataSet(q:String):[DataTable]
     getProduct(id: ID!): Product
     BpaProduct:[Product]

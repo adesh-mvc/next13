@@ -35,7 +35,7 @@ const productResolver = {
     Query: {
         //Products
         getProducts: async (_, args) => {
-            const { limit, page, q } = args;
+            const { limit, page, q, productionCapacity } = args;
 
             try {
                 var products = [];
@@ -49,7 +49,11 @@ const productResolver = {
                         .skip(limit * (page - 1))
                         .limit(limit);
                 } else {
-                    products = await Product.find({});
+                    const param1 = {};
+                    q ? param1["name"] = new RegExp(`${q}`, "i") : ``;
+                    productionCapacity ? param1["productionCapacity"] = productionCapacity : ``;
+                    console.log(param1)
+                    products = await Product.find(param1);
                 }
 
                 /* .sort( { _id: 1 } )
@@ -68,7 +72,7 @@ const productResolver = {
             const { q } = args;
             // const products = await Product.find({}).limit(limit);
             // /{ name: { $regex: '.*' + q + '.*' } }
-            const param = q ? { "name": new RegExp(`${q}`, "i") } : ``;
+            const param = q ? { "name": new RegExp(`${q} `, "i") } : ``;
             console.log('args q count:', param)
             const numRows = await Product.count(param);
 
