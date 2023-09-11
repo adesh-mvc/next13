@@ -9,7 +9,7 @@ var fonts = {
 };
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 var PdfPrinter = require('pdfmake');
-var printer = new PdfPrinter(fonts, { bufferPages: true });
+var printer = new PdfPrinter(fonts);
 var fs = require('fs');
 export const CSV = () => {
 
@@ -766,12 +766,15 @@ export default async function handler(req, res) {
 
 
     var options = {
-        // ...
+        bufferPages: true
     }
-
+    var now = new Date();
     var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
-    pdfDoc.pipe(fs.createWriteStream('pdf/document.pdf', { encoding: 'utf-8' }));
+    const filepath = fs.createWriteStream('pdf/document.pdf');
+    // res.header('Content-type', 'application/pdf');
+    pdfDoc.pipe(filepath);
     pdfDoc.end();
+    console.log(new Date() - now);
     res.status(200).json({ name: 'John Doe' })
     // download(pdfBytes, "pdf-lib_form_flattening_example.pdf", "application/pdf");
 }
