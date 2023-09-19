@@ -43,7 +43,6 @@ export const CSV = () => {
             gender: 'F'
         }
     ];
-
     csvWriter.writeRecords(data)       // returns a promise
         .then(() => {
             console.log('...Done');
@@ -770,11 +769,24 @@ export default async function handler(req, res) {
     }
     var now = new Date();
     var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
-    const filepath = fs.createWriteStream('pdf/document.pdf');
-    // res.header('Content-type', 'application/pdf');
-    pdfDoc.pipe(filepath);
+    /* save file inside pdf folder start */
+    // const filepath = fs.createWriteStream('pdf/document.pdf');    
+    // pdfDoc.pipe(filepath);
+    // pdfDoc.end();
+    /* end save file inside pdf folder start */
+
+    let buffers = [];
+    pdfDoc.on('data', buffers.push.bind(buffers));
+    pdfDoc.on('end', () => {
+
+        let pdfData = Buffer.concat(buffers);
+        res.writeHead(200, {
+            'Content-Length': Buffer.byteLength(pdfData),
+            'Content-Type': 'application/pdf',
+            'Content-disposition': 'attachment;filename=Hello-world.pdf',
+        })
+            .end(pdfData);
+
+    });
     pdfDoc.end();
-    console.log(new Date() - now);
-    res.status(200).json({ name: 'John Doe' })
-    // download(pdfBytes, "pdf-lib_form_flattening_example.pdf", "application/pdf");
 }

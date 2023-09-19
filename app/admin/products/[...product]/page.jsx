@@ -1,6 +1,6 @@
 import { getServerSession } from "next-auth";
 import { AuthOptions } from "@/pages/api/auth/[...nextauth]";
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 import ProductList from "./ProductList";
 import ProductForm from "./ProductFrom";
 import ProductDetail from "./ProductDetail";
