@@ -5,7 +5,38 @@ var fonts = {
         bold: 'public/assets/fonts/Roboto-Medium.ttf',
         italics: 'public/assets/fonts/Roboto-Italic.ttf',
         bolditalics: 'public/assets/fonts/Roboto-MediumItalic.ttf'
-    }
+    },
+    Fontello: {
+        normal: 'public/assets/fonts/fontello/fontello.ttf',
+        bold: 'public/assets/fonts/fontello/fontello.ttf',
+        italics: 'public/assets/fonts/fontello/fontello.ttf',
+        bolditalics: 'public/assets/fonts/fontello/fontello.ttf'
+    },
+    Courier: {
+        normal: 'public/assets/fonts/Courier/Courier-Regular.ttf',
+        bold: 'public/assets/fonts/Courier/Courier-BOLD.ttf',
+        italics: 'public/assets/fonts/Courier/COURIER2.ttf',
+        bolditalics: 'public/assets/fonts/Courier/CarrierBoldOblique.ttf',
+    },
+    // Helvetica: {
+    //     normal: 'Helvetica',
+    //     bold: 'Helvetica-Bold',
+    //     italics: 'Helvetica-Oblique',
+    //     bolditalics: 'Helvetica-BoldOblique'
+    // },
+    Times: {
+        normal: 'public/assets/fonts/times/Times-Roman.ttf',
+        bold: 'public/assets/fonts/times/Times-Bold.ttf',
+        italics: 'public/assets/fonts/times/Times-Italic.ttf',
+        bolditalics: 'public/assets/fonts/times/Times-BoldItalic.ttf'
+    },
+    // Symbol: {
+    //     normal: 'Symbol'
+    // },
+    // ZapfDingbats: {
+    //     normal: 'ZapfDingbats'
+    // }
+
 };
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 var PdfPrinter = require('pdfmake');
@@ -48,7 +79,7 @@ export const CSV = () => {
             console.log('...Done');
         });
 }
-export default async function handler(req, res) {
+const mainExample = () => {
     var docDefinition = {
         // document metadata
         info: {
@@ -767,14 +798,140 @@ export default async function handler(req, res) {
     var options = {
         bufferPages: true
     }
-    var now = new Date();
-    var pdfDoc = printer.createPdfKitDocument(docDefinition, options);
+
+    return printer.createPdfKitDocument(docDefinition, options);
+}
+
+const LetterFormat = () => {
+    const letterBody = {
+        // document metadata
+        info: {
+            title: 'Letter Writing Tutorial',
+            author: 'Adesh',
+            subject: 'subject of document',
+            keywords: 'keywords for document',
+        },
+        pageSize: 'A4',
+        pageMargins: [50, 60, 50, 60],
+        footer: function (currentPage, pageCount) {
+            // return currentPage.toString() + ' of ' + pageCount;
+            return [
+
+                { text: currentPage.toString() + ' of ' + pageCount, alignment: 'center', fontSize: 10 }
+            ]
+        },
+        header: function (currentPage, pageCount, pageSize) {
+            // you can apply any logic and return any valid pdfmake element
+
+            return [  //margin: [left, top, right, bottom]
+                { text: 'Use in pdfmake on server-side', style: 'orgname' },
+                { text: 'Use in pdfmake on server-side', style: 'orgaddress' },
+                { canvas: [{ type: 'rect', x: 170, y: 32, w: pageSize.width - 170, h: 40 }] }
+            ]
+        },
+        content: [
+            { text: 'To,', bold: true, fontSize: 10 },
+            { text: 'Organisation Manager', fontSize: 10 },
+            { text: 'Organisation Address', fontSize: 10, },
+            { text: 'Organisation Address', fontSize: 10, margin: [0, 0, 0, 15], },
+            { text: 'Leave letter', margin: [0, 0, 15, 0], alignment: 'center', fontSize: 12, bold: true, },
+            { text: 'Dear Sir,', margin: [0, 0, 0, 2], fontSize: 10, },
+            {
+                text: 'Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine. Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.Official documentation is in progress',
+                alignment: 'justify', fontSize: 10,
+            },
+            { text: 'Detail', margin: [0, 10, 0, 0], fontSize: 10, bold: true, },
+            {
+                style: 'detailTable',
+                table: {
+                    widths: ['*', '*'],
+                    body: [
+                        [{ text: 'Column 1', style: 'tableHeader' }, { text: 'Column 2', style: 'tableHeader' }],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here']
+                    ]
+                }
+            },
+            { text: 'Detail 2', margin: [0, 10, 0, 0], fontSize: 10, bold: true, },
+            {
+                style: 'detailTable',
+                table: {
+                    widths: ['*', '*'],
+                    body: [
+                        [{ text: 'Column 1', style: 'tableHeader' }, { text: 'Column 2', style: 'tableHeader' }],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here'],
+                        ['One value goes here', 'Another one here']
+                    ]
+                }
+            },
+            { text: 'Thanking You', margin: [0, 100, 0, 0], fontSize: 10, bold: true, },
+            { text: 'Adesh kumar', margin: [0, 2, 0, 0], fontSize: 10, },
+            { text: '', style: 'icon' }
+        ],
+        defaultStyle: {
+            font: 'Times'
+        },
+        styles: {
+            orgname: {
+                fontSize: 15,
+                bold: true,
+                margin: [50, 5, 50, 3],
+                alignment: 'center'
+            },
+            orgaddress: {
+                fontSize: 13,
+
+                margin: [50, 0, 50, 5],
+                alignment: 'center'
+            },
+            detailTable: {
+                margin: [0, 0, 0, 0],
+                fontSize: 10
+            },
+            tableHeader: {
+                bold: true,
+                fontSize: 10,
+                bold: true,
+                color: 'black'
+            },
+            icon: {
+                font: 'Fontello',
+                content: '800'
+            }
+        }
+    }
+    var options = {
+        bufferPages: true
+    }
+
+    return printer.createPdfKitDocument(letterBody, options);
+}
+export default async function handler(req, res) {
+
     /* save file inside pdf folder start */
     // const filepath = fs.createWriteStream('pdf/document.pdf');    
     // pdfDoc.pipe(filepath);
     // pdfDoc.end();
     /* end save file inside pdf folder start */
-
+    // const pdfDoc = mainExample();
+    const pdfDoc = LetterFormat();
     let buffers = [];
     pdfDoc.on('data', buffers.push.bind(buffers));
     pdfDoc.on('end', () => {
