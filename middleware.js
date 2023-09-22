@@ -53,4 +53,20 @@ export const config = { matcher: ["/admin"] }
 
 
 
+// https://html.themexriver.com/Haptic-Html/index-4.html
+//https://keenitsolutions.com/products/html/edulearn/edulearn-demo/index.html
+//https://gramentheme.com/html/mistri/index.html
+//https://gossip-themes.com/beatrix-html/preview/index.html
+
+//https://new.axilthemes.com/demo/template/blogar/index.html
+//https://projects.kajoo.studio/gamedevs/index.html
+// https://html.themewant.com/echo/index.html
+// https://new.axilthemes.com/demo/template/papr/index.html
+// https://themegenix.net/html/sarsa-html/index-4.html
+// http://html.cwsthemes.com/pressview/index.html
+//https://demos.alithemes.com/html/helloworld/index.html
+//https://templates.envytheme.com/depan/default/index-2.html
+//https://demo.themewinter.com/html/vinazine/category-1.html
+// https://max-themes.net/demos/gnews/demo1/index.html
+// http://wpsoul.net/rehub_demo/index.html
 
