@@ -40,6 +40,8 @@ var fonts = {
 };
 const createCsvWriter = require('csv-writer').createObjectCsvWriter;
 var PdfPrinter = require('pdfmake');
+import product from "@/db/models/product";
+import connectDb from "@/db/config";
 var printer = new PdfPrinter(fonts);
 var fs = require('fs');
 export const CSV = () => {
@@ -90,6 +92,16 @@ const mainExample = () => {
         },
         pageSize: 'A4',
         pageMargins: [50, 60, 50, 60],
+        layout: {
+            hLineWidth: function () {
+                // Here you can use ternary operator or if condtions to change its value according to row and column
+                return 0;
+            },
+            vLineWidth: function () {
+                // Here you can use ternary operator or if condtions to change its value according to row and column
+                return 0;
+            }
+        },
         footer: function (currentPage, pageCount) { return currentPage.toString() + ' of ' + pageCount; },
         header: function (currentPage, pageCount, pageSize) {
             // you can apply any logic and return any valid pdfmake element
@@ -903,13 +915,15 @@ const LetterFormat = () => {
             },
             detailTable: {
                 margin: [0, 0, 0, 0],
-                fontSize: 10
+                fontSize: 10,
+                layout: 'noBorders'
             },
             tableHeader: {
                 bold: true,
                 fontSize: 10,
                 bold: true,
-                color: 'black'
+                color: 'black',
+
             },
             icon: {
                 font: 'Fontello',

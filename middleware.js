@@ -70,3 +70,10 @@ export const config = { matcher: ["/admin"] }
 // https://max-themes.net/demos/gnews/demo1/index.html
 // http://wpsoul.net/rehub_demo/index.html
 
+
+// https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql
+
+
+
+// https://www.cyberciti.biz/tips/how-do-i-enable-remote-access-to-mysql-database-server.html
+
