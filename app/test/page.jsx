@@ -7,6 +7,7 @@ import { useMutation, gql } from "@apollo/client";
 import { easepick } from "@easepick/core";
 import { AmpPlugin } from "@easepick/amp-plugin";
 import { RangePlugin } from "@easepick/range-plugin";
+import { LockPlugin } from '@easepick/lock-plugin';
 import { useState } from "react";
 
 const SINGLE_UPLOAD = gql`
@@ -35,15 +36,48 @@ const pickerData = (inputId, stateSetterFunction) => {
                 years: true,
             },
         },
-        // plugins: [RangePlugin],
-        // RangePlugin: {
-        //     tooltip: true,
-        // },
+        plugins: [LockPlugin],
+        LockPlugin: {
+            minDate: new Date(),
+        },
         format: "DD/MM/YYYY",
         setup(picker) {
             picker.on('select', (e) => {
                 const { view, date, target } = e.detail;
                 stateSetterFunction(inputId, date.toLocaleDateString('hi-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                console.log(date.toLocaleDateString('hi-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }));
+                // do something
+            });
+        },
+    });
+    return calender;
+}
+
+const pickerData2 = () => {
+
+    const calender = new easepick.create({
+        element: document.getElementById('d2'),
+        css: [
+            'https://cdn.jsdelivr.net/npm/@easepick/core@1.2.1/dist/index.css',
+            'https://cdn.jsdelivr.net/npm/@easepick/range-plugin@1.2.1/dist/index.css',
+        ],
+        plugins: [AmpPlugin],
+
+        AmpPlugin: {
+            dropdown: {
+                months: true,
+                years: true,
+            },
+        },
+        plugins: [LockPlugin],
+        LockPlugin: {
+            minDate: new Date(),
+        },
+        format: "DD/MM/YYYY",
+        setup(picker) {
+            picker.on('select', (e) => {
+                const { view, date, target } = e.detail;
+                // stateSetterFunction(inputId, date.toLocaleDateString('hi-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }));
                 console.log(date.toLocaleDateString('hi-IN', { day: '2-digit', month: '2-digit', year: 'numeric' }));
                 // do something
             });
@@ -72,7 +106,8 @@ export default function ({ params }) {
     useEffect(() => {
         const startDate = pickerData('d1', DatepickerChange);
         startDate.setDate("30/06/2023");
-        pickerData('d2', DatepickerChange);
+        // pickerData('d2', DatepickerChange);
+        pickerData2();
     }, []);
 
     const [mutate, { loading, error }] = useMutation(SINGLE_UPLOAD, {

@@ -70,10 +70,26 @@ export const config = { matcher: ["/admin"] }
 // https://max-themes.net/demos/gnews/demo1/index.html
 // http://wpsoul.net/rehub_demo/index.html
 
+// https://demo.themeix.com/html/nextblog/index.html
+// https://pxelcode.com/tf-db/sailor-intro/blog/index-main.html
+// https://wp.alithemes.com/html/flow/html-demo/home-2.html
+// https://html.designingmedia.com/ibloggo/index.html
+// https://demos.alithemes.com/html/merinda/index.html
+// https://demos.alithemes.com/html/helloworld/index.html
+// https://demo-egenslab.b-cdn.net/html/blogxton/preview/index-4.html
+// https://backtheme.tech/products/html/neoton/index.html
+// https://html.bolvosites.com/Site-templates/ladypress/index.html
+// https://kamleshyadav.com/html/wlog/html/bootstrep5/index3.html
+
 
 // https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql
 
 
 
 // https://www.cyberciti.biz/tips/how-do-i-enable-remote-access-to-mysql-database-server.html
+
+
+
+
+// https://alvarotrigo.com/blog/css-text-animations/
 
