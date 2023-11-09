@@ -81,6 +81,9 @@ export const config = { matcher: ["/admin"] }
 // https://html.bolvosites.com/Site-templates/ladypress/index.html
 // https://kamleshyadav.com/html/wlog/html/bootstrep5/index3.html
 
+// 07/11/2023
+// https://template.kendytheme.net/rebecca/index.html
+// https://jellywp.com/html/sprasa-preview/index.html
 
 // https://mysql.tutorials24x7.com/blog/guide-to-design-a-database-for-blog-management-in-mysql
 
