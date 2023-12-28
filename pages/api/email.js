@@ -1,10 +1,58 @@
 // https://ardianbudi.medium.com/how-to-read-email-download-attachment-and-set-it-to-read-in-nestjs-with-node-imap-999e3e10570c
+
+// Define font files
+var fonts = {
+    Roboto: {
+        normal: 'public/assets/fonts/Roboto-Regular.ttf',
+        bold: 'public/assets/fonts/Roboto-Medium.ttf',
+        italics: 'public/assets/fonts/Roboto-Italic.ttf',
+        bolditalics: 'public/assets/fonts/Roboto-MediumItalic.ttf'
+    },
+    Fontello: {
+        normal: 'public/assets/fonts/fontello/fontello.ttf',
+        bold: 'public/assets/fonts/fontello/fontello.ttf',
+        italics: 'public/assets/fonts/fontello/fontello.ttf',
+        bolditalics: 'public/assets/fonts/fontello/fontello.ttf'
+    },
+    Courier: {
+        normal: 'public/assets/fonts/Courier/Courier-Regular.ttf',
+        bold: 'public/assets/fonts/Courier/Courier-BOLD.ttf',
+        italics: 'public/assets/fonts/Courier/COURIER2.ttf',
+        bolditalics: 'public/assets/fonts/Courier/CarrierBoldOblique.ttf',
+    },
+    // Helvetica: {
+    //     normal: 'Helvetica',
+    //     bold: 'Helvetica-Bold',
+    //     italics: 'Helvetica-Oblique',
+    //     bolditalics: 'Helvetica-BoldOblique'
+    // },
+    Times: {
+        normal: 'public/assets/fonts/times/Times-Roman.ttf',
+        bold: 'public/assets/fonts/times/Times-Bold.ttf',
+        italics: 'public/assets/fonts/times/Times-Italic.ttf',
+        bolditalics: 'public/assets/fonts/times/Times-BoldItalic.ttf'
+    },
+    // Symbol: {
+    //     normal: 'Symbol'
+    // },
+    // ZapfDingbats: {
+    //     normal: 'ZapfDingbats'
+    // }
+
+};
 var Imap = require('node-imap'),
     inspect = require('util').inspect;
 var fs = require('fs');
 var base64 = require('base64-stream');
 const { simpleParser } = require('mailparser');
 
+var PdfPrinter = require('pdfmake');
+var printer = new PdfPrinter(fonts);
+var fs = require('fs');
+var htmlToPdfmake = require("html-to-pdfmake");
+var jsdom = require("jsdom");
+var { JSDOM } = jsdom;
+var { window } = new JSDOM("", { runScripts: "outside-only" });
 var imap = new Imap({
     user: "adesh.mvc@gmail.com",
     password: "vbpjwckdnwvkxjyl",
@@ -79,8 +127,21 @@ export default function handler(req, res) {
                                         "attachment": attach
                                     }
                                     //end -> set data
-                                    console.log("emails_data:", emails_data.content.html)
-                                    email_array.push(emails_data)
+                                    // console.log("emails_data:", emails_data.content.html)
+                                    email_array.push(emails_data);
+
+                                    let dd = {
+                                        pageSize: "A4",
+                                        pageOrientation: "portrait",
+                                        content: [
+                                            emails_data.content.html
+                                        ],
+                                    }
+                                    let doc = printer.createPdfKitDocument(dd);
+                                    const filepath = fs.createWriteStream(`pdf/${dataheader.subject[0]}-adesh.pdf`);
+                                    doc.pipe(filepath);
+                                    doc.end()
+
                                 }
                                 else
                                     console.log(prefix + 'Body [%s] Finished', inspect(info.which));
@@ -89,15 +150,14 @@ export default function handler(req, res) {
 
                         //mark attributes email as read
                         msg.once('attributes', function (attrs) {
-
                             let uid = attrs.uid;
-                            imap.addFlags(uid, ['\\Seen'], function (err) {
+                            /* imap.addFlags(uid, ['\\Seen'], function (err) {
                                 if (err) {
                                     console.log(err);
                                 } else {
                                     console.log("Done, marked email as read!")
                                 }
-                            });
+                            }); */
                         });
                         msg.once('end', function () {
                             console.log(prefix + 'Finished');

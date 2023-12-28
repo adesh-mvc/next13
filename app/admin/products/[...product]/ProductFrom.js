@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQuery, gql } from "@apollo/client";
 
 import ProductAdd from "./ProductAdd";
-import UserFileUpload from "../../users/[...user]/UserFileUpload";
+// import UserFileUpload from "../../users/[...user]/UserFileUpload";
 import DragDrop from "./DragDrop";
 import { useForm } from "react-hook-form";
 // import TestCheckBox from "./TestCheckbox"

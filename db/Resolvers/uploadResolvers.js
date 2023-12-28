@@ -1,18 +1,12 @@
 // import { GraphQLBoolean, GraphQLObjectType, GraphQLSchema } from "graphql";
 // import GraphQLUpload from "graphql-upload/GraphQLUpload.mjs"
-import { GraphQLUpload } from "graphql-upload-minimal";
+// import { GraphQLUpload } from "graphql-upload-minimal";
 const fs = require('fs')
-//import GraphQLUpload from 'graphql-upload/GraphQLUpload.mjs';
 
-
-
-// import { GraphQLUpload } from "@types/graphql-upload";
-//  import { GraphQLUpload } from 'apollo-upload-server';
-/* import { GraphQLUpload } from "@/node_modules/graphql-upload/GraphQLUpload.mjs" */
 
 const uploadResolver = {
 
-    Upload: GraphQLUpload,
+    // Upload: GraphQLUpload,
 
     Mutation: {
         // https://stackoverflow.com/questions/64971480/cant-upload-files-with-apollo-client-graphql-in-next-js-app-post-body-missing

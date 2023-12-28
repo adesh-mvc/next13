@@ -3,18 +3,18 @@ import { ApolloGateway } from "@apollo/gateway";
 import { startServerAndCreateNextHandler } from '@as-integrations/next';
 // import {graphqlUploadExpress } 
 
-const { graphqlUploadExpress } = require("graphql-upload-minimal");
+// const { graphqlUploadExpress } = require("graphql-upload-minimal");
 
 import itemTable from "@/db/Schema/itemSchema";
 import productTable from "../../db/Schema/productSchema.js";
 import adminUserTable from "../../db/Schema/adminSchema";
-import uploadSchema from "../../db/Schema/uploadSchema";
+// import uploadSchema from "../../db/Schema/uploadSchema";
 import bpaSchema from "../../db/Schema/bpaSchema";
 //import typeDefs from '../../db/Schema/schema-xx';
 import itemResolver from "@/db/Resolvers/itemResolvers";
 import productResolver from "../../db/Resolvers/productResolvers";
 import adminResolver from "../../db/Resolvers/adminResolvers";
-import uploadResolver from "../../db/Resolvers/uploadResolvers";
+// import uploadResolver from "../../db/Resolvers/uploadResolvers";
 import bapResolver from '@/db/Resolvers/bpaResolver';
 import connectDb from "../../db/config";
 // console.log("RESOLVER:", Product)
@@ -57,7 +57,7 @@ const server = new ApolloServer({
 
     // graphqlUploadExpress: { maxFileSize: 10000, maxFiles: 10 },
     typeDefs: [itemTable, productTable, adminUserTable, bpaSchema, uploadSchema],
-    resolvers: [itemResolver, productResolver, adminResolver, bapResolver, uploadResolver],
+    resolvers: [itemResolver, productResolver, adminResolver, bapResolver],
     // csrfPrevention: false,
     csrfPrevention: true,
     dataSources: () => ({}),

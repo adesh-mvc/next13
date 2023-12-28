@@ -13,17 +13,17 @@ const inter = Inter({ subsets: ['latin'] })
 
 export default async function Home() {
 
-  const data = await client.query({
-    query: gql`{
-      getProducts{
-        id
-    name 
-    price 
-    description  
-      }
-    }
-    `,
-  }); console.log('data:', data)
+  // const data = await client.query({
+  //   query: gql`{
+  //     getProducts{
+  //       id
+  //   name 
+  //   price 
+  //   description  
+  //     }
+  //   }
+  //   `,
+  // }); console.log('data:', data)
   return (
     <main className={styles.main}>
       <div className={styles.description}>

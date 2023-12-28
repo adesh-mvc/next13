@@ -25,6 +25,7 @@ export default function AdminLayout({ children }) {
   const [themeMode, setThemeMode] = useState('');
   useEffect(() => {
     setThemeMode('light');
+    // document.querySelector("body").classList.add("header-extended header-fixed header-tablet-and-mobile-fixed")
   }, []);
 
   return (
@@ -35,30 +36,30 @@ export default function AdminLayout({ children }) {
 
       <ClientProviders>
 
-        <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed" data-bs-theme={themeMode}>
-          {/*begin::Main*/}
-          {/*begin::Root*/}
-          <div className="d-flex flex-column flex-root">
-            {/*begin::Page*/}
-            <div className="page d-flex flex-row flex-column-fluid">
-              {/*begin::Wrapper*/}
-              <div
-                className="wrapper d-flex flex-column flex-row-fluid"
-                id="kt_wrapper"
-              >
+        {/* <div id="kt_body" className="header-extended header-fixed header-tablet-and-mobile-fixed" data-bs-theme={themeMode}> */}
+        {/*begin::Main*/}
+        {/*begin::Root*/}
+        <div className="d-flex flex-column flex-root">
+          {/*begin::Page*/}
+          <div className="page d-flex flex-row flex-column-fluid">
+            {/*begin::Wrapper*/}
+            <div
+              className="wrapper d-flex flex-column flex-row-fluid"
+              id="kt_wrapper"
+            >
 
-                <Header />
-                {/*    <Toolbar /> */}
-                {children}
-                <Footer />
-              </div>
-              {/*end::Wrapper*/}
+              <Header />
+              {/*    <Toolbar /> */}
+              {children}
+              <Footer />
             </div>
-            {/*end::Page*/}
+            {/*end::Wrapper*/}
           </div>
-          {/*end::Root*/}
-          {/*  <OtherElements /> */}
+          {/*end::Page*/}
         </div>
+        {/*end::Root*/}
+        {/*  <OtherElements /> */}
+        {/* </div> */}
       </ClientProviders>
 
       {/* <Script src={`${process.env.NEXTAUTH_URL}/assets/plugins/custom/datatables/datatables.bundle.js`} /> */}

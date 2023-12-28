@@ -8,8 +8,8 @@ var KTComponents = function () {
     return {
         init: function () {
             //  KTApp.init();
-            // KTDrawer.init();
-            // KTMenu.init();
+            KTDrawer.init();
+            KTMenu.init();
             // KTScroll.init();
             // KTSticky.init();
             // KTSwapper.init();
