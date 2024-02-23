@@ -56,7 +56,7 @@ const server = new ApolloServer({
     // },
 
     // graphqlUploadExpress: { maxFileSize: 10000, maxFiles: 10 },
-    typeDefs: [itemTable, productTable, adminUserTable, bpaSchema, uploadSchema],
+    typeDefs: [itemTable, productTable, adminUserTable, bpaSchema],
     resolvers: [itemResolver, productResolver, adminResolver, bapResolver],
     // csrfPrevention: false,
     csrfPrevention: true,

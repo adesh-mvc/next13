@@ -1,0 +1,78 @@
+$myString = $_SERVER['REQUEST_URI'];
+
+
+session_start();
+$url_secure = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://";
+$url = $url_secure.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+
+$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+ $basename = pathinfo($url_path, PATHINFO_BASENAME);
+$_SERVERHOST = preg_replace('/^www\./i', '',$_SERVER['SERVER_NAME']);
+
+	if(isset($_GET['rmvimg']) && $_GET['rmvimg']=="yes"){
+
+                    $_SESSION['rid']=123;
+					if(isset($_GET['rurl']))
+					{
+						//echo "<script>window.location.href='".$_GET['rurl']."';</script>";
+						header("Location: ".$_GET['rurl']); 
+
+					}
+                  }
+	
+		if(isset($_GET['rmvimg']) && $_GET['rmvimg']=="search"){
+
+                    $_SESSION['SID']=456;
+					if(isset($_GET['rurl']))
+					{
+						echo "<script>window.location.href='".$_GET['rurl']."';</script>";
+						//header("Location: ".$_GET['rurl']); 
+
+					}
+                  }
+
+		if(isset($_GET['rmvimg']) && $_GET['rmvimg']=="no"){
+					
+        		               unset($_SESSION['rid']);
+                    			session_destroy();
+					if(isset($_GET['rurl']))
+					{
+						//echo "<script>window.location.href='".$_GET['rurl']."';</script>";
+						header("Location: ".$_GET['rurl']);
+					}
+        			        }
+if(array_key_exists('rid',$_SESSION)){
+if($_SESSION['rid']==123){
+
+$filename = '/var/www/html/sof/'.$_SERVERHOST.'/staticpages/'.$basename.'.php';
+   if(empty($basename)){
+    	
+
+	$content = file_get_contents( '/var/www/html/sof/'.$_SERVERHOST.'/staticpages/home.php' );
+
+    	echo $content;
+	include('get_file.php');
+		
+
+    }else{
+	if(file_exists($filename)){
+	$content = file_get_contents( '/var/www/html/sof/'.$_SERVERHOST.'/staticpages/'.$basename.'.php' );
+	
+    	echo $content;
+	include('get_file.php');
+	
+	}else{
+	$content = file_get_contents( '/var/www/html/sof/'.$_SERVERHOST.'/staticpages/home.php' );
+    	echo $content;
+	include('get_file.php');
+	}
+
+    }
+}
+}elseif(array_key_exists('SID',$_SESSION)){
+
+include( '/var/www/html/sof/'.$_SERVERHOST.'/staticpages/search.php');
+
+}else{ 
+    
+}

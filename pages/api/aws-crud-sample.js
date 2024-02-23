@@ -59,7 +59,6 @@ async function deleteObject() {
     return await s3Client.send(command);
 }
 export default async function handler(req, res) {
-
     const getobject = await getObjectUrl('hospital/6410b3138572d8a327b5d6e5/2023/10/image-1696142997809.pdf');
     //     const putobj = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
     // const list = await listObject();

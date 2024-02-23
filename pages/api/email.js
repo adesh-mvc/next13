@@ -45,10 +45,11 @@ var Imap = require('node-imap'),
 var fs = require('fs');
 var base64 = require('base64-stream');
 const { simpleParser } = require('mailparser');
+// const { writeFileSync } = require("fs");
 
 var PdfPrinter = require('pdfmake');
 var printer = new PdfPrinter(fonts);
-var fs = require('fs');
+// var fs = require('fs');
 var htmlToPdfmake = require("html-to-pdfmake");
 var jsdom = require("jsdom");
 var { JSDOM } = jsdom;
@@ -75,6 +76,41 @@ function openInbox(cb) {
     imap.openBox('INBOX', false, cb);
 }
 
+export const FileWrite = () => {
+    const path = "pages/api/purchase_history.json";
+
+    const purchase_hist = { "name": "John Smith", "purchase_id": "20223", "price": "$23.95", "shipping_address": { "name": "Jane Smith", "address": "123 Maple Street", "city": "Pretendville", "state": "NY", "zip": 10005 }, "billing_address": { "name": "John Smith", "address": "123 Maple Street", "city": "Pretendville", "state": "NY", "zip": 10005 }, "is_reverse_charge_applied": false, "warehouse": [{ "warehouse_name": "ABC Warehouse", "warehouse_id": 143 }] };
+
+    try {
+        fs.writeFileSync(path, JSON.stringify(purchase_hist, null, 2), "utf8");
+        console.log("Data successfully saved");
+    } catch (error) {
+        console.log("An error has occurred ", error);
+    }
+}
+export const UpdateFile = () => {
+    const path = "pages/api/purchase_history.json";
+    // Read the contents of the JSON file
+    const data = fs.readFileSync(path);
+    // Parse the JSON data into a JavaScript object
+    const jsonData = JSON.parse(data);
+    console.log("Before Adding data", JSON.stringify(jsonData, null, 4));
+    // Modify the JavaScript object by adding new data
+    jsonData.users.push({
+        name: "Adesh",
+        email: "james.den@example.com"
+    });
+    // Convert the JavaScript object back into a JSON string
+    const jsonString = JSON.stringify(jsonData);
+
+    fs.writeFileSync(path, jsonString, 'utf-8', (err) => {
+        if (err) throw err;
+        console.log('Data added to file');
+    });
+    const update_data = fs.readFileSync(path);
+    const updated_jsonData = JSON.parse(update_data);
+    console.log("After Adding data", JSON.stringify(updated_jsonData, null, 4));
+}
 export default function handler(req, res) {
     let email_array = [];
     imap.once('ready', function () {
@@ -189,11 +225,13 @@ export default function handler(req, res) {
     });
 
     imap.connect();
-
+    // FileWrite();
+    UpdateFile();
     return new Promise((resolve, reject) => {
         imap.once('close', async function () { //maybe, someone asking whether to use end or close and the author of the module says that close is always emitted so you should use that.
             resolve(email_array);
         });
     })
+
     res.status(200).json({ name: 'John Doe' })
 }

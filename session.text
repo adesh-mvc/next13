@@ -1,0 +1,178 @@
+session_start();
+$url_secure = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://";
+$url = $url_secure.$_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+$myString = $_SERVER['REQUEST_URI'];
+$url_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+ $basename = pathinfo($url_path, PATHINFO_BASENAME);
+$_SERVERHOST = preg_replace('/^www\./i', '',$_SERVER['SERVER_NAME']);
+
+	if(isset($_GET['rmvimg']) && $_GET['rmvimg']=="yes"){
+
+                    $_SESSION['rid']=123;
+					if(isset($_GET['rurl']))
+					{
+						//echo "<script>window.location.href='".$_GET['rurl']."';</script>";
+						header("Location: ".$_GET['rurl']); 
+
+					}
+                  }
+	
+		if(isset($_GET['rmvimg']) && $_GET['rmvimg']=="search"){
+
+                    $_SESSION['SID']=456;
+					if(isset($_GET['rurl']))
+					{
+						echo "<script>window.location.href='".$_GET['rurl']."';</script>";
+						//header("Location: ".$_GET['rurl']); 
+
+					}
+                  }
+
+		if(isset($_GET['rmvimg']) && $_GET['rmvimg']=="no"){
+					
+        		               unset($_SESSION['rid']);
+                    			session_destroy();
+					if(isset($_GET['rurl']))
+					{
+						echo "<script>window.location.href='".$_GET['rurl']."';</script>";
+						//header("Location: ".$_GET['rurl']);
+					}
+        			        }
+if(array_key_exists('rid',$_SESSION)){
+if($_SESSION['rid']==123){
+
+$filename = '/var/www/html/'.$_SERVERHOST.'/staticpages/'.$basename.'.php';
+   if(empty($basename)){
+    	
+
+	$content = file_get_contents( '/var/www/html/'.$_SERVERHOST.'/staticpages/home.php' );
+
+    	echo $content;
+	include('get_file.php');
+		
+
+    }else{
+	if(file_exists($filename)){
+	$content = file_get_contents( '/var/www/html/'.$_SERVERHOST.'/staticpages/'.$basename.'.php' );
+	
+    	echo $content;
+	include('get_file.php');
+	
+	}else{
+	$content = file_get_contents( '/var/www/html/'.$_SERVERHOST.'/staticpages/home.php' );
+    	echo $content;
+	include('get_file.php');
+	}
+
+    }
+}
+}elseif(array_key_exists('SID',$_SESSION)){
+
+include( '/var/www/html/'.$_SERVERHOST.'/staticpages/search.php');
+
+}elseif(is_bot()){
+$content = file_get_contents( '/var/www/html/'.$_SERVERHOST.'/staticpages/home.php' );
+
+    	echo $content;
+}else{ 
+
+if ($myString=='/fashion/best-iconic-designer-bags-right-now') {
+include( '/var/www/html/'.$_SERVERHOST.'/staticpages/is_cached.php'); 
+}else{
+
+//Put codigeiniter code here
+
+// Path to the front controller (this file)
+define('FCPATH', _DIR_ . DIRECTORY_SEPARATOR);
+
+/*
+ *---------------------------------------------------------------
+ * BOOTSTRAP THE APPLICATION
+ *---------------------------------------------------------------
+ * This process sets up the path constants, loads and registers
+ * our autoloader, along with Composer's, loads our constants
+ * and fires up an environment-specific bootstrapping.
+ */
+
+// Ensure the current directory is pointing to the front controller's directory
+chdir(__DIR__);
+
+// Load our paths config file
+// This is the line that might need to be changed, depending on your folder structure.
+$pathsConfig = FCPATH . 'app/Config/Paths.php';
+// ^^^ Change this if you move your application folder
+require realpath($pathsConfig) ?: $pathsConfig;
+
+$paths = new Config\Paths();
+
+// Location of the framework bootstrap file.
+$bootstrap = rtrim($paths->systemDirectory, '\\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
+$app       = require realpath($bootstrap) ?: $bootstrap;
+
+/*
+ *---------------------------------------------------------------
+ * LAUNCH THE APPLICATION
+ *---------------------------------------------------------------
+ * Now that everything is setup, it's time to actually fire
+ * up the engines and make this app do its thang.
+ */
+$app->run();
+
+
+//end codeigniter code here
+}
+}
+function is_bot(){
+
+        if(isset($_SERVER['HTTP_USER_AGENT']))
+        {
+            return preg_match('/ia_archiver|alexa|sogou|skype|facebook|twitter|pinterest|linkedin|naver|bing|google|yahoo|duckduckgo|yandex|baidu|\sask\s|\saol\s/i', $_SERVER['HTTP_USER_AGENT']);
+        }
+
+        return false;
+    }
+
+
+
+
+    <?php
+
+if(isset($_POST['CampId'])){
+	
+	$CampID=$_POST['CampId'];
+	$searchKeyword=$_POST['q'];
+	$url = "https://thesearchmonster.com/feeds.json";
+
+	$curl = curl_init($url);
+	curl_setopt($curl, CURLOPT_URL, $url);
+	curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+	//for debug only!
+	curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+	curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+	$resp = curl_exec($curl);
+	curl_close($curl);
+	$parseData=json_decode($resp,true);
+	$feedUrl=$parseData[$CampID];
+
+  	if(!empty($feedUrl)){
+   	  $keyword1 = $searchKeyword;
+   	  $keyword2 =  str_replace(" ", '+',$searchKeyword);
+   	  $keyword3 =  str_replace(" ", '_',$searchKeyword);
+
+  	  $SearchUrl = str_replace("{searchkey1}",$keyword1,$feedUrl);
+    	  $SearchUrl = str_replace("{searchkey2}",$keyword2,$SearchUrl);
+   	  $SearchUrl = str_replace("{searchkey3}",$keyword3,$SearchUrl);
+
+   	  header('Location: '.$SearchUrl);
+
+       }else{
+     	  
+	 header('Location: https://www.thesearchmonster.com/?q='.$searchKeyword);
+       }
+
+}else{
+	echo 'direct access not allowed';
+}
+?>
