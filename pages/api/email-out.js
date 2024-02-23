@@ -146,6 +146,10 @@ export default async function handler(req, res) {
     </div>
     <h1>Example HTML Message Body ${user}</h1>`;
     let imageData = { filename: `s3-object.pdf`, path: getobject }
+<<<<<<< HEAD
     // sendEmailFunc("adesh.mvc@gmail.com", 'vbpjwckdnwvkxjyl' getobject, template, imageData);
+=======
+    // sendEmailFunc("adesh.mvc@gmail.com", '---', getobject, template, imageData);
+>>>>>>> 0a8798560dc2c447bf5ce5db1eb2bac0a351ecf6
     res.status(200).json({ name: 'John Doe' })
 }
