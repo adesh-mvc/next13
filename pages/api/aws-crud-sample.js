@@ -70,3 +70,4 @@ export default async function handler(req, res) {
 
 
 // https://aws.amazon.com/blogs/developer/generate-presigned-url-modular-aws-sdk-javascript/
+// https://blog.devgenius.io/full-stack-tutorial-secure-file-upload-with-presigned-urls-in-react-and-node-js-aws-s3-2eb2643b168c

@@ -38,7 +38,7 @@ export default withAuth(
 )
 
 export const config = { matcher: ["/admin"] }
-
+//set NODE_OPTIONS=--max-old-space-size=8192 && 
 // https://reacthustle.com/blog/nextjs-setup-role-based-authentication
 // https://www.mongodb.com/developer/products/atlas/crud-operations-with-graphql//
 

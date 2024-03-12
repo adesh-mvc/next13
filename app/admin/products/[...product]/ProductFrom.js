@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { useMutation, useQuery, gql } from "@apollo/client";
 
 import ProductAdd from "./ProductAdd";
-// import UserFileUpload from "../../users/[...user]/UserFileUpload";
+import UserFileUpload from "../../users/[...user]/UserFileUpload";
 import DragDrop from "./DragDrop";
 import { useForm } from "react-hook-form";
 // import TestCheckBox from "./TestCheckbox"
@@ -177,11 +177,11 @@ const ProductForm = (props) => {
             {/*  // We pass the event to the productSubmit() function on submit. */}
             <form onSubmit={productSubmit} encType={'multipart/form-data'}>
                 <ProductAdd row={docRow} childto={childToParent} />
-                {/*   <UserFileUpload /> */}
-                {/* <DragDrop
+                <UserFileUpload />
+                <DragDrop
                     data={DargDropData}
                     mytariff={tariffHandler}
-                /> */}
+                />
                 <button type="submit">Submit</button>
             </form>
 

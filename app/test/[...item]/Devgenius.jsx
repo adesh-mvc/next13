@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 function Devgenius() {
     const [files, setFiles] = useState([])
+    const [presignedUrl, setPresignedUrl] = useState(``);
 
     const handleDrop = (event) => {
         event.preventDefault();
@@ -57,10 +58,39 @@ function Devgenius() {
                 }
             }
         )
+            .then(function (response) {
+                console.log(response.data.signedUrl);
+                setPresignedUrl(response.data.signedUrl);
+                setTimeout(() => {
+                    // Create event
+                    document.getElementById('s3_file').dispatchEvent(new Event('click', { 'bubbles': true }));
+                }, 250)
+                // document.getElementById('s3_file').dispatchEvent(new Event('change'));
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+    const uploadS3 = (e) => {
+        e.preventDefault();
+        let config = {
+            method: 'put',
+            maxBodyLength: Infinity,
+            url: e.target.value,
+            headers: {}
+        };
+
+        axios.request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+            })
+            .catch((error) => {
+                console.log(`Presigned url error:${error}`)
+            });
     }
     return (
         <div>
-
+            <form> <input name="s3_file" id="s3_file" value={presignedUrl} onClick={uploadS3} /></form>
             <div className="d-flex justify-content-center align-content-center file-upload">
                 <div>
                     <form className="my-form">

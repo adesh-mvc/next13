@@ -31,7 +31,7 @@ export default function UserForm() {
         document.body.appendChild(script);
 
         return () => {
-            document.body.removeChild(script);
+            // document.body.removeChild(script);
         }
     }, []);
     // Init form repeater --- more info: https://github.com/DubFriend/jquery.repeater

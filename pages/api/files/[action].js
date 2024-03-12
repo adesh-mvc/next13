@@ -24,7 +24,7 @@ export default async function handler(req, res) {
     const { action } = req.query;
     console.log("action:", action)
     if (action === 'bulk-upload') {
-        const putobj = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
+
         // parse a file upload
         const form = formidable({
             uploadDir: `${__dirname}`,
@@ -37,11 +37,11 @@ export default async function handler(req, res) {
         });
         const uploadFolder = "upload";
         form.multiples = true;
-        form.maxFileSize = 50 * 1024 * 1024; // 5MB
+        // form.maxFileSize = 50 * 1024 * 1024; // 5MB
         form.uploadDir = uploadFolder;
         let fields;
         let files;
-
+        let signedUrl;
         try {
             [fields, files] = await form.parse(req);
 
@@ -53,22 +53,25 @@ export default async function handler(req, res) {
             // const pdfFiles = ['file_1.pdf','file_2.pdf']
             const outputFile = 'merged_file.pdf'
 
-            merge_pdfs(rawPath, outputFile)
+            // merge_pdfs(rawPath, outputFile)
             const outputPath = form.uploadDir + '/merge.pdf';
             const status = await mergeFiles(rawPath, outputPath);
             mergeFiles(rawPath, outputPath).then((status) => {
                 console.log("status", status)
-                console.log(putobj)
+
+
                 if (status) {
-                    const deleteFilePromises = rawPath.map(file =>
-                        fs.unlink(file),
-                    );
+                    // const deleteFilePromises = rawPath.map(file =>
+                    //     fs.unlink(file),
+                    // );
 
                     // await Promise.all(deleteFilePromises);
                 }
                 // next
-            });
 
+            });
+            signedUrl = await putObject(`image-${Date.now()}.pdf`, "application/pdf");
+            console.log(signedUrl);
         } catch (err) {
             // example to check for a very specific error
             if (err.code === formidableErrors.maxFieldsExceeded) {
@@ -80,7 +83,7 @@ export default async function handler(req, res) {
             return;
         }
         res.writeHead(200, { 'Content-Type': 'application/json' });
-        res.end(JSON.stringify({ fields, files }, null, 2));
+        res.end(JSON.stringify({ fields, files, signedUrl }, null, 2));
         return;
     }
 

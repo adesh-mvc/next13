@@ -57,7 +57,6 @@ export const ImageUpload = () => {
 
     const handleUpload = (ev) => {
         let file = uploadInput.current.files[0];
-        console.log(file)
         // Split the filename to get the name and type
         let fileParts = uploadInput.current.files[0].name.split(".");
         let fileName = fileParts[0];
