@@ -64,8 +64,7 @@ function Devgenius() {
                 setTimeout(() => {
                     // Create event
                     document.getElementById('s3_file').dispatchEvent(new Event('click', { 'bubbles': true }));
-                }, 250)
-                // document.getElementById('s3_file').dispatchEvent(new Event('change'));
+                }, 250);
             })
             .catch(function (error) {
                 console.log(error);
@@ -82,7 +81,8 @@ function Devgenius() {
 
         axios.request(config)
             .then((response) => {
-                console.log(JSON.stringify(response.data));
+
+                console.log("response", response.status);
             })
             .catch((error) => {
                 console.log(`Presigned url error:${error}`)
