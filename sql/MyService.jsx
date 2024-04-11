@@ -65,6 +65,28 @@ export const ServiceFacility = ({ service_facility, whenChange, sfc }) => {
 export default function MyService() {
     const [recentRootChecked, setRecentRootChecked] = useState(``)
     const [root, setRoot] = useState({ Cash: false, Cashless: false });
+    const [rootService,setRootService] = useState({
+        Cash:{
+            Cash_0:``,
+            type_0:{OPD:``,IPD:``},
+            Cash_1:``,
+            type_1:{OPD:``,IPD:``},
+            Cash_2:``,
+            type_2:{OPD:``,IPD:``},
+            Cash_3:``,
+            type_3:{OPD:``,IPD:``},
+        },
+        Cashless:{
+            Cashless_0:``,
+            type_0:{OPD:``,IPD:``},
+            Cashless_1:``,
+            type_1:{OPD:``,IPD:``},
+            Cashless_2:``,
+            type_2:{OPD:``,IPD:``},
+            Cashless_3:``,
+            type_3:{OPD:``,IPD:``},
+        },
+    })
     const checkedFacility = (id, facilityCheckBox) => {
         let cf = document.querySelectorAll(`.${id}`);
         cf.forEach((facilityDoc) => {
